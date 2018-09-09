@@ -28,6 +28,6 @@ User input in the form of sliders that change the weight of a behavior speed of 
 * Benchmark results
 
 ## Sources
-[http://www.red3d.com/cwr/boids/]
-[https://en.wikipedia.org/wiki/Quadtree]
-[https://en.wikipedia.org/wiki/R-tree]
+* http://www.red3d.com/cwr/boids/
+* https://en.wikipedia.org/wiki/Quadtree
+* https://en.wikipedia.org/wiki/R-tree
