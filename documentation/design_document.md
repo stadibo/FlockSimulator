@@ -12,7 +12,7 @@ The idea is to create an algorithm that is able to calculate the next direction 
 
 Initially the algorithm will not need very advanced data structures due to the naive implementation. An array-list will be used for storing data of the individuals. For faster lookup of neighbors a more advanced data structure, like R-trees or quadtrees, could be implemented.
 
-Space requirement are initially O(n), but might require multiples of n for more advanced data structures.
+Space requirement is initially O(n), but might require multiples of n for more advanced data structures.
 
 ## I/O
 
