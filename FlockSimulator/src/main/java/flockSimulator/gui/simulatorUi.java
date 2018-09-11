@@ -32,12 +32,13 @@ public class simulatorUi extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Hello simulation!");
+        
 //        Pane box = new Pane();
 //        box.setPrefSize(WIDTH, HEIGHT);
         ArrayList<Node> nodes = new ArrayList<>();
         ArrayList<Agent> agents = new ArrayList<>();
 
-        for (int i = 0; i < 1000; i++) {
+        for (int i = 0; i < 10; i++) {
             double x = Math.ceil(Math.random() * WIDTH);
             double y = Math.ceil(Math.random() * HEIGHT);
 
@@ -74,7 +75,7 @@ public class simulatorUi extends Application {
 //                    }
 
                     //SEEK
-                    tempA.seek(mouse);
+                    tempA.wander();
                     tempA.updatePosition();
                     tempA.checkEdges(); 
                     

@@ -22,6 +22,7 @@ public class Agent {
     private double maxSpeed;
     private double maxForce;
     private double slowingDistance;
+    private double wanderTheta;
 
     public Agent(double x, double y) {
         this.position = new Vector(x, y);
@@ -29,15 +30,14 @@ public class Agent {
         this.acceleration = new Vector(0, 0);
 
         this.slowingDistance = 300;
-        this.maxSpeed = 3;
+        this.maxSpeed = 4;
         this.maxForce = 0.1;
     }
-    
+
 // DISTANCE BETWEEN TWO POINTS
 //    public double distanceToPoint(double toX, double toY) {
 //        return Math.sqrt(Math.pow(toX - this.getX(), 2) + Math.pow(toY - this.getY(), 2));
 //    }
-
 // https://math.stackexchange.com/questions/377169/calculating-a-value-inside-one-range-to-a-value-of-another-range
 // MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
 //    public double affineMap(double x, double a, double b, double c, double d) {
@@ -48,7 +48,6 @@ public class Agent {
 //            return y;
 //        }
 //    }
-
     public void seek(Vector target) {
         Vector desired = new Vector().sub(target, this.position);
         desired.normalize();
@@ -74,11 +73,11 @@ public class Agent {
     public void arrive(Vector target) {
         Vector desired = new Vector().sub(target, this.position);
         double distance = desired.magnitude();
-        
+
         // Reynolds way to calculate slowingSpeed
         double rampedSpeed = this.maxSpeed * (distance / this.slowingDistance);
         double clippedSpeed = Math.min(rampedSpeed, this.maxSpeed);
-        
+
         // Set magnitude
         desired.setMagnitude(clippedSpeed);
 
@@ -87,7 +86,25 @@ public class Agent {
 
         this.applyForce(correctionForce);
     }
-    
+
+    public void wander() {
+        double wanderR = 25;    // Radius for "wandering strength circle"
+        double wanderD = 80;   // Circle distance from wanderer
+        double change = 0.3;
+        this.wanderTheta = Math.round(Math.random() * 2 * change) - change;
+
+        Vector circlePosition = new Vector(this.velocity.getX(), this.velocity.getY());
+        circlePosition.setMagnitude(wanderD);
+        circlePosition.add(this.position);
+
+        double head = this.velocity.heading();
+
+        Vector circleOffset = new Vector(wanderR * Math.cos(this.wanderTheta + head), wanderR * Math.sin(this.wanderTheta + head));
+        Vector target = new Vector().add(circlePosition, circleOffset);
+
+        this.seek(target);
+    }
+
     public void updatePosition() {
         this.velocity.add(this.acceleration);
         this.velocity.limit(maxSpeed);

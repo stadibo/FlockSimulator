@@ -86,9 +86,14 @@ public class Vector {
         this.normalize();
         this.mult(m);
     }
-
-    public double angle() {
-        return Math.atan2(this.y, this.x);
+    
+    public double dot(Vector other) {
+        //System.out.println((this.x * other.getX()) + (this.y * other.getY()));
+        return (this.x * other.getX()) + (this.y * other.getY());
+    }
+    
+    public double heading() {
+        return  Math.atan2(this.y, this.x);
     }
 
     public void limit(double max) {
