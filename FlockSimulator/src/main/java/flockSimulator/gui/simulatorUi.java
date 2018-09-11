@@ -7,9 +7,11 @@ package flockSimulator.gui;
 
 import flockSimulator.domain.Agent;
 import flockSimulator.domain.Vector;
+import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -32,16 +34,25 @@ public class simulatorUi extends Application {
         System.out.println("Hello simulation!");
 //        Pane box = new Pane();
 //        box.setPrefSize(WIDTH, HEIGHT);
+        ArrayList<Node> nodes = new ArrayList<>();
+        ArrayList<Agent> agents = new ArrayList<>();
 
-        Agent mover = new Agent(WIDTH / 2, HEIGHT / 2);
-        Ellipse moverDisplay = new Ellipse(20, 20);
-        moverDisplay.setFill(Color.BLACK);
-        moverDisplay.setTranslateX(mover.getX());
-        moverDisplay.setTranslateY(mover.getY());
+        for (int i = 0; i < 1000; i++) {
+            double x = Math.ceil(Math.random() * WIDTH);
+            double y = Math.ceil(Math.random() * HEIGHT);
+
+            agents.add(new Agent(x, y));
+            //Agent mover = new Agent(x, y);
+
+            Ellipse moverDisplay = new Ellipse(20, 20);
+            moverDisplay.setFill(Color.BLACK);
+            moverDisplay.setTranslateX(x);
+            moverDisplay.setTranslateY(y);
+            nodes.add(moverDisplay);
+        }
 
         //box.getChildren(moverDisplay);
-        
-        Scene environment = new Scene(new Group(moverDisplay), WIDTH, HEIGHT);
+        Scene environment = new Scene(new Group(nodes), WIDTH, HEIGHT);
         primaryStage.setScene(environment);
         primaryStage.show();
 
@@ -54,11 +65,36 @@ public class simulatorUi extends Application {
             @Override
             public void handle(long now) {
                 Vector mouse = new Vector(mouseX, mouseY);
-                mover.goTo(mouse);
-                mover.updatePosition();
-                mover.checkEdges();
-                moverDisplay.setTranslateX(mover.getX());
-                moverDisplay.setTranslateY(mover.getY());
+
+                for (int i = 0; i < agents.size(); i++) {
+                    Agent tempA = agents.get(i);
+                    //FLEE
+//                    if (tempA.distanceToPoint(mouseX, mouseY) < 100) {
+//                        tempA.flee(mouse);
+//                    }
+
+                    //SEEK
+                    tempA.seek(mouse);
+                    tempA.updatePosition();
+                    tempA.checkEdges(); 
+                    
+                    //ARRIVE
+//                    tempA.arrive(mouse);
+//                    tempA.updatePosition();
+//                    tempA.checkEdges();
+
+                    Node tempN = nodes.get(i);
+                    tempN.setTranslateX(tempA.getX());
+                    tempN.setTranslateY(tempA.getY());
+                }
+                
+                
+                //For single node
+//                mover.goTo(mouse);
+//                mover.updatePosition();
+//                mover.checkEdges();
+//                moverDisplay.setTranslateX(mover.getX());
+//                moverDisplay.setTranslateY(mover.getY());
             }
 
         }.start();

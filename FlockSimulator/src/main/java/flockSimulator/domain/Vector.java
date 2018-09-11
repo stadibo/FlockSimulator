@@ -82,10 +82,21 @@ public class Vector {
         }
     }
 
+    public void setMagnitude(double m) {
+        this.normalize();
+        this.mult(m);
+    }
+
+    public double angle() {
+        return Math.atan2(this.y, this.x);
+    }
+
     public void limit(double max) {
         if (this.magnitude() > max) {
-            this.normalize();
-            this.mult(max);
+            this.setMagnitude(max);
+//            double angle = this.angle();
+//            this.setX(max * Math.cos(angle));
+//            this.setY(max * Math.sin(angle));
         }
     }
 
