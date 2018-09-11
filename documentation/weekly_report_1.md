@@ -7,7 +7,7 @@
 * Version control setup
 * Visual design and vaguely defined structure
 
-Most of the used time this week was used thinking about another topic only to at the end of the week find a better one. Only decided on the structure in and needed components, did not have time to create functionality. Structure is not too complicated so hopefully I don't need to change it much. 
+Most of the used time this week was used thinking about another topic only to at the end of the week find a better one. Only decided on the structure and needed components, did not have time to code functionality. Structure is not too complicated so hopefully I don't need to change it much. 
 
 ## Problems
 
