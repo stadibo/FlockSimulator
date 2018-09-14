@@ -8,6 +8,8 @@ package flockSimulator.domain;
 import static flockSimulator.gui.simulatorUi.HEIGHT;
 import static flockSimulator.gui.simulatorUi.WIDTH;
 import java.lang.Math;
+import javafx.scene.Node;
+import javafx.scene.shape.Polygon;
 
 /**
  * Based on paper by Craig W. Reynolds http://www.red3d.com/cwr/steer/gdc99/
@@ -23,31 +25,35 @@ public class Agent {
     private double maxForce;
     private double slowingDistance;
     private double wanderTheta;
+    private Polygon poly;
 
     public Agent(double x, double y) {
         this.position = new Vector(x, y);
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
+        this.poly = new Polygon();
+        this.poly.getPoints().addAll(new Double[]{
+            0.0, 0.0,
+            20.0, 10.0,
+            10.0, 20.0});
+
         this.slowingDistance = 300;
         this.maxSpeed = 4;
         this.maxForce = 0.1;
     }
 
-// DISTANCE BETWEEN TWO POINTS
-//    public double distanceToPoint(double toX, double toY) {
-//        return Math.sqrt(Math.pow(toX - this.getX(), 2) + Math.pow(toY - this.getY(), 2));
-//    }
 // https://math.stackexchange.com/questions/377169/calculating-a-value-inside-one-range-to-a-value-of-another-range
 // MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
-//    public double affineMap(double x, double a, double b, double c, double d) {
-//        if (b - a == 0) {
-//            return 0;
-//        } else {
-//            double y = (x - a) * ((d - c) / (b - a)) + c;
-//            return y;
-//        }
-//    }
+    public double affineMap(double x, double a, double b, double c, double d) {
+        if (b - a == 0) {
+            return 0;
+        } else {
+            double y = (x - a) * ((d - c) / (b - a)) + c;
+            return y;
+        }
+    }
+
     public void seek(Vector target) {
         Vector desired = new Vector().sub(target, this.position);
         desired.normalize();
@@ -90,7 +96,7 @@ public class Agent {
     public void wander() {
         double wanderR = 25;    // Radius for "wandering strength circle"
         double wanderD = 80;   // Circle distance from wanderer
-        double change = 0.3;
+        double change = 0.4;
         this.wanderTheta = Math.round(Math.random() * 2 * change) - change;
 
         Vector circlePosition = new Vector(this.velocity.getX(), this.velocity.getY());
@@ -110,6 +116,9 @@ public class Agent {
         this.velocity.limit(maxSpeed);
         this.position.add(this.velocity);
         this.acceleration.mult(0);
+        
+        this.poly.setTranslateX(this.position.getX());
+        this.poly.setTranslateY(this.position.getY());
     }
 
     private void applyForce(Vector force) {
@@ -138,4 +147,7 @@ public class Agent {
         return this.position.getY();
     }
 
+    public Node display() {
+        return this.poly;
+    }
 }

@@ -76,7 +76,6 @@ public class Vector {
 
     public void normalize() {
         double mag = this.magnitude();
-
         if (mag > 0) {
             this.div(mag);
         }
@@ -88,7 +87,6 @@ public class Vector {
     }
     
     public double dot(Vector other) {
-        //System.out.println((this.x * other.getX()) + (this.y * other.getY()));
         return (this.x * other.getX()) + (this.y * other.getY());
     }
     
@@ -99,10 +97,12 @@ public class Vector {
     public void limit(double max) {
         if (this.magnitude() > max) {
             this.setMagnitude(max);
-//            double angle = this.angle();
-//            this.setX(max * Math.cos(angle));
-//            this.setY(max * Math.sin(angle));
         }
     }
-
+    
+    // DISTANCE BETWEEN THIS POINT AND ANOTHER POINT
+    public double distance(Vector other) {
+        return Math.sqrt(Math.pow(other.getX() - this.x, 2) + Math.pow(other.getY() - this.y, 2));
+    }
+    
 }
