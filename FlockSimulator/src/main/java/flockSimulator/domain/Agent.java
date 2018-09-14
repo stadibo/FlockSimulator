@@ -12,8 +12,8 @@ import javafx.scene.Node;
 import javafx.scene.shape.Polygon;
 
 /**
- * Based "boids" model from paper by Craig W. Reynolds http://www.red3d.com/cwr/steer/gdc99/
- *
+ * Class implementing "boids" model from paper by Craig W. Reynolds http://www.red3d.com/cwr/steer/gdc99/
+ * Independent agents with specified behaviors can be put in a system to model even more complex behaviors
  * @author peje
  */
 public class Agent {

@@ -8,7 +8,7 @@ package flockSimulator.domain;
 import java.lang.Math;
 
 /**
- *
+ * Class for creating 2D vectors and doing calculation using 2D vectors
  * @author peje
  */
 public class Vector {
