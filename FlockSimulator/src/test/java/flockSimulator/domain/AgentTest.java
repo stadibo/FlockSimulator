@@ -19,6 +19,8 @@ import static org.junit.Assert.*;
 public class AgentTest {
     
     public AgentTest() {
+        Agent a = new Agent(25, 25);
+        Agent b = new Agent(0, 1);
     }
     
     @BeforeClass
@@ -44,9 +46,6 @@ public class AgentTest {
     // public void hello() {}
     
     @Test
-    public void addingOtherVectorToVector() {
-        
-        assertEquals("adds vector X wrong", 2.0, 0, 0.01);
-        assertEquals("adds vector Y wrong", 1.0, 0, 0.01);
+    public void seekCreatesCorrectForce() {
     }
 }

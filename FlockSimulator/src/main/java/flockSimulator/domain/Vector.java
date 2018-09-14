@@ -22,8 +22,8 @@ public class Vector {
     }
 
     public Vector() {
-        this.x = 0;
-        this.y = 0;
+        this.x = 0.0;
+        this.y = 0.0;
     }
 
     public double getX() {
@@ -43,8 +43,8 @@ public class Vector {
     }
 
     public void add(Vector other) {
-        this.setX(this.x + other.getX());
-        this.setY(this.y + other.getY());
+        this.x = (this.x + other.getX());
+        this.y = (this.y + other.getY());
     }
 
     public static Vector add(Vector v1, Vector v2) {
@@ -52,8 +52,8 @@ public class Vector {
     }
 
     public void sub(Vector other) {
-        this.setX(this.x - other.getX());
-        this.setY(this.y - other.getY());
+        this.x = (this.x - other.getX());
+        this.y = (this.y - other.getY());
     }
 
     public static Vector sub(Vector v1, Vector v2) {
@@ -61,13 +61,13 @@ public class Vector {
     }
 
     public void mult(double scalar) {
-        this.setX(this.x * scalar);
-        this.setY(this.y * scalar);
+        this.x = (this.x * scalar);
+        this.y = (this.y * scalar);
     }
 
     public void div(double scalar) {
-        this.setX(this.x / scalar);
-        this.setY(this.y / scalar);
+        this.x = (this.x / scalar);
+        this.y = (this.y / scalar);
     }
 
     public double magnitude() {

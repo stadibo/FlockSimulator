@@ -10,14 +10,9 @@ import flockSimulator.domain.Vector;
 import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Polygon;
 import javafx.stage.Stage;
 
 /**
@@ -42,9 +37,7 @@ public class simulatorUi extends Application {
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                for (int i = 0; i < agents.size(); i++) {
-                    update();
-                }
+                update();
             }
         };
         timer.start();
@@ -52,18 +45,36 @@ public class simulatorUi extends Application {
         return root;
     }
 
+    // Update scene, new positions of all agents
     private void update() {
-        //Vector mouse = new Vector(mouseX, mouseY);
         for (int i = 0; i < agents.size(); i++) {
-            Agent tempA = agents.get(i);
-
-            //WANDER
-            tempA.wander();
-            tempA.updatePosition();
-            tempA.checkEdges();
+            wanderAgent(agents.get(i));
         }
     }
+    
+    // Use seek behavior
+    private void wanderAgent(Agent wanderer) {
+        wanderer.wander();
+        wanderer.updatePosition();
+        wanderer.checkEdges();
+    }
+    
+    // Use wander behavior
+    private void seekerAgent(Agent seeker) {
+        Vector mouse = new Vector(mouseX, mouseY);
+        seeker.seek(mouse);
+        seeker.updatePosition();
+        seeker.checkEdges();
+    }
+    
+    private void fleerAgent(Agent fleer) {
+        Vector mouse = new Vector(mouseX, mouseY);
+        fleer.flee(mouse);
+        fleer.updatePosition();
+        fleer.checkEdges();
+    }
 
+    // Create new agent
     private void createNode() {
         double x = Math.ceil(mouseX);
         double y = Math.ceil(mouseY);
@@ -73,6 +84,7 @@ public class simulatorUi extends Application {
         root.getChildren().add(agent.display());
     }
 
+    // Create specified amount of agents at random positions. For init of scene
     private void createNodesAtRandom(int amount) {
         for (int i = 0; i < amount; i++) {
             double x = Math.ceil(Math.random() * WIDTH);
@@ -105,13 +117,3 @@ public class simulatorUi extends Application {
     }
 
 }
-
-//SIMPLE BEHAVIORS TO TEST WITH
-//FLEE
-//                    if (tempA.distanceToPoint(mouseX, mouseY) < 100) {
-//                        tempA.flee(mouse);
-//                    }
-//SEEK
-//                    tempA.seek(mouse);
-//                    tempA.updatePosition();
-//                    tempA.checkEdges();

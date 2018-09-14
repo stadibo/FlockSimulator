@@ -22,17 +22,17 @@ public class VectorTest {
 
     @Before
     public void setUp() {
-        this.v1 = new Vector(2, 1);
-        this.v2 = new Vector(0, 2);
-        this.v3 = new Vector(3, 4);
-        this.v0 = new Vector();
+        this.v0 = new Vector(0.0, 0.0);
+        this.v1 = new Vector(2.0, 1.0);
+        this.v2 = new Vector(0.0, 2.0);
+        this.v3 = new Vector(3.0, 4.0);
     }
     
     @Test
     public void addingOtherVectorToVector() {
-        this.v0.add(this.v1);
-        assertEquals("adds vector X wrong", 2.0, this.v0.getX(), 0.01);
-        assertEquals("adds vector Y wrong", 1.0, this.v0.getY(), 0.01);
+        v0.add(v1);
+        assertEquals("adds vector X wrong", 2.0, v0.getX(), 0.01);
+        assertEquals("adds vector Y wrong", 1.0, v0.getY(), 0.01);
     }
     
     @Test
