@@ -19,33 +19,91 @@ import static org.junit.Assert.*;
 public class AgentTest {
     
     public AgentTest() {
-        Agent a = new Agent(25, 25);
-        Agent b = new Agent(0, 1);
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
     
     @Test
     public void seekCreatesCorrectForce() {
+        Agent a = new Agent(25, 25);
+        Vector target = new Vector(50, 50);
+        Vector velo = new Vector(3,1);
+        a.setVelocity(velo);
+        
+        a.seek(target);
+        a.updatePosition();
+        assertEquals("moves agent to wrong X position", 27.99065, a.getX(), 0.01);
+        assertEquals("moves agent to wrong Y position", 26.09956, a.getY(), 0.01);
     }
+    
+    @Test
+    public void fleeCreatesCorrectForce() {
+        Agent a = new Agent(25, 25);
+        Vector target = new Vector(50, 50);
+        Vector velo = new Vector(2,1);
+        a.setVelocity(velo);
+        
+        a.flee(target);
+        a.updatePosition();
+        assertEquals("moves agent to wrong X position", 26.92164, a.getX(), 0.01);
+        assertEquals("moves agent to wrong Y position", 25.93787, a.getY(), 0.01);
+    }
+    
+    // need to account for two valid position for X and two for Y because method is random, 
+    // will do this next week
+//    @Test
+//    public void wanderCreatesCorrectForce() {
+//        Agent a = new Agent(25, 25);
+//        Vector velo = new Vector(2,1);
+//        a.setVelocity(velo);
+//        
+//        a.wander();
+//        a.updatePosition();
+//        
+//        assertEquals("moves agent to wrong X position", 27.09860, a.getX(), 0.01);
+//        assertEquals("moves agent to wrong Y position", 26.01661, a.getY(), 0.01);
+//    }
+    
+    @Test
+    public void arriveCreatesCorrectForce() {
+        Agent a = new Agent(25, 25);
+        Vector target = new Vector(50, 50);
+        Vector velo = new Vector(3,1);
+        a.setVelocity(velo);
+        
+        a.arrive(target);
+        a.updatePosition();
+        
+        assertEquals("moves agent to wrong X position", 27.90194, a.getX(), 0.01);
+        assertEquals("moves agent to wrong Y position", 25.98038, a.getY(), 0.01);
+    }
+    
+    @Test
+    public void checkEdgesPosBoundary() {
+        Agent a = new Agent(1281, 25);
+        Agent b = new Agent(12, 721);
+        
+        a.checkEdges();
+        b.checkEdges();
+        
+        assertEquals("moves agent to wrong X position", 0, a.getX(), 0.01);
+        assertEquals("moves agent to wrong Y position", 25, a.getY(), 0.01);
+        
+        assertEquals("moves agent to wrong X position", 12, b.getX(), 0.01);
+        assertEquals("moves agent to wrong Y position", 0, b.getY(), 0.01);
+    }
+    
+    @Test
+    public void checkEdgesNegBoundary() {
+        Agent a = new Agent(-1, 25);
+        Agent b = new Agent(12, -1);
+        
+        a.checkEdges();
+        b.checkEdges();
+        
+        assertEquals("moves agent to wrong X position", 1280, a.getX(), 0.01);
+        assertEquals("moves agent to wrong Y position", 25, a.getY(), 0.01);
+        
+        assertEquals("moves agent to wrong X position", 12, b.getX(), 0.01);
+        assertEquals("moves agent to wrong Y position", 720, b.getY(), 0.01);
+    }
+    
 }

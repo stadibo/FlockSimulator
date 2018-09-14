@@ -12,7 +12,7 @@ import javafx.scene.Node;
 import javafx.scene.shape.Polygon;
 
 /**
- * Based on paper by Craig W. Reynolds http://www.red3d.com/cwr/steer/gdc99/
+ * Based "boids" model from paper by Craig W. Reynolds http://www.red3d.com/cwr/steer/gdc99/
  *
  * @author peje
  */
@@ -35,21 +35,21 @@ public class Agent {
 
         this.poly = new Polygon(-5.0, -5.0, 10.0, 0.0, -5.0, 5.0);
 
-        this.slowingDistance = 300;
+        this.slowingDistance = 200;
         this.maxSpeed = 4;
         this.maxForce = 0.1;
     }
 
 // https://math.stackexchange.com/questions/377169/calculating-a-value-inside-one-range-to-a-value-of-another-range
 // MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
-    public double affineMap(double x, double a, double b, double c, double d) {
-        if (b - a == 0) {
-            return 0;
-        } else {
-            double y = (x - a) * ((d - c) / (b - a)) + c;
-            return y;
-        }
-    }
+//    public double affineMap(double x, double a, double b, double c, double d) {
+//        if (b - a == 0) {
+//            return 0;
+//        } else {
+//            double y = (x - a) * ((d - c) / (b - a)) + c;
+//            return y;
+//        }
+//    }
 
     // Method to calculate and apply a correcting steering force towards a target point
     // correction = desired force minus velocity
@@ -176,6 +176,10 @@ public class Agent {
 
     public double getY() {
         return this.position.getY();
+    }
+    
+    public void setVelocity(Vector v) {
+        this.velocity = v;
     }
 
     // Return how the agent looks (Node object)

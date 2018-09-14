@@ -28,6 +28,7 @@ public class simulatorUi extends Application {
     private Pane root;
     private ArrayList<Agent> agents = new ArrayList<>();
 
+    // Setup simulator scene
     private Parent setup() {
         root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);

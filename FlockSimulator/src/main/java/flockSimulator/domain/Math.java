@@ -10,5 +10,5 @@ package flockSimulator.domain;
  * @author peje
  */
 public class Math {
-    
+    // Yet to be properly used
 }
