@@ -9,3 +9,4 @@ Flock simulation software in java. Project is made for datastructures and algori
 ### Weekly reports
 
 * [Weekly report 1](https://github.com/stadibo/FlockSimulator/blob/master/documentation/weekly_report_1.md)
+* [Weekly report 2](https://github.com/stadibo/FlockSimulator/blob/master/documentation/weekly_report_2.md)
