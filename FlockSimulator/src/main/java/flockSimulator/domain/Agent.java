@@ -39,8 +39,8 @@ public class Agent {
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-        this.poly = new Polygon(-5.0, -5.0, 10.0, 0.0, -5.0, 5.0);
-        //this.poly = new Ellipse(5.0, 5.0);
+        //this.poly = new Polygon(-5.0, -5.0, 10.0, 0.0, -5.0, 5.0);
+        this.poly = new Ellipse(5.0, 5.0);
         
         this.r = 12;
         this.awareness = 100;
@@ -79,7 +79,7 @@ public class Agent {
 
     // Method to calculate and apply a correcting steering force away from a target point
     // correction = desired force minus velocity
-    public void flee(Vector target) {
+    public Vector flee(Vector target) {
         // Opposite of seek(): Vector pointing from target towards position
         Vector desired = new Vector().sub(this.position, target);
 
@@ -91,7 +91,7 @@ public class Agent {
         Vector correctionForce = new Vector().sub(desired, this.velocity);
         correctionForce.limit(this.maxForce);
 
-        this.applyForce(correctionForce);
+        return correctionForce;
     }
 
     // Method to calculate and apply a correcting steering force towards a target point
@@ -260,8 +260,8 @@ public class Agent {
         this.poly.setTranslateY(this.position.getY());
 
         // ROTATE POLYGON, too processing heavy for now, need to find a way to rotate more efficently
-        double angle = this.velocity.heading();
-        this.poly.setRotate(Math.toDegrees(angle));
+//        double angle = this.velocity.heading();
+//        this.poly.setRotate(Math.toDegrees(angle));
     }
 
     // Wraparound
