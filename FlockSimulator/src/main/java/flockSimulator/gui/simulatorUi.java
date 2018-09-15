@@ -33,7 +33,7 @@ public class simulatorUi extends Application {
         root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
 
-        createNodesAtRandom(10);
+        createNodesAtRandom(1000);
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -48,31 +48,19 @@ public class simulatorUi extends Application {
 
     // Update scene, new positions of all agents
     private void update() {
+        Vector mouse = new Vector(mouseX, mouseY);
         for (int i = 0; i < agents.size(); i++) {
-            wanderAgent(agents.get(i));
+            agentAction(agents.get(i), mouse);
         }
     }
     
-    // Use seek behavior
-    private void wanderAgent(Agent wanderer) {
-        wanderer.wander();
-        wanderer.updatePosition();
-        wanderer.checkEdges();
-    }
-    
-    // Use wander behavior
-    private void seekerAgent(Agent seeker) {
-        Vector mouse = new Vector(mouseX, mouseY);
-        seeker.seek(mouse);
-        seeker.updatePosition();
-        seeker.checkEdges();
-    }
-    
-    private void fleerAgent(Agent fleer) {
-        Vector mouse = new Vector(mouseX, mouseY);
-        fleer.flee(mouse);
-        fleer.updatePosition();
-        fleer.checkEdges();
+    // Make agent behave in some way
+    private void agentAction(Agent agent, Vector target) {
+        agent.flock(agents);
+        //agent.efficientFlock(agents);
+        //agent.applyBehaviors(agents, target);
+        agent.updatePosition();
+        agent.checkEdges();
     }
 
     // Create new agent
@@ -106,7 +94,9 @@ public class simulatorUi extends Application {
             mouseX = e.getX();
             mouseY = e.getY();
         });
-        primaryStage.getScene().setOnMouseClicked(e -> {
+        primaryStage.getScene().setOnMouseDragged(e -> {
+            mouseX = e.getX();
+            mouseY = e.getY();
             createNode();
         });
 
