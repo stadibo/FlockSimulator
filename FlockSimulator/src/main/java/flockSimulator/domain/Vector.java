@@ -5,10 +5,11 @@
  */
 package flockSimulator.domain;
 
-import java.lang.Math;
+import flockSimulator.domain.MathWrapper;
 
 /**
  * Class for creating 2D vectors and doing calculation using 2D vectors
+ *
  * @author peje
  */
 public class Vector {
@@ -78,7 +79,7 @@ public class Vector {
 
     // Calculate magnitude of vector
     public double magnitude() {
-        return Math.sqrt(this.x * this.x + this.y * this.y);
+        return MathWrapper.sqrt(this.x * this.x + this.y * this.y);
     }
 
     // Normalize vector (to a unit vector)
@@ -94,15 +95,16 @@ public class Vector {
         this.normalize();
         this.mult(m);
     }
-    
+
     // Get dot product of this vector and another vector
     public double dot(Vector other) {
         return (this.x * other.getX()) + (this.y * other.getY());
     }
-    
-    // Get theta (angle) between x-axle and this vector, also known as polar angle
+
+    // Get theta (angle) between x-axle and this vector, also known as polar angle.
+    // IS TOO HEAVY! NEEDS OPTIMIZATION
     public double heading() {
-        return  Math.atan2(this.y, this.x);
+        return Math.atan2(this.y, this.x);
     }
 
     // Limit a vector to a specific magnitude. Variation on setMagnitude()
@@ -111,10 +113,10 @@ public class Vector {
             this.setMagnitude(max);
         }
     }
-    
+
     // DISTANCE BETWEEN THIS POINT AND ANOTHER POINT
     public double distance(Vector other) {
-        return Math.sqrt(Math.pow(other.getX() - this.x, 2) + Math.pow(other.getY() - this.y, 2));
+        return MathWrapper.sqrt(MathWrapper.pow(other.getX() - this.x, 2) + MathWrapper.pow(other.getY() - this.y, 2));
     }
-    
+
 }
