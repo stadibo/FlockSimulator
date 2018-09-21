@@ -18,8 +18,8 @@ public class AgentGenerator {
     private double alignment;
     private double separation;
     private double cohesion;
-    private int WIDTH;
-    private int HEIGHT;
+    private int width;
+    private int height;
     private ArrayList<Agent> agents;
     private int rotationDelay;
     private int delayCounter;
@@ -29,8 +29,8 @@ public class AgentGenerator {
         this.awareness = awareness;
         this.maxSpeed = maxSpeed;
         this.maxForce = maxForce;
-        this.WIDTH = width;
-        this.HEIGHT = height;
+        this.width = width;
+        this.height = height;
         this.alignment = 1.0;
         this.separation = 1.5;
         this.cohesion = 1.0;
@@ -54,7 +54,7 @@ public class AgentGenerator {
     }
 
     public Node createAgent(double x, double y) {
-        Agent agent = new Agent(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.WIDTH, this.HEIGHT);
+        Agent agent = new Agent(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
         agents.add(agent);
         return agent.display();
     }

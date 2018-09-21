@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
-import javafx.scene.transform.Rotate;
 
 /**
  * Class implementing "boids" model from paper by Craig W. Reynolds
@@ -20,8 +19,8 @@ public class Agent {
     private Vector acceleration;
     private Node poly;
 
-    private int WIDTH;
-    private int HEIGHT;
+    private int width;
+    private int height;
 
     private double r;   // Size of agent / collision radius
     private double awareness; // How far the agent can see
@@ -45,8 +44,8 @@ public class Agent {
         this.maxSpeed = maxSpeed;
         this.maxForce = maxForce;
 
-        this.WIDTH = w;
-        this.HEIGHT = h;
+        this.width = w;
+        this.height = h;
 
         this.alignment = 1.0;
         this.separation = 1.5;
@@ -117,7 +116,7 @@ public class Agent {
     }
 
     // Method for creating average velocity of other agents within view radius of this agent
-    private Vector alignment(ArrayList<Agent> agents) {
+    public Vector alignment(ArrayList<Agent> agents) {
         Vector sum = new Vector();  // sum of velocities
         int counter = 0;
         for (Agent other : agents) {
@@ -142,7 +141,7 @@ public class Agent {
 
     // Method for creating a force to be attracted to center of flock made of other agents
     // if they are within the view radius of this agent
-    private Vector cohesion(ArrayList<Agent> agents) {
+    public Vector cohesion(ArrayList<Agent> agents) {
         Vector sum = new Vector();  // sum of positions
         int counter = 0;
         for (Agent other : agents) {
@@ -162,7 +161,7 @@ public class Agent {
     }
 
     // Method to set acceleration to be applied to velocity
-    private void applyForce(Vector force) {
+    public void applyForce(Vector force) {
         // mass could be implemented here as a variable a = F / m
         this.acceleration.add(force);
     }
@@ -210,16 +209,16 @@ public class Agent {
 
     // Wraparound
     public void checkEdges() {
-        if (this.position.getX() > this.WIDTH) {
+        if (this.position.getX() > this.width) {
             this.position.setX(0);
         } else if (this.position.getX() < 0) {
-            this.position.setX(this.WIDTH);
+            this.position.setX(this.width);
         }
 
-        if (this.position.getY() > this.HEIGHT) {
+        if (this.position.getY() > this.height) {
             this.position.setY(0);
         } else if (this.position.getY() < 0) {
-            this.position.setY(this.HEIGHT);
+            this.position.setY(this.height);
         }
     }
 

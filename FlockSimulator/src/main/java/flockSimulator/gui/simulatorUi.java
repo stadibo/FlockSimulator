@@ -201,7 +201,7 @@ public class simulatorUi extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        System.out.println("Hello simulation!");
+        System.out.println("Starting simulation...");
 
         primaryStage.setScene(new Scene(setup()));
         primaryStage.getScene().setOnMouseMoved(e -> {
