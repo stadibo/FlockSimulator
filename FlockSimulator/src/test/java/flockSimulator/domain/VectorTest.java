@@ -11,7 +11,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Test class for Vector class
  * @author peje
  */
 public class VectorTest {

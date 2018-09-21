@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 
 /**
  * Class for graphical user interface through which to interact with simulator
+ *
  * @author peje
  */
 public class simulatorUi extends Application {
@@ -44,7 +45,11 @@ public class simulatorUi extends Application {
     private Label maxSpeedValue = new Label();
     private Label maxForceValue = new Label();
 
-    // Setup simulator scene
+    /**
+     * Setup simulator scene
+     *
+     * @return
+     */
     private Parent setup() {
         root = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
@@ -56,9 +61,9 @@ public class simulatorUi extends Application {
         agentAmount.setTranslateY(20);
         setupSliders();
         agentGenerator = new AgentGenerator(
-                12.0, 
-                100.0, 
-                maxSpeed.getValue(), 
+                12.0,
+                100.0,
+                maxSpeed.getValue(),
                 maxForce.getValue(),
                 WIDTH,
                 HEIGHT);
@@ -92,14 +97,16 @@ public class simulatorUi extends Application {
         return root;
     }
 
-    // Create sliders for modifiable parameters
+    /**
+     * Create sliders for modifiable parameters
+     */
     private void setupSliders() {
         alignment.setTranslateY(40);
         alignment.setBlockIncrement(0.1d);
         alignment.setMajorTickUnit(0.1d);
         alignment.setMinorTickCount(0);
         alignment.setSnapToTicks(true);
-        alignmentValue.setText(Double.toString(alignment.getValue()));
+        alignmentValue.setText("Alignment " + Double.toString(alignment.getValue()));
         alignmentValue.setTranslateX(140);
         alignmentValue.setTranslateY(40);
 
@@ -108,7 +115,7 @@ public class simulatorUi extends Application {
         cohesion.setMajorTickUnit(0.1d);
         cohesion.setMinorTickCount(0);
         cohesion.setSnapToTicks(true);
-        cohesionValue.setText(Double.toString(cohesion.getValue()));
+        cohesionValue.setText("Cohesion " + Double.toString(cohesion.getValue()));
         cohesionValue.setTranslateX(140);
         cohesionValue.setTranslateY(60);
 
@@ -117,7 +124,7 @@ public class simulatorUi extends Application {
         separation.setMajorTickUnit(0.1d);
         separation.setMinorTickCount(0);
         separation.setSnapToTicks(true);
-        separationValue.setText(Double.toString(separation.getValue()));
+        separationValue.setText("Separation " + Double.toString(separation.getValue()));
         separationValue.setTranslateX(140);
         separationValue.setTranslateY(80);
 
@@ -126,7 +133,7 @@ public class simulatorUi extends Application {
         maxSpeed.setMajorTickUnit(1d);
         maxSpeed.setMinorTickCount(0);
         maxSpeed.setSnapToTicks(true);
-        maxSpeedValue.setText(Double.toString(maxSpeed.getValue()));
+        maxSpeedValue.setText("Max speed " + Double.toString(maxSpeed.getValue()));
         maxSpeedValue.setTranslateX(140);
         maxSpeedValue.setTranslateY(100);
 
@@ -135,48 +142,52 @@ public class simulatorUi extends Application {
         maxForce.setMajorTickUnit(0.1d);
         maxForce.setMinorTickCount(0);
         maxForce.setSnapToTicks(true);
-        maxForceValue.setText(Double.toString(maxForce.getValue()));
+        maxForceValue.setText("Max force " + Double.toString(maxForce.getValue()));
         maxForceValue.setTranslateX(140);
         maxForceValue.setTranslateY(120);
 
         // Create listeners for sliders so that parameters of agents can be changed
         alignment.valueProperty().addListener((observable, oldvalue, newValue) -> {
             String value = String.format("%.1f", newValue.doubleValue());
-            alignmentValue.setText(value);
+            alignmentValue.setText("Alignment " + value);
             agentGenerator.setAlignment(newValue.doubleValue());
         });
-        
+
         cohesion.valueProperty().addListener((observable, oldvalue, newValue) -> {
             String value = String.format("%.1f", newValue.doubleValue());
-            cohesionValue.setText(value);
+            cohesionValue.setText("Cohesion " + value);
             agentGenerator.setCohesion(newValue.doubleValue());
         });
-        
+
         separation.valueProperty().addListener((observable, oldvalue, newValue) -> {
             String value = String.format("%.1f", newValue.doubleValue());
-            separationValue.setText(value);
+            separationValue.setText("Separation " + value);
             agentGenerator.setSeparation(newValue.doubleValue());
         });
-        
+
         maxSpeed.valueProperty().addListener((observable, oldvalue, newValue) -> {
             String value = String.format("%.1f", newValue.doubleValue());
-            maxSpeedValue.setText(value);
+            maxSpeedValue.setText("Max speed " + value);
             agentGenerator.setMaxSpeed(newValue.doubleValue());
         });
-        
+
         maxForce.valueProperty().addListener((observable, oldvalue, newValue) -> {
             String value = String.format("%.1f", newValue.doubleValue());
-            maxForceValue.setText(value);
+            maxForceValue.setText("Max force " + value);
             agentGenerator.setMaxForce(newValue.doubleValue());
         });
     }
 
-    // Update scene, new positions of all agents
+    /**
+     * Update scene, new positions of all agents
+     */
     private void update() {
         agentGenerator.updateAgents(mouse);
     }
 
-    // Create new agent
+    /**
+     * Create new Node and add it to the root of the scene
+     */
     private void createNode() {
         double x = MathWrapper.ceil(mouseX);
         double y = MathWrapper.ceil(mouseY);
@@ -188,17 +199,25 @@ public class simulatorUi extends Application {
 
     }
 
-    // Create specified amount of agents at random positions. For init of scene
+    /**
+     * Create specified amount of agents at random positions. For init of scene
+     * @param amount 
+     */
     private void createNodesAtRandom(int amount) {
         for (int i = 0; i < amount; i++) {
             double x = MathWrapper.ceil(MathWrapper.random() * WIDTH);
             double y = MathWrapper.ceil(MathWrapper.random() * HEIGHT);
-            
+
             root.getChildren().add(agentGenerator.createAgent(x, y));
             agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
         }
     }
 
+    /**
+     * Method for starting simulator
+     * @param primaryStage
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Starting simulation...");

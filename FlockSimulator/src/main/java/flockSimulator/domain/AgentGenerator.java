@@ -5,7 +5,7 @@ import javafx.scene.Node;
 
 /**
  * Class for defining agents desired behaviors and parameters for those
- * behaviors
+ * behaviors, as well as, creating agents and keeping track of them.
  *
  * @author peje
  */
@@ -39,11 +39,11 @@ public class AgentGenerator {
         this.delayCounter = 0;
     }
 
-    /**
-     * https://math.stackexchange.com/questions/377169/calculating-a-value-inside-one-range-to-a-value-of-another-range
-     * MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
-     *
-     */
+//    /**
+//     * https://math.stackexchange.com/questions/377169/calculating-a-value-inside-one-range-to-a-value-of-another-range
+//     * MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
+//     *
+//     */
 //    public double affineMap(double x, double a, double b, double c, double d) {
 //        if (b - a == 0) {
 //            return 0;
@@ -52,22 +52,38 @@ public class AgentGenerator {
 //            return y;
 //        }
 //    }
-
+    /**
+     * Method to initialize an agent based on parameters given to the generator
+     *
+     * @param x coordinate
+     * @param y coordinate
+     * @return Node object reference to the shape object stored in agent class
+     */
     public Node createAgent(double x, double y) {
         Agent agent = new Agent(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
         agents.add(agent);
         return agent.display();
     }
 
-    // Update positions of all agents
-    public void updateAgents(Vector mouse) {
+    /**
+     * Update positions of all agents
+     *
+     * @param target a point that can be used when combining behaviors, e.g.
+     * seeking the mouse pointer
+     */
+    public void updateAgents(Vector target) {
         for (int i = 0; i < this.agents.size(); i++) {
-            agentAction(this.agents.get(i), mouse);
+            agentAction(this.agents.get(i), target);
         }
         this.delayCounter = (this.delayCounter + 1) % this.rotationDelay;   // update rotation after rotationDelay amount of frames
     }
 
-    // Make agent behave in some way
+    /**
+     * Make agent behave in some way and update their state
+     *
+     * @param agent to be updated
+     * @param target to maybe be used in combining behaviors
+     */
     private void agentAction(Agent agent, Vector target) {
         agent.applyBehaviors(this.agents, target);
         agent.updatePosition();
@@ -87,7 +103,7 @@ public class AgentGenerator {
 
     public void setMaxSpeed(double maxSpeed) {
         this.maxSpeed = maxSpeed;
-        
+
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setMaxSpeed(maxSpeed);
         }
@@ -95,7 +111,7 @@ public class AgentGenerator {
 
     public void setMaxForce(double maxForce) {
         this.maxForce = maxForce;
-        
+
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setMaxForce(maxForce);
         }
@@ -103,7 +119,7 @@ public class AgentGenerator {
 
     public void setAlignment(double alignment) {
         this.alignment = alignment;
-        
+
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setAlignment(alignment);
         }
@@ -111,7 +127,7 @@ public class AgentGenerator {
 
     public void setSeparation(double separation) {
         this.separation = separation;
-        
+
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setSeparation(separation);
         }
@@ -119,7 +135,7 @@ public class AgentGenerator {
 
     public void setCohesion(double cohesion) {
         this.cohesion = cohesion;
-        
+
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setCohesion(cohesion);
         }

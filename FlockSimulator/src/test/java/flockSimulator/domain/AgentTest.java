@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Test class for Agent class
  * @author peje
  */
 public class AgentTest {

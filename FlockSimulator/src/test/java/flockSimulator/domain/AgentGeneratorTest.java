@@ -6,7 +6,6 @@
 package flockSimulator.domain;
 
 import javafx.scene.Node;
-import javafx.scene.shape.Polygon;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -15,7 +14,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- *
+ * Test class for AgentGenerator class
  * @author peje
  */
 public class AgentGeneratorTest {

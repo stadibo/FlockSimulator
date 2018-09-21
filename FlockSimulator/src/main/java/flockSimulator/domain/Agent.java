@@ -27,9 +27,9 @@ public class Agent {
     private double maxSpeed;    // Maximum speed
     private double maxForce;    // Maximum steering force
 
-    private double alignment;
-    private double separation;
-    private double cohesion;
+    private double alignment;   // Modifier
+    private double separation;  // Modifier
+    private double cohesion;    // Modifier
 
     public Agent(double x, double y, double size, double awareness, double maxSpeed, double maxForce, int w, int h) {
         this.position = new Vector(x, y);
@@ -52,8 +52,13 @@ public class Agent {
         this.cohesion = 1.0;
     }
 
-    // Method to calculate and apply a correcting steering force towards a target point
-    // correction = desired force minus velocity
+    /**
+     * Method to calculate and apply a correcting steering force towards a
+     * target point correction = desired force minus velocity
+     *
+     * @param target
+     * @return force vector to be applied to agents velocity
+     */
     public Vector seek(Vector target) {
         // Vector pointing from position towards target
         Vector desired = new Vector().sub(target, this.position);
@@ -70,8 +75,13 @@ public class Agent {
         //this.applyForce(correctionForce);
     }
 
-    // Method to calculate and apply a correcting steering force away from a target point
-    // correction = desired force minus velocity
+    /**
+     * Method to calculate and apply a correcting steering force away from a
+     * target point correction = desired force minus velocity
+     *
+     * @param target
+     * @return force vector to be applied to agents velocity
+     */
     public Vector flee(Vector target) {
         // Opposite of seek(): Vector pointing from target towards position
         Vector desired = new Vector().sub(this.position, target);
@@ -87,8 +97,13 @@ public class Agent {
         return correctionForce;
     }
 
-    // Method for creating a force by which to repel from other agents based on 
-    // their distance if they are within the view radius of this agent
+    /**
+     * Method for creating a force by which to repel from other agents based on
+     * their distance if they are within the view radius of this agent
+     *
+     * @param agents
+     * @return force vector to be applied to agents velocity
+     */
     public Vector separation(ArrayList<Agent> agents) {
         double desiredSeparation = this.r * 2;
         Vector sum = new Vector();
@@ -115,7 +130,13 @@ public class Agent {
         return correctionForce;
     }
 
-    // Method for creating average velocity of other agents within view radius of this agent
+    /**
+     * Method for creating average velocity of other agents within view radius
+     * of this agent
+     *
+     * @param agents
+     * @return force vector to be applied to agents velocity
+     */
     public Vector alignment(ArrayList<Agent> agents) {
         Vector sum = new Vector();  // sum of velocities
         int counter = 0;
@@ -139,8 +160,13 @@ public class Agent {
         return correctionForce;
     }
 
-    // Method for creating a force to be attracted to center of flock made of other agents
-    // if they are within the view radius of this agent
+    /**
+     * Method for creating a force to be attracted to center of flock made of
+     * other agents if they are within the view radius of this agent
+     *
+     * @param agents
+     * @return force vector to be applied to agents velocity
+     */
     public Vector cohesion(ArrayList<Agent> agents) {
         Vector sum = new Vector();  // sum of positions
         int counter = 0;
@@ -160,18 +186,31 @@ public class Agent {
         return new Vector();
     }
 
-    // Method to set acceleration to be applied to velocity
+    /**
+     * Method to set acceleration to be applied to velocity
+     *
+     * @param force vector to be applied to agents velocity
+     */
     public void applyForce(Vector force) {
         // mass could be implemented here as a variable a = F / m
         this.acceleration.add(force);
     }
 
-    // Combine behaviors
+    /**
+     * Combine behaviors
+     *
+     * @param agents list of other agents which are neighbors to this agent
+     * @param target a point to maybe use for seeking or fleeing
+     */
     public void applyBehaviors(ArrayList<Agent> agents, Vector target) {
         this.flock(agents);
     }
 
-    // Create flocking behavior
+    /**
+     * Create flocking behavior
+     *
+     * @param agents list of other agents which are neighbors to this agent
+     */
     public void flock(ArrayList<Agent> agents) {
         Vector separate = this.separation(agents);
         Vector align = this.alignment(agents);
@@ -186,7 +225,9 @@ public class Agent {
         applyForce(cohese);
     }
 
-    // Method to update position
+    /**
+     * Method to update position
+     */
     public void updatePosition() {
         // Update velocity
         this.velocity.add(this.acceleration);
@@ -201,13 +242,20 @@ public class Agent {
         this.poly.setTranslateY(this.position.getY());
     }
 
-    // ROTATE POLYGON, too processing heavy for now, need to find a way to rotate more efficently
+    /**
+     * ROTATE POLYGON, too processing heavy for now, need to find a way to
+     * rotate more efficently
+     */
     public void updateRotation() {
         double angle = this.velocity.heading();
         this.poly.setRotate(Math.toDegrees(angle));
     }
 
-    // Wraparound
+    /**
+     * Wraparound: checks if agent is out of the set bounds and set position so
+     * that the agent wraps around to the opposite end of the bound which it
+     * crossed
+     */
     public void checkEdges() {
         if (this.position.getX() > this.width) {
             this.position.setX(0);
