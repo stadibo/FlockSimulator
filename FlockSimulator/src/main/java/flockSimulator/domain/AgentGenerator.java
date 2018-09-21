@@ -44,14 +44,14 @@ public class AgentGenerator {
      * MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
      *
      */
-    public double affineMap(double x, double a, double b, double c, double d) {
-        if (b - a == 0) {
-            return 0;
-        } else {
-            double y = (x - a) * ((d - c) / (b - a)) + c;
-            return y;
-        }
-    }
+//    public double affineMap(double x, double a, double b, double c, double d) {
+//        if (b - a == 0) {
+//            return 0;
+//        } else {
+//            double y = (x - a) * ((d - c) / (b - a)) + c;
+//            return y;
+//        }
+//    }
 
     public Node createAgent(double x, double y) {
         Agent agent = new Agent(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
@@ -61,10 +61,10 @@ public class AgentGenerator {
 
     // Update positions of all agents
     public void updateAgents(Vector mouse) {
-        this.delayCounter = (this.delayCounter + 1) % this.rotationDelay;   // update rotation after rotationDelay amount of frames
         for (int i = 0; i < this.agents.size(); i++) {
             agentAction(this.agents.get(i), mouse);
         }
+        this.delayCounter = (this.delayCounter + 1) % this.rotationDelay;   // update rotation after rotationDelay amount of frames
     }
 
     // Make agent behave in some way
