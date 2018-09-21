@@ -1,14 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flockSimulator.domain;
 
 import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
+import javafx.scene.transform.Rotate;
 
 /**
  * Class implementing "boids" model from paper by Craig W. Reynolds
@@ -17,22 +13,21 @@ import javafx.scene.shape.Polygon;
  *
  * @author peje
  */
-
 public class Agent {
 
     private Vector position;
     private Vector velocity;
     private Vector acceleration;
     private Node poly;
-    
+
     private int WIDTH;
     private int HEIGHT;
-    
+
     private double r;   // Size of agent / collision radius
     private double awareness; // How far the agent can see
     private double maxSpeed;    // Maximum speed
     private double maxForce;    // Maximum steering force
-    
+
     private double alignment;
     private double separation;
     private double cohesion;
@@ -49,10 +44,10 @@ public class Agent {
         this.awareness = awareness;
         this.maxSpeed = maxSpeed;
         this.maxForce = maxForce;
-        
+
         this.WIDTH = w;
         this.HEIGHT = h;
-        
+
         this.alignment = 1.0;
         this.separation = 1.5;
         this.cohesion = 1.0;
@@ -183,9 +178,9 @@ public class Agent {
         Vector align = this.alignment(agents);
         Vector cohese = this.cohesion(agents);
 
-        separate.mult(1.5);
-        align.mult(1.0);
-        cohese.mult(1.0);
+        separate.mult(this.separation);
+        align.mult(this.alignment);
+        cohese.mult(this.cohesion);
 
         applyForce(separate);
         applyForce(align);
@@ -205,8 +200,10 @@ public class Agent {
         // Update position of polygon in render
         this.poly.setTranslateX(this.position.getX());
         this.poly.setTranslateY(this.position.getY());
+    }
 
-        // ROTATE POLYGON, too processing heavy for now, need to find a way to rotate more efficently
+    // ROTATE POLYGON, too processing heavy for now, need to find a way to rotate more efficently
+    public void updateRotation() {
         double angle = this.velocity.heading();
         this.poly.setRotate(Math.toDegrees(angle));
     }
@@ -237,7 +234,7 @@ public class Agent {
     public void setVelocity(Vector v) {
         this.velocity = v;
     }
-    
+
     public void setPosition(Vector v) {
         this.position = v;
     }

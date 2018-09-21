@@ -42,5 +42,8 @@ public class MathWrapper {
     }   
     public static final double min(double v1, double v2) {
         return Math.min(v1, v2);
-    }   
+    }
+    public static final double ceil(double value) {
+        return Math.ceil(value);
+    }
 }

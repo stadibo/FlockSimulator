@@ -1,13 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flockSimulator.gui;
 
-import flockSimulator.domain.Agent;
+import flockSimulator.domain.AgentGenerator;
+import flockSimulator.domain.MathWrapper;
 import flockSimulator.domain.Vector;
-import java.util.ArrayList;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -18,7 +13,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
- *
+ * Class for graphical user interface through which to interact with simulator
  * @author peje
  */
 public class simulatorUi extends Application {
@@ -27,8 +22,9 @@ public class simulatorUi extends Application {
     public static int HEIGHT = 720;
     private double mouseX;
     private double mouseY;
+    private Vector mouse = new Vector(mouseX, mouseY);
+    private AgentGenerator agentGenerator;
     private Pane root;
-    private ArrayList<Agent> agents = new ArrayList<>();
 
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
@@ -37,11 +33,11 @@ public class simulatorUi extends Application {
     private Label frameRate = new Label();
     private Label agentAmount = new Label();
 
-    private Slider alignment = new Slider(0, 1, 0.5);
-    private Slider cohesion = new Slider(0, 1, 0.5);
-    private Slider separation = new Slider(0, 1, 0.5);
-    private Slider maxSpeed = new Slider(0, 1, 0.5);
-    private Slider maxForce = new Slider(0, 1, 0.5);
+    private Slider alignment = new Slider(0, 3, 1.0);
+    private Slider cohesion = new Slider(0, 3, 1.0);
+    private Slider separation = new Slider(0, 3, 1.5);
+    private Slider maxSpeed = new Slider(0, 25, 4.0);
+    private Slider maxForce = new Slider(0, 1, 0.2);
     private Label alignmentValue = new Label();
     private Label cohesionValue = new Label();
     private Label separationValue = new Label();
@@ -55,29 +51,17 @@ public class simulatorUi extends Application {
         root.getChildren().addAll(frameRate, agentAmount, alignment, alignmentValue,
                 cohesion, cohesionValue, separation, separationValue, maxSpeed,
                 maxSpeedValue, maxForce, maxForceValue);
-        
+
         frameRate.setTranslateY(0);
         agentAmount.setTranslateY(20);
-        
-        alignment.setTranslateY(40);
-        alignmentValue.setTranslateX(100);
-        alignmentValue.setTranslateY(40);
-
-        cohesion.setTranslateY(60);
-        cohesionValue.setTranslateX(100);
-        cohesionValue.setTranslateY(60);
-
-        separation.setTranslateY(80);
-        separationValue.setTranslateX(100);
-        separationValue.setTranslateY(80);
-
-        maxSpeed.setTranslateY(100);
-        maxSpeedValue.setTranslateX(100);
-        maxSpeedValue.setTranslateY(100);
-
-        maxForce.setTranslateY(120);
-        maxForceValue.setTranslateX(100);
-        maxForceValue.setTranslateY(120);
+        setupSliders();
+        agentGenerator = new AgentGenerator(
+                12.0, 
+                100.0, 
+                maxSpeed.getValue(), 
+                maxForce.getValue(),
+                WIDTH,
+                HEIGHT);
 
         frameRate.setText("Current frame rate: ??.???");
 
@@ -99,7 +83,7 @@ public class simulatorUi extends Application {
                     long elapsedNanos = now - oldFrameTime;
                     long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
                     double framesPerSecond = 1_000_000_000.0 / elapsedNanosPerFrame;
-                    frameRate.setText("Current frame rate: " + framesPerSecond);
+                    frameRate.setText(String.format("Current frame rate: %.3f", framesPerSecond));
                 }
             }
         };
@@ -108,31 +92,98 @@ public class simulatorUi extends Application {
         return root;
     }
 
-    // Update scene, new positions of all agents
-    private void update() {
-        Vector mouse = new Vector(mouseX, mouseY);
-        for (int i = 0; i < agents.size(); i++) {
-            agentAction(agents.get(i), mouse);
-        }
+    // Create sliders for modifiable parameters
+    private void setupSliders() {
+        alignment.setTranslateY(40);
+        alignment.setBlockIncrement(0.1d);
+        alignment.setMajorTickUnit(0.1d);
+        alignment.setMinorTickCount(0);
+        alignment.setSnapToTicks(true);
+        alignmentValue.setText(Double.toString(alignment.getValue()));
+        alignmentValue.setTranslateX(140);
+        alignmentValue.setTranslateY(40);
+
+        cohesion.setTranslateY(60);
+        cohesion.setBlockIncrement(0.1d);
+        cohesion.setMajorTickUnit(0.1d);
+        cohesion.setMinorTickCount(0);
+        cohesion.setSnapToTicks(true);
+        cohesionValue.setText(Double.toString(cohesion.getValue()));
+        cohesionValue.setTranslateX(140);
+        cohesionValue.setTranslateY(60);
+
+        separation.setTranslateY(80);
+        separation.setBlockIncrement(0.1d);
+        separation.setMajorTickUnit(0.1d);
+        separation.setMinorTickCount(0);
+        separation.setSnapToTicks(true);
+        separationValue.setText(Double.toString(separation.getValue()));
+        separationValue.setTranslateX(140);
+        separationValue.setTranslateY(80);
+
+        maxSpeed.setTranslateY(100);
+        maxSpeed.setBlockIncrement(1d);
+        maxSpeed.setMajorTickUnit(1d);
+        maxSpeed.setMinorTickCount(0);
+        maxSpeed.setSnapToTicks(true);
+        maxSpeedValue.setText(Double.toString(maxSpeed.getValue()));
+        maxSpeedValue.setTranslateX(140);
+        maxSpeedValue.setTranslateY(100);
+
+        maxForce.setTranslateY(120);
+        maxForce.setBlockIncrement(0.1d);
+        maxForce.setMajorTickUnit(0.1d);
+        maxForce.setMinorTickCount(0);
+        maxForce.setSnapToTicks(true);
+        maxForceValue.setText(Double.toString(maxForce.getValue()));
+        maxForceValue.setTranslateX(140);
+        maxForceValue.setTranslateY(120);
+
+        // Create listeners for sliders so that parameters of agents can be changed
+        alignment.valueProperty().addListener((observable, oldvalue, newValue) -> {
+            String value = String.format("%.1f", newValue.doubleValue());
+            alignmentValue.setText(value);
+            agentGenerator.setAlignment(newValue.doubleValue());
+        });
+        
+        cohesion.valueProperty().addListener((observable, oldvalue, newValue) -> {
+            String value = String.format("%.1f", newValue.doubleValue());
+            cohesionValue.setText(value);
+            agentGenerator.setCohesion(newValue.doubleValue());
+        });
+        
+        separation.valueProperty().addListener((observable, oldvalue, newValue) -> {
+            String value = String.format("%.1f", newValue.doubleValue());
+            separationValue.setText(value);
+            agentGenerator.setSeparation(newValue.doubleValue());
+        });
+        
+        maxSpeed.valueProperty().addListener((observable, oldvalue, newValue) -> {
+            String value = String.format("%.1f", newValue.doubleValue());
+            maxSpeedValue.setText(value);
+            agentGenerator.setMaxSpeed(newValue.doubleValue());
+        });
+        
+        maxForce.valueProperty().addListener((observable, oldvalue, newValue) -> {
+            String value = String.format("%.1f", newValue.doubleValue());
+            maxForceValue.setText(value);
+            agentGenerator.setMaxForce(newValue.doubleValue());
+        });
     }
 
-    // Make agent behave in some way
-    private void agentAction(Agent agent, Vector target) {
-        agent.applyBehaviors(agents, target);
-        agent.updatePosition();
-        agent.checkEdges();
+    // Update scene, new positions of all agents
+    private void update() {
+        agentGenerator.updateAgents(mouse);
     }
 
     // Create new agent
     private void createNode() {
-        double x = Math.ceil(mouseX);
-        double y = Math.ceil(mouseY);
+        double x = MathWrapper.ceil(mouseX);
+        double y = MathWrapper.ceil(mouseY);
 
         if (300 < x || 200 < y) {
-            Agent agent = new Agent(x, y, 12.0, 100.0, 4.0, 0.2, WIDTH, HEIGHT);
-            agents.add(agent);
-            root.getChildren().add(agent.display());
-            agentAmount.setText("Amount of agents: " + agents.size());
+            root.getChildren().add(agentGenerator.createAgent(x, y));
+            agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
         }
 
     }
@@ -140,13 +191,11 @@ public class simulatorUi extends Application {
     // Create specified amount of agents at random positions. For init of scene
     private void createNodesAtRandom(int amount) {
         for (int i = 0; i < amount; i++) {
-            double x = Math.ceil(Math.random() * WIDTH);
-            double y = Math.ceil(Math.random() * HEIGHT);
-
-            Agent agent = new Agent(x, y, 12.0, 100.0, 4.0, 0.2, WIDTH, HEIGHT);
-            agents.add(agent);
-            root.getChildren().add(agent.display());
-            agentAmount.setText("Amount of agents: " + agents.size());
+            double x = MathWrapper.ceil(MathWrapper.random() * WIDTH);
+            double y = MathWrapper.ceil(MathWrapper.random() * HEIGHT);
+            
+            root.getChildren().add(agentGenerator.createAgent(x, y));
+            agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
         }
     }
 
