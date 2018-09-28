@@ -7,7 +7,7 @@ package flockSimulator.domain;
 
 import flockSimulator.domain.Vector;
 import flockSimulator.domain.Agent;
-import java.util.ArrayList;
+import flockSimulator.util.FlockList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -80,7 +80,7 @@ public class AgentTest {
     
     @Test
     public void separationCreatesCorrectForce() {
-        ArrayList<Agent> list = new ArrayList<>();
+        FlockList<Agent> list = new FlockList<>();
         Agent a = new Agent(100, 100, 12, 100, 4, 0.2, 1280, 720);
         Agent b = new Agent(90, 100, 12, 100, 4, 0.2, 1280, 720);
         Agent c = new Agent(300, 300, 12, 100, 4, 0.2, 1280, 720);
@@ -105,7 +105,7 @@ public class AgentTest {
     
     @Test
     public void alignmentCreatesCorrectForce() {
-        ArrayList<Agent> list = new ArrayList<>();
+        FlockList<Agent> list = new FlockList<>();
         Agent a = new Agent(100, 100, 12, 100, 4, 0.2, 1280, 720);
         a.setVelocity(new Vector(1.0, 0.0));
         
@@ -135,7 +135,7 @@ public class AgentTest {
     
     @Test
     public void cohesionCreatesCorrectForce() {
-        ArrayList<Agent> list = new ArrayList<>();
+        FlockList<Agent> list = new FlockList<>();
         Agent a = new Agent(120, 120, 12, 100, 4, 0.3, 1280, 720);
         Agent b = new Agent(80, 80, 12, 100, 4, 0.3, 1280, 720);
         Agent c = new Agent(120, 80, 12, 100, 4, 0.3, 1280, 720);

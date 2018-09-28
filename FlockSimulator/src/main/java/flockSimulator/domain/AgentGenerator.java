@@ -1,5 +1,6 @@
 package flockSimulator.domain;
 
+import flockSimulator.util.FlockList;
 import java.util.ArrayList;
 import javafx.scene.Node;
 
@@ -20,7 +21,7 @@ public class AgentGenerator {
     private double cohesion;
     private int width;
     private int height;
-    private ArrayList<Agent> agents;
+    private FlockList<Agent> agents;
     private int rotationDelay;
     private int delayCounter;
 
@@ -34,24 +35,11 @@ public class AgentGenerator {
         this.alignment = 1.0;
         this.separation = 1.5;
         this.cohesion = 1.0;
-        this.agents = new ArrayList<>();
+        this.agents = new FlockList<>(100);
         this.rotationDelay = 1;
         this.delayCounter = 0;
     }
 
-//    /**
-//     * https://math.stackexchange.com/questions/377169/calculating-a-value-inside-one-range-to-a-value-of-another-range
-//     * MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
-//     *
-//     */
-//    public double affineMap(double x, double a, double b, double c, double d) {
-//        if (b - a == 0) {
-//            return 0;
-//        } else {
-//            double y = (x - a) * ((d - c) / (b - a)) + c;
-//            return y;
-//        }
-//    }
     /**
      * Method to initialize an agent based on parameters given to the generator
      *
@@ -89,11 +77,11 @@ public class AgentGenerator {
         agent.updatePosition();
         agent.checkEdges();
         if (this.delayCounter == 0) {
-            agent.updateRotation();
+            //agent.updateRotation();
         }
     }
 
-    public ArrayList<Agent> getAgents() {
+    public FlockList<Agent> getAgents() {
         return agents;
     }
 

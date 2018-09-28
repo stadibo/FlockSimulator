@@ -8,7 +8,7 @@ package flockSimulator.util;
 import java.util.RandomAccess;
 
 /**
- * ArrayList type implementation for FlockSimulator
+ * ArrayList like list implementation for FlockSimulator
  *
  * @author peje
  * @param <T> type of object to store in list
@@ -127,6 +127,7 @@ public class FlockList<T> implements RandomAccess {
             elements[i] = elements[i + 1];
         }
         size--;
+        remCount++;
 
         // shorten array when enough elements have been removed
 //        if (size / 10 < remCount && size >= 100) {
@@ -135,8 +136,10 @@ public class FlockList<T> implements RandomAccess {
 //            for (int i = 0; i < size; i++) {
 //                newElements[i] = elements[i];
 //            }
+//            
+//            remCount = 0;
 //        }
-//        
+        
         return element;
     }
 

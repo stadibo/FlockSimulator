@@ -1,7 +1,7 @@
 package flockSimulator.gui;
 
 import flockSimulator.domain.AgentGenerator;
-import flockSimulator.domain.MathWrapper;
+import flockSimulator.util.MathWrapper;
 import flockSimulator.domain.Vector;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;

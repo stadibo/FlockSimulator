@@ -5,7 +5,7 @@
  */
 package flockSimulator.domain;
 
-import flockSimulator.domain.MathWrapper;
+import flockSimulator.util.MathWrapper;
 
 /**
  * Class for creating 2D vectors and calculating using 2D vectors

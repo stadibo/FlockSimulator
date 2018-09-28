@@ -106,3 +106,20 @@ private double wanderTheta; // Direction for wandering
 
         return this.seek(target);
     }
+
+________________________________________________________________________________________________
+
+
+//    /**
+//     * https://math.stackexchange.com/questions/377169/calculating-a-value-inside-one-range-to-a-value-of-another-range
+//     * MAP VALUE IN RANGE [a,b] TO OTHER RANGE [c,d]
+//     *
+//     */
+//    public double affineMap(double x, double a, double b, double c, double d) {
+//        if (b - a == 0) {
+//            return 0;
+//        } else {
+//            double y = (x - a) * ((d - c) / (b - a)) + c;
+//            return y;
+//        }
+//    }

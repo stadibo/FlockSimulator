@@ -1,5 +1,6 @@
 package flockSimulator.domain;
 
+import flockSimulator.util.FlockList;
 import java.util.ArrayList;
 import javafx.scene.Node;
 import javafx.scene.shape.Ellipse;
@@ -104,14 +105,14 @@ public class Agent {
      * @param agents
      * @return force vector to be applied to agents velocity
      */
-    public Vector separation(ArrayList<Agent> agents) {
+    public Vector separation(FlockList<Agent> agents) {
         double desiredSeparation = this.r * 2;
         Vector sum = new Vector();
         int counter = 0;
-        for (Agent other : agents) {
-            double dist = this.position.distance(other.getPosition());
+        for (int i = 0; i < agents.size(); i++) {
+            double dist = this.position.distance(agents.get(i).getPosition());
             if ((dist > 0) && (dist < desiredSeparation)) {
-                Vector offset = new Vector().sub(this.position, other.getPosition());
+                Vector offset = new Vector().sub(this.position, agents.get(i).getPosition());
                 offset.normalize();
                 offset.div(dist);   // Smaller distance, larger force
                 sum.add(offset);
@@ -137,13 +138,13 @@ public class Agent {
      * @param agents
      * @return force vector to be applied to agents velocity
      */
-    public Vector alignment(ArrayList<Agent> agents) {
+    public Vector alignment(FlockList<Agent> agents) {
         Vector sum = new Vector();  // sum of velocities
         int counter = 0;
-        for (Agent other : agents) {
-            double dist = this.position.distance(other.getPosition());
+        for (int i = 0; i < agents.size(); i++) {
+            double dist = this.position.distance(agents.get(i).getPosition());
             if ((dist > 0) && (dist < this.awareness)) {
-                sum.add(other.getVelocity());
+                sum.add(agents.get(i).getVelocity());
                 counter++;
             }
         }
@@ -167,13 +168,13 @@ public class Agent {
      * @param agents
      * @return force vector to be applied to agents velocity
      */
-    public Vector cohesion(ArrayList<Agent> agents) {
+    public Vector cohesion(FlockList<Agent> agents) {
         Vector sum = new Vector();  // sum of positions
         int counter = 0;
-        for (Agent other : agents) {
-            double dist = this.position.distance(other.getPosition());
+        for (int i = 0; i < agents.size(); i++) {
+            double dist = this.position.distance(agents.get(i).getPosition());
             if ((dist > 0) && (dist < this.awareness)) {
-                sum.add(other.getPosition());
+                sum.add(agents.get(i).getPosition());
                 counter++;
             }
         }
@@ -202,7 +203,7 @@ public class Agent {
      * @param agents list of other agents which are neighbors to this agent
      * @param target a point to maybe use for seeking or fleeing
      */
-    public void applyBehaviors(ArrayList<Agent> agents, Vector target) {
+    public void applyBehaviors(FlockList<Agent> agents, Vector target) {
         this.flock(agents);
     }
 
@@ -211,7 +212,7 @@ public class Agent {
      *
      * @param agents list of other agents which are neighbors to this agent
      */
-    public void flock(ArrayList<Agent> agents) {
+    public void flock(FlockList<Agent> agents) {
         Vector separate = this.separation(agents);
         Vector align = this.alignment(agents);
         Vector cohese = this.cohesion(agents);
