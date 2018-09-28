@@ -2,7 +2,9 @@
 
 ## Unit testing
 
-Test coverage of application logic can be found [here](link to jacoco report)
+Test coverage of application logic:
+
+![alt text](https://github.com/ "Test coverage")
 
 ## Performance testing
 
