@@ -4,7 +4,7 @@
 
 Test coverage of application logic:
 
-![alt text](https://github.com/ "Test coverage")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/20180928_test_coverage.png "Test coverage")
 
 ## Performance testing
 
