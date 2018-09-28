@@ -54,7 +54,7 @@ public class Agent {
 
     /**
      * Method to calculate and apply a correcting steering force towards a
-     * target point correction = desired force minus velocity
+     * target point correction = desired minus velocity
      *
      * @param target
      * @return force vector to be applied to agents velocity
@@ -67,7 +67,7 @@ public class Agent {
         desired.normalize();
         desired.mult(this.maxSpeed);
 
-        // correction = desired force minus velocity
+        // correction = desired minus velocity
         Vector correctionForce = new Vector().sub(desired, this.velocity);
         correctionForce.limit(this.maxForce); //Limit maximum force to be applied
 
@@ -90,7 +90,7 @@ public class Agent {
         desired.normalize();
         desired.mult(this.maxSpeed);
 
-        // correction = desired force minus velocity
+        // correction = desired minus velocity
         Vector correctionForce = new Vector().sub(desired, this.velocity);
         correctionForce.limit(this.maxForce);
 
