@@ -77,7 +77,7 @@ public class AgentGenerator {
         agent.updatePosition();
         agent.checkEdges();
         if (this.delayCounter == 0) {
-            //agent.updateRotation();
+            agent.updateRotation();
         }
     }
 

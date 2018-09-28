@@ -86,6 +86,14 @@ public class FlockListTest {
     }
     
     @Test
+    public void indexOfReturnsCorrectIndex() {
+        FlockList<Integer> list1 = new FlockList<>(10);
+        list1.add(100);
+        list1.add(200);
+        assertTrue("Index given for element is not correct index", list1.indexOf(200) == 1);
+    }
+    
+    @Test
     public void listCompensatesForRemovedElementByMovingElementsLeft() {
         FlockList<Integer> list1 = new FlockList<>(10);
         list1.add(100);

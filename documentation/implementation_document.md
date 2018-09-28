@@ -1,5 +1,9 @@
 # Implementation
 
+## Structure
+
+
+
 What does it do?
 Why?
 
@@ -11,7 +15,7 @@ With a brute force approach the time complexity of the nearest neighbors algorit
 
 ## Optimizations
 * Comparing distance between points without square-root, so instead of using euclidean distance just using squared euclidean distance.
-* 
+* Implementing Bin-lattice datastructure (TODO)
 
 Sources
 
