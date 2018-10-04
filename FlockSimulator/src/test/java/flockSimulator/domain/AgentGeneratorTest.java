@@ -41,7 +41,9 @@ public class AgentGeneratorTest {
                 4,      // maxSpeed
                 0.2,    // maxForce
                 1280,   // width
-                720);   // height
+                720,    // height
+                false
+        );   
     }
     
     @After

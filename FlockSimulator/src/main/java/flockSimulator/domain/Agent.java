@@ -1,9 +1,8 @@
 package flockSimulator.domain;
 
 import flockSimulator.util.FlockList;
-import java.util.ArrayList;
 import javafx.scene.Node;
-import javafx.scene.shape.Ellipse;
+//import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 
 /**
@@ -73,7 +72,6 @@ public class Agent {
         correctionForce.limit(this.maxForce); //Limit maximum force to be applied
 
         return correctionForce;
-        //this.applyForce(correctionForce);
     }
 
     /**

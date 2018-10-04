@@ -1,5 +1,6 @@
 package flockSimulator.gui;
 
+import flockSimulator.benchmark.Benchmark;
 import flockSimulator.domain.AgentGenerator;
 import flockSimulator.util.MathWrapper;
 import flockSimulator.domain.Vector;
@@ -23,7 +24,7 @@ public class simulatorUi extends Application {
     public static int HEIGHT = 720;
     private double mouseX;
     private double mouseY;
-    private Vector mouse = new Vector(mouseX, mouseY);
+    private final Vector mouse = new Vector(mouseX, mouseY);
     private AgentGenerator agentGenerator;
     private Pane root;
 
@@ -66,7 +67,9 @@ public class simulatorUi extends Application {
                 maxSpeed.getValue(),
                 maxForce.getValue(),
                 WIDTH,
-                HEIGHT);
+                HEIGHT,
+                true
+        );
 
         frameRate.setText("Current frame rate: ??.???");
 
@@ -201,7 +204,8 @@ public class simulatorUi extends Application {
 
     /**
      * Create specified amount of agents at random positions. For init of scene
-     * @param amount 
+     *
+     * @param amount
      */
     private void createNodesAtRandom(int amount) {
         for (int i = 0; i < amount; i++) {
@@ -215,6 +219,7 @@ public class simulatorUi extends Application {
 
     /**
      * Method for starting simulator
+     *
      * @param primaryStage
      * @throws Exception
      */
@@ -237,7 +242,14 @@ public class simulatorUi extends Application {
     }
 
     public static void main(String[] args) {
-        launch(args);
+        if (args.length > 0) {
+            if (args[0].substring(0, 4).equals("TEST")) {
+                Benchmark performanceTest = new Benchmark(args[0]);
+                performanceTest.run();
+            }
+        } else {
+            launch(args);
+        }
     }
 
 }

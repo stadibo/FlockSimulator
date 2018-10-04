@@ -1,7 +1,6 @@
 package flockSimulator.domain;
 
 import flockSimulator.util.FlockList;
-import java.util.ArrayList;
 import javafx.scene.Node;
 
 /**
@@ -21,11 +20,12 @@ public class AgentGenerator {
     private double cohesion;
     private int width;
     private int height;
+    private boolean rotation;
     private FlockList<Agent> agents;
-    private int rotationDelay;
-    private int delayCounter;
+    //private int rotationDelay;
+    //private int delayCounter;
 
-    public AgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height) {
+    public AgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation) {
         this.size = size;
         this.awareness = awareness;
         this.maxSpeed = maxSpeed;
@@ -36,8 +36,9 @@ public class AgentGenerator {
         this.separation = 1.5;
         this.cohesion = 1.0;
         this.agents = new FlockList<>(100);
-        this.rotationDelay = 1;
-        this.delayCounter = 0;
+        this.rotation = rotation;
+        //this.rotationDelay = 1;
+        //this.delayCounter = 0;
     }
 
     /**
@@ -63,7 +64,7 @@ public class AgentGenerator {
         for (int i = 0; i < this.agents.size(); i++) {
             agentAction(this.agents.get(i), target);
         }
-        this.delayCounter = (this.delayCounter + 1) % this.rotationDelay;   // update rotation after rotationDelay amount of frames
+        //this.delayCounter = (this.delayCounter + 1) % this.rotationDelay;   // update rotation after rotationDelay amount of frames
     }
 
     /**
@@ -76,9 +77,13 @@ public class AgentGenerator {
         agent.applyBehaviors(this.agents, target);
         agent.updatePosition();
         agent.checkEdges();
-        if (this.delayCounter == 0) {
+        if (this.rotation) {
             agent.updateRotation();
         }
+    }
+    
+    public void clearAgents() {
+        this.agents.clear();
     }
 
     public FlockList<Agent> getAgents() {

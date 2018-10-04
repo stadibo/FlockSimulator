@@ -142,5 +142,15 @@ public class FlockList<T> implements RandomAccess {
         
         return element;
     }
+    
+    /**
+     * Empties the list of elements
+     */
+    public void clear() {
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size = 0;
+    }
 
 }
