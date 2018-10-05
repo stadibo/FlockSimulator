@@ -10,7 +10,7 @@ Test coverage of application logic:
 
 Current visual performance can be measured by running the program, manually adding agents to the screen by holding down the mouse button, and observing the framerate counter. This is not the optimal way to gauge the performance of the algorithm itself, but gives a good look at the performance of the software as a whole. (Still working on simply getting the performance of the algorithm itself, without the visual component.)
 
-*Numbers obtained by running the program with brute force version of checking nearest neighbors and rotating agents:*
+Numbers obtained by running the program with brute force version of checking nearest neighbors and rotating agents:
 
 Amount of agents | Framerate (avg) |
 ---------------- | --------- |
@@ -25,7 +25,7 @@ Amount of agents | Framerate (avg) |
 900 | 12 |
 1000 | 11 |
 
-In my experience the performance is limited by the rotation operation, does not matter how fast the neighbor querying algorithm is.
+*In my experience the performance is limited by the rotation operation, does not matter how fast the neighbor querying algorithm is.*
 
 ## Automatic benchmarking
 
