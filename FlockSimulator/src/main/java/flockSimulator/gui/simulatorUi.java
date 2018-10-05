@@ -1,7 +1,8 @@
 package flockSimulator.gui;
 
-import flockSimulator.benchmark.Benchmark;
 import flockSimulator.domain.AgentGenerator;
+import flockSimulator.domain.Generator;
+import flockSimulator.domain.SpatialAgentGenerator;
 import flockSimulator.util.MathWrapper;
 import flockSimulator.domain.Vector;
 import javafx.animation.AnimationTimer;
@@ -20,12 +21,12 @@ import javafx.stage.Stage;
  */
 public class simulatorUi extends Application {
 
-    public static int WIDTH = 1280;
-    public static int HEIGHT = 720;
+    public static int WIDTH = 1920;
+    public static int HEIGHT = 1080;
     private double mouseX;
     private double mouseY;
     private final Vector mouse = new Vector(mouseX, mouseY);
-    private AgentGenerator agentGenerator;
+    private Generator agentGenerator;
     private Pane root;
 
     private final long[] frameTimes = new long[100];
@@ -61,14 +62,15 @@ public class simulatorUi extends Application {
         frameRate.setTranslateY(0);
         agentAmount.setTranslateY(20);
         setupSliders();
-        agentGenerator = new AgentGenerator(
+        
+        agentGenerator = new SpatialAgentGenerator(
                 12.0,
                 100.0,
                 maxSpeed.getValue(),
                 maxForce.getValue(),
                 WIDTH,
                 HEIGHT,
-                true
+                false
         );
 
         frameRate.setText("Current frame rate: ??.???");
@@ -239,17 +241,6 @@ public class simulatorUi extends Application {
         });
 
         primaryStage.show();
-    }
-
-    public static void main(String[] args) {
-        if (args.length > 0) {
-            if (args[0].substring(0, 4).equals("TEST")) {
-                Benchmark performanceTest = new Benchmark(args[0]);
-                performanceTest.run();
-            }
-        } else {
-            launch(args);
-        }
     }
 
 }

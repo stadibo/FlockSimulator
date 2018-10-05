@@ -2,7 +2,7 @@ package flockSimulator.domain;
 
 import flockSimulator.util.FlockList;
 import javafx.scene.Node;
-//import javafx.scene.shape.Ellipse;
+import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
 
 /**
@@ -36,8 +36,8 @@ public class Agent {
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-        this.poly = new Polygon(-5.0, -5.0, 10.0, 0.0, -5.0, 5.0);
-//        this.poly = new Ellipse(5.0, 5.0);
+//        this.poly = new Polygon(-5.0, -5.0, 10.0, 0.0, -5.0, 5.0);
+        this.poly = new Ellipse(5.0, 5.0);
 
         this.r = size;
         this.awareness = awareness;
@@ -236,6 +236,9 @@ public class Agent {
         // Reset acceleration to 0 each time
         this.acceleration.mult(0);
 
+        // Check boundaries
+        this.checkEdges();
+
         // Update position of polygon in render
         this.poly.setTranslateX(this.position.getX());
         this.poly.setTranslateY(this.position.getY());
@@ -255,7 +258,7 @@ public class Agent {
      * that the agent wraps around to the opposite end of the bound which it
      * crossed
      */
-    public void checkEdges() {
+    private void checkEdges() {
         if (this.position.getX() > this.width) {
             this.position.setX(0);
         } else if (this.position.getX() < 0) {

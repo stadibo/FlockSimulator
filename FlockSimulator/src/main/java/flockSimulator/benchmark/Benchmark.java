@@ -6,6 +6,8 @@
 package flockSimulator.benchmark;
 
 import flockSimulator.domain.AgentGenerator;
+import flockSimulator.domain.Generator;
+import flockSimulator.domain.SpatialAgentGenerator;
 import flockSimulator.domain.Vector;
 import flockSimulator.util.MathWrapper;
 
@@ -15,36 +17,52 @@ import flockSimulator.util.MathWrapper;
  */
 public class Benchmark {
 
-    private String test;
-    private AgentGenerator generator;
+    private String[] tests;
+    private Generator generator;
 
-    public Benchmark(String test) {
-        this.test = test;
-        this.generator = new AgentGenerator(
-                12.0, // size
-                100.0, // awareness
-                4.0, // maxSpeed
-                0.2, // maxForce
-                1280, // resolution of simulation window
-                720,
-                false // rotation
-        );
+    public Benchmark(String[] tests) {
+        this.tests = tests;
     }
 
     public void run() {
         int[] numberOfAgents;
-        switch (test) {
-            case "TEST_1":
-                break;
-            case "TEST_2":
-                break;
-            case "TEST_3":
-                break;
-            default:
-                numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600};
-                this.generator.clearAgents();
-                runBenchmark(numberOfAgents);
-                break;
+        for (String test : tests) {
+            switch (test) {
+                case "TEST_1":
+                    System.out.println("AgentGenerator");
+                    this.generator = new AgentGenerator(
+                            12.0, // size
+                            100.0, // awareness
+                            4.0, // maxSpeed
+                            0.2, // maxForce
+                            1280, // resolution of simulation window
+                            720,
+                            false // rotation
+                    );
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    this.generator.clearAgents();
+                    runBenchmark(numberOfAgents);
+                    break;
+                case "TEST_2":
+                    System.out.println("SpatialAgentGenerator");
+                    this.generator = new SpatialAgentGenerator(
+                            12.0, // size
+                            100.0, // awareness
+                            4.0, // maxSpeed
+                            0.2, // maxForce
+                            1280, // resolution of simulation window
+                            720,
+                            false // rotation
+                    );
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    this.generator.clearAgents();
+                    runBenchmark(numberOfAgents);
+                    break;
+                case "TEST_3":
+                    break;
+                default:
+                    break;
+            }
         }
 
     }
@@ -71,8 +89,9 @@ public class Benchmark {
 
     private void initGenerator(int amount) {
         for (int i = 0; i < amount; i++) {
-            int rnd = (int) MathWrapper.random();
-            this.generator.createAgent(rnd, rnd);
+            double x = MathWrapper.ceil(MathWrapper.random() * 1280);
+            double y = MathWrapper.ceil(MathWrapper.random() * 720);
+            this.generator.createAgent(x, y);
         }
     }
 
@@ -85,8 +104,8 @@ public class Benchmark {
         double avgUpdateTime = elapsedMillis / 1000.0;
         double estimatedFramesPerSecond = 1000.0 / avgUpdateTime;
 
-        System.out.println("----- " + amount + " -----");
-        System.out.println("Time for " + amount + String.format(" updates: %d ms", elapsedMillis));
+        System.out.println("----- " + amount + " agents -----");
+        System.out.println("Time for 1000" + String.format(" updates: %d ms", elapsedMillis));
         System.out.println(String.format("Average time per update %.5f ms", avgUpdateTime));
         System.out.println("Estimated FPS: " + estimatedFramesPerSecond);
 

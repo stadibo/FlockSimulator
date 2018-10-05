@@ -152,5 +152,12 @@ public class FlockList<T> implements RandomAccess {
         }
         size = 0;
     }
+    
+    /**
+     * Makes the list seem empty for repeated clearing and rewriting
+     */
+    public void fastClear() {
+        size = 0;
+    }
 
 }

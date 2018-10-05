@@ -14,12 +14,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test class for AgentGenerator class
+ * Test class for Generator class
  * @author peje
  */
 public class AgentGeneratorTest {
     
-    private AgentGenerator g1;
+    private Generator g1;
     
     public AgentGeneratorTest() {   
     }

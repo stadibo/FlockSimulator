@@ -53,8 +53,8 @@ public class AgentTest {
         Agent a = new Agent(1281, 25, 12, 100, 4, 0.2, 1280, 720);
         Agent b = new Agent(12, 721, 12, 100, 4, 0.2, 1280, 720);
         
-        a.checkEdges();
-        b.checkEdges();
+        a.updatePosition();
+        b.updatePosition();
         
         assertEquals("moves agent to wrong X position", 0, a.getX(), 0.01);
         assertEquals("moves agent to wrong Y position", 25, a.getY(), 0.01);
@@ -68,8 +68,8 @@ public class AgentTest {
         Agent a = new Agent(-1, 25, 12, 100, 4, 0.2, 1280, 720);
         Agent b = new Agent(12, -1, 12, 100, 4, 0.2, 1280, 720);
         
-        a.checkEdges();
-        b.checkEdges();
+        a.updatePosition();
+        b.updatePosition();
         
         assertEquals("moves agent to wrong X position", 1280, a.getX(), 0.01);
         assertEquals("moves agent to wrong Y position", 25, a.getY(), 0.01);
