@@ -25,6 +25,8 @@ Amount of agents | Framerate (avg) |
 900 | 12 |
 1000 | 11 |
 
+In my experience the performance is limited by the rotation operation, does not matter how fast the neighbor querying algorithm is.
+
 ## Automatic benchmarking
 
 Launching the application from the console with a command line argument "TEST_X" (X = number for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 1600) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case (TODO: written to a file). Multiple command line argument can be written and these will all be run as benchmarks.
