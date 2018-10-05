@@ -21,8 +21,8 @@ import javafx.stage.Stage;
  */
 public class simulatorUi extends Application {
 
-    public static int WIDTH = 1920;
-    public static int HEIGHT = 1080;
+    public static int WIDTH = 1280;
+    public static int HEIGHT = 720;
     private double mouseX;
     private double mouseY;
     private final Vector mouse = new Vector(mouseX, mouseY);
@@ -62,7 +62,7 @@ public class simulatorUi extends Application {
         frameRate.setTranslateY(0);
         agentAmount.setTranslateY(20);
         setupSliders();
-        
+
         agentGenerator = new SpatialAgentGenerator(
                 12.0,
                 100.0,
@@ -196,12 +196,12 @@ public class simulatorUi extends Application {
     private void createNode() {
         double x = MathWrapper.ceil(mouseX);
         double y = MathWrapper.ceil(mouseY);
-
-        if (300 < x || 200 < y) {
-            root.getChildren().add(agentGenerator.createAgent(x, y));
-            agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
+        if (0 <= x && x <= WIDTH && 0 <= y && y <= HEIGHT) {
+            if (300 < x || 200 < y) {
+                root.getChildren().add(agentGenerator.createAgent(x, y));
+                agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
+            }
         }
-
     }
 
     /**

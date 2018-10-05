@@ -9,17 +9,17 @@ import flockSimulator.domain.Agent;
 import java.util.RandomAccess;
 
 /**
- * Bin-Lattice spatial subdivision datastructure described in this paper:
- * https://www.red3d.com/cwr/papers/2000/pip.pdf implemented for 2D neighbor
- * queries
+ * Bin-Lattice spatial subdivision data structure described in this paper:
+ * https://www.red3d.com/cwr/papers/2000/pip.pdf implemented for 2D neighbor-
+ * queries.
  *
  * @author peje
  */
 public class BinLattice implements RandomAccess {
 
-    private FlockList<Agent>[][] grid;
-    private int rows, cols;
-    private int scale;
+    private FlockList<Agent>[][] grid;  // 2D array of lists
+    private int rows, cols; // amount of columns and rows
+    private int scale;  // Size of a grid cell
 
     public BinLattice(int width, int height, int scale) {
         if (scale <= 0) {
@@ -33,6 +33,9 @@ public class BinLattice implements RandomAccess {
         this.rows = height / scale;
     }
 
+    /**
+     * Initializes the grid as 2D array with empty lists
+     */
     public void initGrid() {
         this.grid = new FlockList[cols + 1][rows + 1];
         for (int i = 0; i <= cols; i++) {
@@ -42,6 +45,9 @@ public class BinLattice implements RandomAccess {
         }
     }
 
+    /**
+     * Clear lists in grid of their elements
+     */
     public void clearGrid() {
         for (int i = 0; i < cols; i++) {
             for (int j = 0; j < rows; j++) {
@@ -50,18 +56,36 @@ public class BinLattice implements RandomAccess {
         }
     }
 
+    /**
+     * Add an element to a cell in the grid according to its position
+     *
+     * @param posX actual x position in simulation
+     * @param posY actual y position in simulation
+     * @param element to add to cell in grid
+     */
     public void insert(int posX, int posY, Agent element) {
+
         int x = posX / scale;
         int y = posY / scale;
         this.grid[x][y].add(element);
     }
 
+    /**
+     * Query neighbors for specified position. The method gets the bin according
+     * to the specified position. Adds the neighbors from the specified cell and
+     * its eight neighboring cells to a list
+     *
+     * @param posX actual x position in simulation
+     * @param posY actual y position in simulation
+     * @return list of neighbors
+     */
     public FlockList<Agent> getNearestNeighbors(int posX, int posY) {
         FlockList<Agent> neighbors = new FlockList(100);
 
         int x = posX / scale;
         int y = posY / scale;
 
+        // Check own cell and eight neighboring cells
         for (int n = -1; n <= 1; n++) {
             for (int m = -1; m <= 1; m++) {
                 // Check boundaries: if outside grid -> don't get list

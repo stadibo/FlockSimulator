@@ -66,7 +66,7 @@ public abstract class Generator {
     protected abstract void agentAction(Agent agent, Vector target);
 
     /**
-     * Empties the underlying data structures of their elements
+     * Empties the data structures of their elements
      */
     public abstract void clearAgents();
 

@@ -20,6 +20,12 @@ public class SpatialAgentGenerator extends Generator {
         this.agentGrid.initGrid();
     }
 
+    /**
+     * Update positions of all agents
+     *
+     * @param target a point that can be used when combining behaviors, e.g.
+     * seeking the mouse pointer
+     */
     @Override
     public void updateAgents(Vector target) {
         this.agentGrid.clearGrid();
@@ -29,6 +35,12 @@ public class SpatialAgentGenerator extends Generator {
         }
     }
 
+    /**
+     * Make agent behave in some way and update their state
+     *
+     * @param agent to be updated
+     * @param target to maybe be used in combining behaviors
+     */
     @Override
     protected void agentAction(Agent agent, Vector target) {
         int x = (int) agent.getX();
@@ -40,6 +52,9 @@ public class SpatialAgentGenerator extends Generator {
         }
     }
 
+    /**
+     * Inserts all agents to grid based on their position
+     */
     private void fillGrid() {
         for (int i = 0; i < this.agents.size(); i++) {
             int x = (int) this.agents.get(i).getX();
@@ -48,6 +63,9 @@ public class SpatialAgentGenerator extends Generator {
         }
     }
 
+    /**
+     * Empties the data structures of their elements
+     */
     @Override
     public void clearAgents() {
         this.agents.clear();

@@ -1,5 +1,10 @@
 package flockSimulator.domain;
 
+/**
+ * Generator implementation using a brute force approach to querying agents
+ *
+ * @author peje
+ */
 public class AgentGenerator extends Generator {
 
     private final boolean rotation;
@@ -37,6 +42,9 @@ public class AgentGenerator extends Generator {
         }
     }
 
+    /**
+     * Empties the data structure of its elements
+     */
     @Override
     public void clearAgents() {
         this.agents.clear();
