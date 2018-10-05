@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flockSimulator.util;
 
-import flockSimulator.domain.Agent;
 import java.util.RandomAccess;
 
 /**
@@ -15,9 +9,9 @@ import java.util.RandomAccess;
  *
  * @author peje
  */
-public class BinLattice implements RandomAccess {
+public class BinLattice<T> implements RandomAccess {
 
-    private FlockList<Agent>[][] grid;  // 2D array of lists
+    private FlockList<T>[][] grid;  // 2D array of lists
     private int rows, cols; // amount of columns and rows
     private int scale;  // Size of a grid cell
 
@@ -40,7 +34,7 @@ public class BinLattice implements RandomAccess {
         this.grid = new FlockList[cols + 1][rows + 1];
         for (int i = 0; i <= cols; i++) {
             for (int j = 0; j <= rows; j++) {
-                grid[i][j] = new FlockList<Agent>();
+                grid[i][j] = new FlockList<T>();
             }
         }
     }
@@ -63,7 +57,7 @@ public class BinLattice implements RandomAccess {
      * @param posY actual y position in simulation
      * @param element to add to cell in grid
      */
-    public void insert(int posX, int posY, Agent element) {
+    public void insert(int posX, int posY, T element) {
 
         int x = posX / scale;
         int y = posY / scale;
@@ -79,8 +73,8 @@ public class BinLattice implements RandomAccess {
      * @param posY actual y position in simulation
      * @return list of neighbors
      */
-    public FlockList<Agent> getNearestNeighbors(int posX, int posY) {
-        FlockList<Agent> neighbors = new FlockList(100);
+    public FlockList<T> getNearestNeighbors(int posX, int posY) {
+        FlockList<T> neighbors = new FlockList(100);
 
         int x = posX / scale;
         int y = posY / scale;

@@ -70,7 +70,8 @@ public class simulatorUi extends Application {
                 maxForce.getValue(),
                 WIDTH,
                 HEIGHT,
-                false
+                false,
+                40
         );
 
         frameRate.setText("Current frame rate: ??.???");

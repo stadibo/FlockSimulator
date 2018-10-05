@@ -10,13 +10,13 @@ import flockSimulator.util.BinLattice;
  */
 public class SpatialAgentGenerator extends Generator {
 
-    private BinLattice agentGrid;
+    private BinLattice<Agent> agentGrid;
     private final boolean rotation;
 
-    public SpatialAgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation) {
+    public SpatialAgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation, int cellSize) {
         super(size, awareness, maxSpeed, maxForce, width, height);
         this.rotation = rotation;
-        this.agentGrid = new BinLattice(width, height, 40);
+        this.agentGrid = new BinLattice(width, height, cellSize);
         this.agentGrid.initGrid();
     }
 

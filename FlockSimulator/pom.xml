@@ -53,6 +53,8 @@
                 <configuration>
                     <excludes>
                         <exclude>flockSimulator/gui/**/*</exclude>
+                        <exclude>flockSimulator/main/**/*</exclude>
+                        <exclude>flockSimulator/benchmark/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

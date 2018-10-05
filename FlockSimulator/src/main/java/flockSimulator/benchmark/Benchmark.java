@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package flockSimulator.benchmark;
 
 import flockSimulator.domain.AgentGenerator;
@@ -46,13 +41,14 @@ public class Benchmark {
                 case "TEST_2":
                     System.out.println("SpatialAgentGenerator");
                     this.generator = new SpatialAgentGenerator(
-                            12.0, // size
-                            100.0, // awareness
-                            4.0, // maxSpeed
-                            0.2, // maxForce
-                            1280, // resolution of simulation window
+                            12.0,   // size
+                            100.0,  // awareness
+                            4.0,    // maxSpeed
+                            0.2,    // maxForce
+                            1280,   // resolution of simulation window
                             720,
-                            false // rotation
+                            false,  // rotation
+                            40      // cell size 
                     );
                     numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
                     this.generator.clearAgents();
