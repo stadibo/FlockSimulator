@@ -18,6 +18,7 @@ Using a bin-lattice spatial data structure (3.) for neighbor queries. Each bin s
 
 ## Optimizations
 * Comparing distance between points without square-root, so instead of using euclidean distance just using squared euclidean distance.
+* Using some kind of sorting for Bin-Lattice
 
 Sources
 
