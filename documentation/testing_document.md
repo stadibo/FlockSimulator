@@ -4,7 +4,7 @@
 
 Test coverage of application logic:
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/20180928_test_coverage.png "Test coverage")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/20181005_test_coverage.png "Test coverage")
 
 ## Performance testing
 
@@ -27,6 +27,42 @@ Amount of agents | Framerate (avg) |
 900 | 12 |
 1000 | 11 |
 
-### Automatic benchmarking (Not yet working)
+### Automatic benchmarking
 
-Launching the application from the console with a command line argument "test" will launch the benchmarking side of the program. The test consists of, first, only running the algorithm without the GUI with various amounts of agents (10 - 100_000) for 600 position updates (10 seconds of rendering at 60fps), and second, the same run will be made with GUI + algorithm to measure the rendered fps. The time for 600 updates and the average time for each update, will be stored for each case and later printed to console or written to a file. Another command line argument would decide which algorithm would be used in test. (For now only brute force exist with either java ArrayList or my own implementation FlockList).
+Launching the application from the console with a command line argument "TEST_X" (X = number for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 1600) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case (TODO: written to a file). Multiple command line argument can be written and these will all be run as benchmarks.
+
+Add these as individual arguments when launching application:
+
+Test label | Data structure / rotation(on/off) |
+---------------- | --------- |
+TEST_1 | Brute force |
+TEST_2 | Bin-Lattice |
+
+#### Results
+
+**BRUTE FORCE O(n^2)**
+
+Amount of agents | Estimated FPS | Time (1000 updates) |
+---------------- | ------------- | ------------------- |
+25 | 27027 | 37 ms |
+50 | 17857 | 56 ms |
+100 | 4219 | 237 ms |
+200 | 1166 | 857 ms | 
+400 | 315 | 3171 ms |
+800 | 91 | 10973 ms |
+1600 | 20 | 49980 ms |
+
+**BIN-LATTICE SPATIAL SUBDIVISION O(n*k)**
+
+Amount of agents | Estimated FPS | Time (1000 updates) |
+---------------- | ------------- | ------------------- |
+25 | 33333 | 30 ms |
+50 | 22222 | 45 ms |
+100 | 13698 | 73 ms |
+200 | 5882 | 170 ms | 
+400 | 2427 | 412 ms |
+800 | 1036 | 965 ms |
+1600 | 407 | 2452 ms |
+
+**NOTES**
+The efficiency of the Bin-lattice is dependent on values (maxSpeed/Force, Cohesion, Separation) for the agents. If agents can get closer to each other than the cell size in the lattice they will crowd up and increase the amount of neighbor check and make the actual performance worse, closer to time complexity O(n^2). But when run with reasonable separation for agents, when agents are more spread out, it runs significantly faster than the __brute force__ method

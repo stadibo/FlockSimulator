@@ -34,7 +34,7 @@ public class Benchmark {
                             720,
                             false // rotation
                     );
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;
@@ -50,7 +50,7 @@ public class Benchmark {
                             false,  // rotation
                             40      // cell size 
                     );
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;

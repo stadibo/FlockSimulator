@@ -6,19 +6,21 @@ The flock simulator is an interactive application for simulating coordinated ani
 
 ## Structure
 
-At the top level there is a GUI class that initializes the environment where representations of agents will be drawn. It also creates an _AgentGenerator_ class which is responsible for storing agents objects, creating new ones, and applying changed parameters to agents stored. The agents are represented by the _Agent_ class, which stores all the required information about the agent, like position, velocity, etc. and contains methods for calculating steering behaviors that are applied each update. The class utilizes a _Vector_ class in the calculation of forces and representation of position, velocity, etc. Lastly, standard math operations throughout the application are handled by _java.lang.Math_ wrapped in _MathWrapper_ class.
+At the top level there is a GUI class that initializes the environment where representations of agents will be drawn. It also creates an _Generator_ implementation which is responsible for storing agents objects, creating new ones, and applying changed parameters to agents stored. There are two implementations of the abstract _Generator_ class: _AgentGenerator_, which uses a brute force approach to checking for neighbors, and _SpatialAgentGenerator_, which additionally stores the agents in a Bin-lattice data structure for faster checking of neighbors. The agents are represented by the _Agent_ class, which stores all the required information about the agent, e.g. position, velocity, etc. and contains methods for calculating steering behaviors that are applied each update. The class utilizes a _Vector_ class in the calculation of forces and representation of position, velocity, etc. Lastly, standard math operations throughout the application are handled by _java.lang.Math_ wrapped in _MathWrapper_ class.
 
 *INSERT CLASS DIAGRAM HERE*
 
 ## Complexity
-With a brute force approach the time complexity of the nearest neighbors algorithm is O(n), and when done for all agents ends up being O(n^2). Due to the straightforward nature of the algorithm a only a simple ArrayList is needed which has a space requirement of O(n).
+
+With a brute force approach the time complexity of the nearest neighbors algorithm is O(n), where n is the number of agents, and when comparing all agents to all other agents ends up being O(n^2). Due to the straightforward nature of the algorithm a only a simple ArrayList is needed which has a space complexity of O(n).
+
+Using a bin-lattice spatial data structure (3.) for neighbor queries. Each bin stores the birds contained in a specific area/"cell". The time complexity can be reduced to O(n*k) where n is the number of agents and k is the number of bins to check. Space complexity of the bin-lattice is still O(n), since it the bin-lattice still only contains one instance of each agent.
 
 ## Optimizations
 * Comparing distance between points without square-root, so instead of using euclidean distance just using squared euclidean distance.
-* Implementing Bin-lattice datastructure (TODO)
 
 Sources
 
-* http://www.red3d.com/cwr/steer/gdc99/
-* http://www.red3d.com/cwr/boids/
-* http://www.red3d.com/cwr/papers/2000/pip.pdf
+1. ttp://www.red3d.com/cwr/steer/gdc99/
+2. http://www.red3d.com/cwr/boids/
+3. http://www.red3d.com/cwr/papers/2000/pip.pdf
