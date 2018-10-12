@@ -6,7 +6,7 @@ The flock simulator is an interactive application for simulating coordinated ani
 
 ## Structure
 
-At the top level there is a GUI class that initializes the environment where representations of agents will be drawn. It also creates an _Generator_ implementation which is responsible for storing agents objects, creating new ones, and applying changed parameters to agents stored. There are two implementations of the abstract _Generator_ class: _AgentGenerator_, which uses a brute force approach to checking for neighbors, and _SpatialAgentGenerator_, which additionally stores the agents in a Bin-lattice data structure for faster checking of neighbors. The agents are represented by the _Agent_ class, which stores all the required information about the agent, e.g. position, velocity, etc. and contains methods for calculating steering behaviors that are applied each update. The class utilizes a _Vector_ class in the calculation of forces and representation of position, velocity, etc. Lastly, standard math operations throughout the application are handled by _java.lang.Math_ wrapped in _MathWrapper_ class.
+At the top level there is a GUI class that initializes the environment where representations of agents will be drawn. It also creates an _Generator_ implementation which is responsible for storing agents objects, creating new ones, and applying changed parameters to agents stored. There are two implementations of the abstract _Generator_ class: _AgentGenerator_, which uses a brute force approach to checking for neighbors, and _SpatialAgentGenerator_, which additionally stores the agents in a Bin-lattice data structure for faster checking of neighbors. The agents are represented by the abstract _Agent_ class, which stores all the required information about the agent, e.g. position, velocity, etc. and contains basic methods for calculating steering behaviors that are applied each update. The _Agent_ class can be implemented to create agents with different behaviors. The implementations utilize a _Vector_ class in the calculation of forces and representation of position, velocity, etc. Lastly, standard math operations throughout the application are handled by _java.lang.Math_ wrapped in _MathWrapper_ class.
 
 *INSERT CLASS DIAGRAM HERE*
 
@@ -14,11 +14,10 @@ At the top level there is a GUI class that initializes the environment where rep
 
 With a brute force approach the time complexity of the nearest neighbors algorithm is O(n), where n is the number of agents, and when comparing all agents to all other agents ends up being O(n^2). Due to the straightforward nature of the algorithm a only a simple ArrayList is needed which has a space complexity of O(n).
 
-Using a bin-lattice spatial data structure (3.) for neighbor queries. Each bin stores the birds contained in a specific area/"cell". The time complexity can be reduced to O(n*k) where n is the number of agents and k is the number of bins to check. Space complexity of the bin-lattice is still O(n), since it the bin-lattice still only contains one instance of each agent.
+Using a bin-lattice spatial data structure (3.) for neighbor queries. Each bin stores the agents contained in a specific area/"cell". The time complexity can be reduced to O(n*k) where n is the number of agents and k is the number of bins to check. Space complexity of the bin-lattice is still O(n), since it the bin-lattice still only contains one instance of each agent.
 
 ## Optimizations
 * Comparing distance between points without square-root, so instead of using euclidean distance just using squared euclidean distance.
-* Using some kind of sorting for Bin-Lattice
 
 Sources
 

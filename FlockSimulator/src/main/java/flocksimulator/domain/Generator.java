@@ -38,7 +38,7 @@ public abstract class Generator {
      * @return Node object reference to the shape object stored in agent class
      */
     public Node createAgent(double x, double y) {
-        Agent agent = new Flocker(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
+        Agent agent = new Particle(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
         agents.add(agent);
         return agent.display();
     }

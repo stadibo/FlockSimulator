@@ -70,8 +70,8 @@ public class SimulatorUi extends Application {
                 maxForce.getValue(),
                 WIDTH,
                 HEIGHT,
-                true,
-                40
+                false,
+                60
         );
         
 //        agentGenerator = new AgentGenerator(

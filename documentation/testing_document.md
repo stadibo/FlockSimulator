@@ -2,7 +2,7 @@
 
 Test coverage of application logic:
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/20181005_test_coverage.png "Test coverage")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/20181012_test_coverage.png "Test coverage")
 
 # Performance testing
 
