@@ -1,10 +1,10 @@
-package flockSimulator.gui;
+package flocksimulator.gui;
 
-import flockSimulator.domain.AgentGenerator;
-import flockSimulator.domain.Generator;
-import flockSimulator.domain.SpatialAgentGenerator;
-import flockSimulator.util.MathWrapper;
-import flockSimulator.domain.Vector;
+import flocksimulator.domain.AgentGenerator;
+import flocksimulator.domain.Generator;
+import flocksimulator.domain.SpatialAgentGenerator;
+import flocksimulator.util.MathWrapper;
+import flocksimulator.domain.Vector;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Parent;
@@ -19,13 +19,13 @@ import javafx.stage.Stage;
  *
  * @author peje
  */
-public class simulatorUi extends Application {
+public class SimulatorUi extends Application {
 
-    public static int WIDTH = 1280;
-    public static int HEIGHT = 720;
+    private int WIDTH = 1280;
+    private int HEIGHT = 720;
     private double mouseX;
     private double mouseY;
-    private final Vector mouse = new Vector(mouseX, mouseY);
+    private Vector mouse;
     private Generator agentGenerator;
     private Pane root;
 
@@ -73,6 +73,16 @@ public class simulatorUi extends Application {
                 false,
                 40
         );
+        
+//        agentGenerator = new AgentGenerator(
+//                12.0,
+//                100.0,
+//                maxSpeed.getValue(),
+//                maxForce.getValue(),
+//                WIDTH,
+//                HEIGHT,
+//                false
+//        );
 
         frameRate.setText("Current frame rate: ??.???");
 
@@ -188,6 +198,7 @@ public class simulatorUi extends Application {
      * Update scene, new positions of all agents
      */
     private void update() {
+        mouse= new Vector(mouseX, mouseY);
         agentGenerator.updateAgents(mouse);
     }
 
@@ -219,6 +230,16 @@ public class simulatorUi extends Application {
             agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
         }
     }
+    
+//    private void updateWindowWidth(int newWidth) {
+//        this.WIDTH = newWidth;
+//        this.agentGenerator.setWidth(newWidth);
+//    }
+//    
+//    private void updateWindowHeight(int newHeight) {
+//        this.HEIGHT = newHeight;
+//        this.agentGenerator.setHeight(newHeight);
+//    }
 
     /**
      * Method for starting simulator
@@ -230,7 +251,8 @@ public class simulatorUi extends Application {
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Starting simulation...");
 
-        primaryStage.setScene(new Scene(setup()));
+        Scene scene = new Scene(setup());
+        primaryStage.setScene(scene);
         primaryStage.getScene().setOnMouseMoved(e -> {
             mouseX = e.getX();
             mouseY = e.getY();
@@ -240,6 +262,15 @@ public class simulatorUi extends Application {
             mouseY = e.getY();
             createNode();
         });
+//        scene.widthProperty().addListener((observable, oldWidth, newWidth) -> {
+//            int value = (int) MathWrapper.round((double) newWidth);
+//            updateWindowWidth(value);
+//        });
+//        scene.heightProperty().addListener((observable, oldHeight, newHeight) -> {
+//            int value = (int) MathWrapper.round((double) newHeight);
+//            updateWindowHeight(value);
+//            
+//        });
 
         primaryStage.show();
     }

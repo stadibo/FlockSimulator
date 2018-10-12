@@ -1,6 +1,6 @@
-package flockSimulator.domain;
+package flocksimulator.domain;
 
-import flockSimulator.util.BinLattice;
+import flocksimulator.util.BinLattice;
 
 /**
  * Generator implementation using the Bin-lattice data structure for faster
@@ -45,6 +45,8 @@ public class SpatialAgentGenerator extends Generator {
     protected void agentAction(Agent agent, Vector target) {
         int x = (int) agent.getX();
         int y = (int) agent.getY();
+        agent.setWidth(this.width);
+        agent.setHeight(this.height);
         agent.applyBehaviors(this.agentGrid.getNearestNeighbors(x, y), target);
         agent.updatePosition();
         if (this.rotation) {

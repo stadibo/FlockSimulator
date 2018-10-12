@@ -1,8 +1,8 @@
-package flockSimulator.domain;
+package flocksimulator.domain;
 
-import flockSimulator.domain.Vector;
-import flockSimulator.domain.Agent;
-import flockSimulator.util.FlockList;
+import flocksimulator.domain.Vector;
+import flocksimulator.domain.Agent;
+import flocksimulator.util.FlockList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

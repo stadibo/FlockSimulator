@@ -52,9 +52,9 @@
                 <version>0.8.0</version>
                 <configuration>
                     <excludes>
-                        <exclude>flockSimulator/gui/**/*</exclude>
-                        <exclude>flockSimulator/main/**/*</exclude>
-                        <exclude>flockSimulator/benchmark/**/*</exclude>
+                        <exclude>flocksimulator/gui/**/*</exclude>
+                        <exclude>flocksimulator/main/**/*</exclude>
+                        <exclude>flocksimulator/benchmark/**/*</exclude>
                     </excludes>
                 </configuration>
                 <executions>

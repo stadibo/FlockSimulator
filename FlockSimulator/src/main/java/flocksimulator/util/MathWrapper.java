@@ -1,4 +1,4 @@
-package flockSimulator.util;
+package flocksimulator.util;
 
 import java.lang.Math;
 

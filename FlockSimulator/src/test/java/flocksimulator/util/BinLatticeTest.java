@@ -1,6 +1,7 @@
-package flockSimulator.util;
+package flocksimulator.util;
 
-import flockSimulator.domain.Agent;
+import flocksimulator.util.BinLattice;
+import flocksimulator.domain.Agent;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

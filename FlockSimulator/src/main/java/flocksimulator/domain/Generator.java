@@ -1,6 +1,6 @@
-package flockSimulator.domain;
+package flocksimulator.domain;
 
-import flockSimulator.util.FlockList;
+import flocksimulator.util.FlockList;
 import javafx.scene.Node;
 
 /**
@@ -19,8 +19,8 @@ public abstract class Generator {
     private double alignment;
     private double separation;
     private double cohesion;
-    protected final int width;
-    protected final int height;
+    protected int width;
+    protected int height;
     protected FlockList<Agent> agents;
 
     public Generator(double size, double awareness, double maxSpeed, double maxForce, int width, int height) {
@@ -116,5 +116,13 @@ public abstract class Generator {
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setCohesion(cohesion);
         }
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }

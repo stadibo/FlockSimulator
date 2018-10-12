@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package flockSimulator.domain;
+package flocksimulator.domain;
 
-import flockSimulator.domain.Vector;
+import flocksimulator.domain.Vector;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

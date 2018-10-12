@@ -1,10 +1,10 @@
-package flockSimulator.benchmark;
+package flocksimulator.benchmark;
 
-import flockSimulator.domain.AgentGenerator;
-import flockSimulator.domain.Generator;
-import flockSimulator.domain.SpatialAgentGenerator;
-import flockSimulator.domain.Vector;
-import flockSimulator.util.MathWrapper;
+import flocksimulator.domain.AgentGenerator;
+import flocksimulator.domain.Generator;
+import flocksimulator.domain.SpatialAgentGenerator;
+import flocksimulator.domain.Vector;
+import flocksimulator.util.MathWrapper;
 
 /**
  *
@@ -34,7 +34,7 @@ public class Benchmark {
                             720,
                             false // rotation
                     );
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;
@@ -50,7 +50,7 @@ public class Benchmark {
                             false,  // rotation
                             40      // cell size 
                     );
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200, 6400};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;

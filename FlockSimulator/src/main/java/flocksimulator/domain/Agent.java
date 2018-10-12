@@ -1,6 +1,6 @@
-package flockSimulator.domain;
+package flocksimulator.domain;
 
-import flockSimulator.util.FlockList;
+import flocksimulator.util.FlockList;
 import javafx.scene.Node;
 import javafx.scene.shape.Ellipse;
 import javafx.scene.shape.Polygon;
@@ -203,6 +203,9 @@ public class Agent {
      */
     public void applyBehaviors(FlockList<Agent> agents, Vector target) {
         this.flock(agents);
+//        Vector seek = this.seek(target);
+//        seek.mult(0.5);
+//        this.applyForce(seek);
     }
 
     /**
@@ -270,6 +273,14 @@ public class Agent {
         } else if (this.position.getY() < 0) {
             this.position.setY(this.height);
         }
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 
     public double getX() {

@@ -1,4 +1,4 @@
-package flockSimulator.domain;
+package flocksimulator.domain;
 
 /**
  * Generator implementation using a brute force approach to querying agents

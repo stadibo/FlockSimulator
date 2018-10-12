@@ -1,7 +1,7 @@
-package flockSimulator.main;
+package flocksimulator.main;
 
-import flockSimulator.benchmark.Benchmark;
-import flockSimulator.gui.simulatorUi;
+import flocksimulator.benchmark.Benchmark;
+import flocksimulator.gui.SimulatorUi;
 import static javafx.application.Application.launch;
 
 /**
@@ -19,7 +19,7 @@ public class Main {
                 performanceTest.run();
             }
         } else {
-            launch(simulatorUi.class, args);
+            launch(SimulatorUi.class, args);
         }
     }
 }
