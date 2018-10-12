@@ -35,13 +35,13 @@ public class SpatialAgentGeneratorTest {
 
     @Test
     public void updateAgentsWroksAsIntended() {
-        Agent a = new Agent(100, 100, 12, 100, 4, 0.2, 1280, 720);
+        Agent a = new Flocker(100, 100, 12, 100, 4, 0.2, 1280, 720);
         a.setVelocity(new Vector(1.0, 0.0));
 
-        Agent b = new Agent(80, 100, 12, 100, 4, 0.2, 1280, 720);
+        Agent b = new Flocker(80, 100, 12, 100, 4, 0.2, 1280, 720);
         b.setVelocity(new Vector(0.0, 1.0));
 
-        Agent c = new Agent(300, 300, 12, 100, 4, 0.2, 1280, 720);
+        Agent c = new Flocker(300, 300, 12, 100, 4, 0.2, 1280, 720);
         c.setVelocity(new Vector(3.0, 1.0));
 
         g1.getAgents().add(a);
@@ -70,9 +70,9 @@ public class SpatialAgentGeneratorTest {
 
     @Test
     public void clearingStructuresWorks() {
-        Agent a = new Agent(100, 100, 12, 100, 4, 0.2, 1280, 720);
-        Agent b = new Agent(80, 100, 12, 100, 4, 0.2, 1280, 720);
-        Agent c = new Agent(300, 300, 12, 100, 4, 0.2, 1280, 720);
+        Agent a = new Flocker(100, 100, 12, 100, 4, 0.2, 1280, 720);
+        Agent b = new Flocker(80, 100, 12, 100, 4, 0.2, 1280, 720);
+        Agent c = new Flocker(300, 300, 12, 100, 4, 0.2, 1280, 720);
 
         g1.getAgents().add(a);
         g1.getAgents().add(b);

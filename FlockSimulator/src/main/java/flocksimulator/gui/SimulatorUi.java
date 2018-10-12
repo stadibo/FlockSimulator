@@ -70,7 +70,7 @@ public class SimulatorUi extends Application {
                 maxForce.getValue(),
                 WIDTH,
                 HEIGHT,
-                false,
+                true,
                 40
         );
         

@@ -16,9 +16,6 @@ public abstract class Generator {
     private final double awareness; // How far the agent can see
     private double maxSpeed;    // Maximum speed
     private double maxForce;    // Maximum steering force
-    private double alignment;
-    private double separation;
-    private double cohesion;
     protected int width;
     protected int height;
     protected FlockList<Agent> agents;
@@ -30,9 +27,6 @@ public abstract class Generator {
         this.maxForce = maxForce;
         this.width = width;
         this.height = height;
-        this.alignment = 1.0;
-        this.separation = 1.5;
-        this.cohesion = 1.0;
         this.agents = new FlockList<>(100);
     }
 
@@ -44,7 +38,7 @@ public abstract class Generator {
      * @return Node object reference to the shape object stored in agent class
      */
     public Node createAgent(double x, double y) {
-        Agent agent = new Agent(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
+        Agent agent = new Flocker(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
         agents.add(agent);
         return agent.display();
     }
@@ -95,24 +89,18 @@ public abstract class Generator {
     }
 
     public void setAlignment(double alignment) {
-        this.alignment = alignment;
-
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setAlignment(alignment);
         }
     }
 
     public void setSeparation(double separation) {
-        this.separation = separation;
-
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setSeparation(separation);
         }
     }
 
     public void setCohesion(double cohesion) {
-        this.cohesion = cohesion;
-
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setCohesion(cohesion);
         }

@@ -2,64 +2,51 @@ package flocksimulator.domain;
 
 import flocksimulator.util.FlockList;
 import javafx.scene.Node;
-import javafx.scene.shape.Ellipse;
-import javafx.scene.shape.Polygon;
 
 /**
  * Class implementing "boids" model from paper by Craig W. Reynolds
  * http://www.red3d.com/cwr/steer/gdc99/ Independent agents with specified
- * behaviors can be put in a system to model even more complex behaviors
+ * behaviors can be put in a system to model even more complex behaviors.
  *
  * @author peje
  */
-public class Agent {
+public abstract class Agent {
 
-    private Vector position;
-    private Vector velocity;
-    private Vector acceleration;
-    private Node poly;
+    protected Vector position;
+    protected Vector velocity;
+    protected Vector acceleration;
+    protected Node poly;
 
     private int width;
     private int height;
 
-    private double r;   // Size of agent / collision radius
-    private double awareness; // How far the agent can see
-    private double maxSpeed;    // Maximum speed
-    private double maxForce;    // Maximum steering force
-
-    private double alignment;   // Modifier
-    private double separation;  // Modifier
-    private double cohesion;    // Modifier
+    protected double size;   // Size of agent / collision radius
+    protected double awareness; // How far the agent can see
+    protected double maxSpeed;    // Maximum speed
+    protected double maxForce;    // Maximum steering force
 
     public Agent(double x, double y, double size, double awareness, double maxSpeed, double maxForce, int w, int h) {
         this.position = new Vector(x, y);
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
 
-//        this.poly = new Polygon(-5.0, -5.0, 10.0, 0.0, -5.0, 5.0);
-        this.poly = new Ellipse(5.0, 5.0);
-
-        this.r = size;
+        this.size = size;
         this.awareness = awareness;
         this.maxSpeed = maxSpeed;
         this.maxForce = maxForce;
 
         this.width = w;
         this.height = h;
-
-        this.alignment = 1.0;
-        this.separation = 1.5;
-        this.cohesion = 1.0;
     }
 
     /**
      * Method to calculate and apply a correcting steering force towards a
-     * target point correction = desired minus velocity
+     * target point: correction = desired minus velocity
      *
      * @param target
      * @return force vector to be applied to agents velocity
      */
-    public Vector seek(Vector target) {
+    protected Vector seek(Vector target) {
         // Vector pointing from position towards target
         Vector desired = new Vector().sub(target, this.position);
 
@@ -81,7 +68,7 @@ public class Agent {
      * @param target
      * @return force vector to be applied to agents velocity
      */
-    public Vector flee(Vector target) {
+    protected Vector flee(Vector target) {
         // Opposite of seek(): Vector pointing from target towards position
         Vector desired = new Vector().sub(this.position, target);
 
@@ -97,135 +84,22 @@ public class Agent {
     }
 
     /**
-     * Method for creating a force by which to repel from other agents based on
-     * their distance if they are within the view radius of this agent
-     *
-     * @param agents
-     * @return force vector to be applied to agents velocity
-     */
-    public Vector separation(FlockList<Agent> agents) {
-        double desiredSeparation = this.r * 2;
-        Vector sum = new Vector();
-        int counter = 0;
-        for (int i = 0; i < agents.size(); i++) {
-            double dist = this.position.distance(agents.get(i).getPosition());
-            if ((dist > 0) && (dist < desiredSeparation)) {
-                Vector offset = new Vector().sub(this.position, agents.get(i).getPosition());
-                offset.normalize();
-                offset.div(dist);   // Smaller distance, larger force
-                sum.add(offset);
-                counter++;
-            }
-        }
-
-        Vector correctionForce = new Vector();
-        if (counter > 0) {
-            sum.setMagnitude(this.maxSpeed);
-
-            // Implement Reynolds: Steering = Desired - Velocity
-            correctionForce = new Vector().sub(sum, this.velocity);
-            correctionForce.limit(this.maxForce);
-        }
-        return correctionForce;
-    }
-
-    /**
-     * Method for creating average velocity of other agents within view radius
-     * of this agent
-     *
-     * @param agents
-     * @return force vector to be applied to agents velocity
-     */
-    public Vector alignment(FlockList<Agent> agents) {
-        Vector sum = new Vector();  // sum of velocities
-        int counter = 0;
-        for (int i = 0; i < agents.size(); i++) {
-            double dist = this.position.distance(agents.get(i).getPosition());
-            if ((dist > 0) && (dist < this.awareness)) {
-                sum.add(agents.get(i).getVelocity());
-                counter++;
-            }
-        }
-
-        Vector correctionForce = new Vector();
-        if (counter > 0) {
-            sum.setMagnitude(this.maxSpeed);
-
-            // Implement Reynolds: Steering = Desired - Velocity
-            correctionForce = new Vector().sub(sum, this.velocity);
-            correctionForce.limit(this.maxForce);
-        }
-
-        return correctionForce;
-    }
-
-    /**
-     * Method for creating a force to be attracted to center of flock made of
-     * other agents if they are within the view radius of this agent
-     *
-     * @param agents
-     * @return force vector to be applied to agents velocity
-     */
-    public Vector cohesion(FlockList<Agent> agents) {
-        Vector sum = new Vector();  // sum of positions
-        int counter = 0;
-        for (int i = 0; i < agents.size(); i++) {
-            double dist = this.position.distance(agents.get(i).getPosition());
-            if ((dist > 0) && (dist < this.awareness)) {
-                sum.add(agents.get(i).getPosition());
-                counter++;
-            }
-        }
-
-        if (counter > 0) {
-            sum.div(counter);
-            return this.seek(sum);
-        }
-
-        return new Vector();
-    }
-
-    /**
      * Method to set acceleration to be applied to velocity
      *
      * @param force vector to be applied to agents velocity
      */
-    public void applyForce(Vector force) {
+    protected void applyForce(Vector force) {
         // mass could be implemented here as a variable a = F / m
         this.acceleration.add(force);
     }
 
     /**
-     * Combine behaviors
+     * Combine behaviors to create more complex behavior
      *
      * @param agents list of other agents which are neighbors to this agent
      * @param target a point to maybe use for seeking or fleeing
      */
-    public void applyBehaviors(FlockList<Agent> agents, Vector target) {
-        this.flock(agents);
-//        Vector seek = this.seek(target);
-//        seek.mult(0.5);
-//        this.applyForce(seek);
-    }
-
-    /**
-     * Create flocking behavior
-     *
-     * @param agents list of other agents which are neighbors to this agent
-     */
-    public void flock(FlockList<Agent> agents) {
-        Vector separate = this.separation(agents);
-        Vector align = this.alignment(agents);
-        Vector cohese = this.cohesion(agents);
-
-        separate.mult(this.separation);
-        align.mult(this.alignment);
-        cohese.mult(this.cohesion);
-
-        applyForce(separate);
-        applyForce(align);
-        applyForce(cohese);
-    }
+    public abstract void applyBehaviors(FlockList<Agent> agents, Vector target);
 
     /**
      * Method to update position
@@ -248,8 +122,7 @@ public class Agent {
     }
 
     /**
-     * ROTATE POLYGON, too processing heavy for now, need to find a way to
-     * rotate more efficently
+     * Rotate polygon. Is very CPU intensive with many agents on screen.
      */
     public void updateRotation() {
         double angle = this.velocity.heading();
@@ -274,6 +147,13 @@ public class Agent {
             this.position.setY(this.height);
         }
     }
+
+    /**
+     * Provides the visual representation of the agent
+     *
+     * @return polygon shape for object
+     */
+    public abstract Node display();
 
     public void setWidth(int width) {
         this.width = width;
@@ -315,21 +195,10 @@ public class Agent {
         this.maxForce = maxForce;
     }
 
-    public void setAlignment(double alignment) {
-        this.alignment = alignment;
-    }
+    public abstract void setAlignment(double alignment);
 
-    public void setSeparation(double separation) {
-        this.separation = separation;
-    }
+    public abstract void setSeparation(double separation);
 
-    public void setCohesion(double cohesion) {
-        this.cohesion = cohesion;
-    }
-
-    // Return how the agent looks (Node object)
-    public Node display() {
-        return this.poly;
-    }
+    public abstract void setCohesion(double cohesion);
 
 }

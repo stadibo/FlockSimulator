@@ -1,7 +1,7 @@
 package flocksimulator.util;
 
-import flocksimulator.util.BinLattice;
 import flocksimulator.domain.Agent;
+import flocksimulator.domain.Flocker;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -30,8 +30,8 @@ public class BinLatticeTest {
     @Test
     public void insertingWorks() {
         this.grid.initGrid();
-        Agent a = new Agent(40, 40, 12, 100, 4, 0.2, 1280, 720);
-        Agent b = new Agent(41, 41, 12, 100, 4, 0.2, 1280, 720);
+        Agent a = new Flocker(40, 40, 12, 100, 4, 0.2, 1280, 720);
+        Agent b = new Flocker(41, 41, 12, 100, 4, 0.2, 1280, 720);
         this.grid.insert(40, 40, a);
         this.grid.insert(41, 41, b);
         assertTrue(this.grid.getNearestNeighbors(40, 40).get(1).equals(b));
@@ -40,8 +40,8 @@ public class BinLatticeTest {
     @Test
     public void clearingGridWorks() {
         this.grid.initGrid();
-        Agent a = new Agent(40, 40, 12, 100, 4, 0.2, 1280, 720);
-        Agent b = new Agent(80, 80, 12, 100, 4, 0.2, 1280, 720);
+        Agent a = new Flocker(40, 40, 12, 100, 4, 0.2, 1280, 720);
+        Agent b = new Flocker(80, 80, 12, 100, 4, 0.2, 1280, 720);
         this.grid.insert(40, 40, a);
         this.grid.insert(80, 80, b);
         this.grid.clearGrid();
@@ -52,9 +52,9 @@ public class BinLatticeTest {
     @Test
     public void gettingNeighborsWorks() {
         this.grid.initGrid();
-        Agent a = new Agent(40, 40, 12, 100, 4, 0.2, 1280, 720);
-        Agent b = new Agent(45, 45, 12, 100, 4, 0.2, 1280, 720);
-        Agent c = new Agent(100, 100, 12, 100, 4, 0.2, 1280, 720);
+        Agent a = new Flocker(40, 40, 12, 100, 4, 0.2, 1280, 720);
+        Agent b = new Flocker(45, 45, 12, 100, 4, 0.2, 1280, 720);
+        Agent c = new Flocker(100, 100, 12, 100, 4, 0.2, 1280, 720);
         this.grid.insert(40, 40, a);
         this.grid.insert(45, 45, b);
         this.grid.insert(100, 100, c);

@@ -1,23 +1,21 @@
 package flocksimulator.domain;
 
-import flocksimulator.domain.Vector;
-import flocksimulator.domain.Agent;
 import flocksimulator.util.FlockList;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * Test class for Agent class
+ * Test class for Flocker class
  * @author peje
  */
-public class AgentTest {
+public class FlockerTest {
     
-    public AgentTest() {
+    public FlockerTest() {
     }
     
     @Test
     public void seekCreatesCorrectForce() {
-        Agent a = new Agent(25, 25, 12, 100, 4, 0.2, 1280, 720);
+        Flocker a = new Flocker(25, 25, 12, 100, 4, 0.2, 1280, 720);
         Vector target = new Vector(50, 50);
         Vector velo = new Vector(3,1);
         a.setVelocity(velo);
@@ -25,13 +23,13 @@ public class AgentTest {
         Vector force = a.seek(target);
         a.applyForce(force);
         a.updatePosition();
-        assertEquals("moves agent to wrong X position", 27.98131481932, a.getX(), 0.001);
-        assertEquals("moves agent to wrong Y position", 26.19912524707, a.getY(), 0.0001);
+        assertEquals("moves Flocker to wrong X position", 27.98131481932, a.getX(), 0.001);
+        assertEquals("moves Flocker to wrong Y position", 26.19912524707, a.getY(), 0.0001);
     }
     
     @Test
     public void fleeCreatesCorrectForce() {
-        Agent a = new Agent(25, 25, 12, 100, 4, 0.2, 1280, 720);
+        Flocker a = new Flocker(25, 25, 12, 100, 4, 0.2, 1280, 720);
         Vector target = new Vector(50, 50);
         Vector velo = new Vector(2,1);
         a.setVelocity(velo);
@@ -39,46 +37,46 @@ public class AgentTest {
         Vector force = a.flee(target);
         a.applyForce(force);
         a.updatePosition();
-        assertEquals("moves agent to wrong X position", 26.84328442524, a.getX(), 0.001);
-        assertEquals("moves agent to wrong Y position", 25.87574128349, a.getY(), 0.001);
+        assertEquals("moves Flocker to wrong X position", 26.84328442524, a.getX(), 0.001);
+        assertEquals("moves Flocker to wrong Y position", 25.87574128349, a.getY(), 0.001);
     }
     
     @Test
     public void checkEdgesPosBoundary() {
-        Agent a = new Agent(1281, 25, 12, 100, 4, 0.2, 1280, 720);
-        Agent b = new Agent(12, 721, 12, 100, 4, 0.2, 1280, 720);
+        Flocker a = new Flocker(1281, 25, 12, 100, 4, 0.2, 1280, 720);
+        Flocker b = new Flocker(12, 721, 12, 100, 4, 0.2, 1280, 720);
         
         a.updatePosition();
         b.updatePosition();
         
-        assertEquals("moves agent to wrong X position", 0, a.getX(), 0.01);
-        assertEquals("moves agent to wrong Y position", 25, a.getY(), 0.01);
+        assertEquals("moves Flocker to wrong X position", 0, a.getX(), 0.01);
+        assertEquals("moves Flocker to wrong Y position", 25, a.getY(), 0.01);
         
-        assertEquals("moves agent to wrong X position", 12, b.getX(), 0.01);
-        assertEquals("moves agent to wrong Y position", 0, b.getY(), 0.01);
+        assertEquals("moves Flocker to wrong X position", 12, b.getX(), 0.01);
+        assertEquals("moves Flocker to wrong Y position", 0, b.getY(), 0.01);
     }
     
     @Test
     public void checkEdgesNegBoundary() {
-        Agent a = new Agent(-1, 25, 12, 100, 4, 0.2, 1280, 720);
-        Agent b = new Agent(12, -1, 12, 100, 4, 0.2, 1280, 720);
+        Flocker a = new Flocker(-1, 25, 12, 100, 4, 0.2, 1280, 720);
+        Flocker b = new Flocker(12, -1, 12, 100, 4, 0.2, 1280, 720);
         
         a.updatePosition();
         b.updatePosition();
         
-        assertEquals("moves agent to wrong X position", 1280, a.getX(), 0.01);
-        assertEquals("moves agent to wrong Y position", 25, a.getY(), 0.01);
+        assertEquals("moves Flocker to wrong X position", 1280, a.getX(), 0.01);
+        assertEquals("moves Flocker to wrong Y position", 25, a.getY(), 0.01);
         
-        assertEquals("moves agent to wrong X position", 12, b.getX(), 0.01);
-        assertEquals("moves agent to wrong Y position", 720, b.getY(), 0.01);
+        assertEquals("moves Flocker to wrong X position", 12, b.getX(), 0.01);
+        assertEquals("moves Flocker to wrong Y position", 720, b.getY(), 0.01);
     }
     
     @Test
     public void separationCreatesCorrectForce() {
         FlockList<Agent> list = new FlockList<>();
-        Agent a = new Agent(100, 100, 12, 100, 4, 0.2, 1280, 720);
-        Agent b = new Agent(90, 100, 12, 100, 4, 0.2, 1280, 720);
-        Agent c = new Agent(300, 300, 12, 100, 4, 0.2, 1280, 720);
+        Flocker a = new Flocker(100, 100, 12, 100, 4, 0.2, 1280, 720);
+        Flocker b = new Flocker(90, 100, 12, 100, 4, 0.2, 1280, 720);
+        Flocker c = new Flocker(300, 300, 12, 100, 4, 0.2, 1280, 720);
         
         list.add(a);
         list.add(b);
@@ -94,20 +92,20 @@ public class AgentTest {
         assertEquals("wrong X force", -0.2, v2.getX(), 0.01);
         assertEquals("wrong Y force", 0.0, v2.getY(), 0.01);
         
-        assertEquals("lone agent no separation force", 0.0, v3.getX(), 0.01);
-        assertEquals("lone agent no separation force", 0.0, v3.getY(), 0.01);
+        assertEquals("lone Flocker no separation force", 0.0, v3.getX(), 0.01);
+        assertEquals("lone Flocker no separation force", 0.0, v3.getY(), 0.01);
     }
     
     @Test
     public void alignmentCreatesCorrectForce() {
         FlockList<Agent> list = new FlockList<>();
-        Agent a = new Agent(100, 100, 12, 100, 4, 0.2, 1280, 720);
+        Flocker a = new Flocker(100, 100, 12, 100, 4, 0.2, 1280, 720);
         a.setVelocity(new Vector(1.0, 0.0));
         
-        Agent b = new Agent(80, 100, 12, 100, 4, 0.2, 1280, 720);
+        Flocker b = new Flocker(80, 100, 12, 100, 4, 0.2, 1280, 720);
         b.setVelocity(new Vector(0.0, 1.0));
         
-        Agent c = new Agent(300, 300, 12, 100, 4, 0.2, 1280, 720);
+        Flocker c = new Flocker(300, 300, 12, 100, 4, 0.2, 1280, 720);
         c.setVelocity(new Vector(3.0, 1.0));
         
         list.add(a);
@@ -124,18 +122,18 @@ public class AgentTest {
         assertEquals("wrong X force", 0.1940285, v2.getX(), 0.01);
         assertEquals("wrong Y force", -0.048507, v2.getY(), 0.01);
         
-        assertEquals("lone agent no separation force", 0.0, v3.getX(), 0.01);
-        assertEquals("lone agent no separation force", 0.0, v3.getY(), 0.01);
+        assertEquals("lone Flocker no separation force", 0.0, v3.getX(), 0.01);
+        assertEquals("lone Flocker no separation force", 0.0, v3.getY(), 0.01);
     }
     
     @Test
     public void cohesionCreatesCorrectForce() {
         FlockList<Agent> list = new FlockList<>();
-        Agent a = new Agent(120, 120, 12, 100, 4, 0.3, 1280, 720);
-        Agent b = new Agent(80, 80, 12, 100, 4, 0.3, 1280, 720);
-        Agent c = new Agent(120, 80, 12, 100, 4, 0.3, 1280, 720);
-        Agent d = new Agent(80, 120, 12, 100, 4, 0.3, 1280, 720);
-        Agent e = new Agent(300, 300, 12, 100, 4, 0.3, 1280, 720);
+        Flocker a = new Flocker(120, 120, 12, 100, 4, 0.3, 1280, 720);
+        Flocker b = new Flocker(80, 80, 12, 100, 4, 0.3, 1280, 720);
+        Flocker c = new Flocker(120, 80, 12, 100, 4, 0.3, 1280, 720);
+        Flocker d = new Flocker(80, 120, 12, 100, 4, 0.3, 1280, 720);
+        Flocker e = new Flocker(300, 300, 12, 100, 4, 0.3, 1280, 720);
         
         list.add(a);
         list.add(b);
@@ -161,13 +159,13 @@ public class AgentTest {
         assertEquals("wrong X force", 0.212132, v4.getX(), 0.01);
         assertEquals("wrong Y force", -0.212132, v4.getY(), 0.01);
         
-        assertEquals("lone agent no separation force", 0.0, v5.getX(), 0.01);
-        assertEquals("lone agent no separation force", 0.0, v5.getY(), 0.01);
+        assertEquals("lone Flocker no separation force", 0.0, v5.getX(), 0.01);
+        assertEquals("lone Flocker no separation force", 0.0, v5.getY(), 0.01);
     }
     
     @Test
     public void updatePositionSetsValuesCorrectly() {
-        Agent a = new Agent(120, 120, 12, 100, 4, 0.3, 1280, 720);
+        Agent a = new Flocker(120, 120, 12, 100, 4, 0.3, 1280, 720);
         a.setVelocity(new Vector(1.0, 0.0));
         a.applyForce(new Vector(0.2, 0.0));
         a.updatePosition();

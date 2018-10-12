@@ -41,14 +41,14 @@ public class Benchmark {
                 case "TEST_2":
                     System.out.println("SpatialAgentGenerator");
                     this.generator = new SpatialAgentGenerator(
-                            12.0,   // size
-                            100.0,  // awareness
-                            4.0,    // maxSpeed
-                            0.2,    // maxForce
-                            1280,   // resolution of simulation window
+                            12.0, // size
+                            100.0, // awareness
+                            4.0, // maxSpeed
+                            0.2, // maxForce
+                            1280, // resolution of simulation window
                             720,
-                            false,  // rotation
-                            40      // cell size 
+                            false, // rotation
+                            40 // cell size 
                     );
                     numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200, 6400};
                     this.generator.clearAgents();
@@ -63,6 +63,12 @@ public class Benchmark {
 
     }
 
+    /**
+     * Run simulation for 1000 cycles and measure total amount of time required
+     *
+     * @param numberOfAgents how many agents to test for on each round of
+     * benchmark
+     */
     public void runBenchmark(int[] numberOfAgents) {
         System.out.println("----- TESTING -----");
         Vector target = new Vector(1280 / 2, 720 / 2);
