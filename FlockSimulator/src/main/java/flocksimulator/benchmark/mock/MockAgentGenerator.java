@@ -1,15 +1,19 @@
-package flocksimulator.domain;
+package flocksimulator.benchmark.mock;
+
+import flocksimulator.domain.Vector;
+import java.util.ArrayList;
 
 /**
- * Generator implementation using a brute force approach to querying agents
+ * Benchmark mock of AgentGenerator class to test java ArrayList as data
+ * structure
  *
  * @author peje
  */
-public class AgentGenerator extends Generator {
+public class MockAgentGenerator extends MockGenerator {
 
     private final boolean rotation;
 
-    public AgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation) {
+    public MockAgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation) {
         super(size, awareness, maxSpeed, maxForce, width, height);
         this.rotation = rotation;
     }
@@ -34,7 +38,7 @@ public class AgentGenerator extends Generator {
      * @param target to maybe be used in combining behaviors
      */
     @Override
-    protected void agentAction(Agent agent, Vector target) {
+    protected void agentAction(MockAgent agent, Vector target) {
         agent.applyBehaviors(this.agents, target);
         agent.updatePosition();
         if (this.rotation) {
@@ -49,5 +53,9 @@ public class AgentGenerator extends Generator {
     public void clearAgents() {
         this.agents.clear();
     }
-    
+
+    public ArrayList<MockAgent> getMockAgents() {
+        return agents;
+    }
+
 }

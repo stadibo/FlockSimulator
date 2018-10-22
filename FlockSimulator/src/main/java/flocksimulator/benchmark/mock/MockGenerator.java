@@ -1,36 +1,32 @@
-package flocksimulator.domain;
+package flocksimulator.benchmark.mock;
 
-import flocksimulator.util.FlockList;
+import flocksimulator.domain.Vector;
+import java.util.ArrayList;
 import javafx.scene.Node;
 
 /**
- * Class for defining agents desired behaviors and parameters for those
- * behaviors, as well as, creating agents and keeping track of them. The way of
- * querying agents is specified by the implementations of this class
- *
+ * Benchmark mock of Generator class to test java ArrayList as data structure
  * @author peje
  */
-public abstract class Generator {
+public abstract class MockGenerator {
+    
+    protected ArrayList<MockAgent> agents;
 
     protected double size;   // Size of agent / collision radius
     protected double awareness; // How far the agent can see
     protected double maxSpeed;    // Maximum speed
     protected double maxForce;    // Maximum steering force
-    private double alignment;   // Modifier
-    private double separation;  // Modifier
-    private double cohesion;    // Modifier
     protected int width;
     protected int height;
-    protected FlockList<Agent> agents;
 
-    public Generator(double size, double awareness, double maxSpeed, double maxForce, int width, int height) {
+    public MockGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height) {
         this.size = size;
         this.awareness = awareness;
         this.maxSpeed = maxSpeed;
         this.maxForce = maxForce;
         this.width = width;
         this.height = height;
-        this.agents = new FlockList<>(100);
+        this.agents = new ArrayList<>(100);
     }
 
     /**
@@ -41,10 +37,7 @@ public abstract class Generator {
      * @return Node object reference to the shape object stored in agent class
      */
     public Node createAgent(double x, double y) {
-        Agent agent = new Particle(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
-        agent.setAlignment(alignment);
-        agent.setCohesion(cohesion);
-        agent.setSeparation(separation);
+        MockAgent agent = new MockAgent(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
         agents.add(agent);
         return agent.display();
     }
@@ -63,14 +56,14 @@ public abstract class Generator {
      * @param agent to be updated
      * @param target to maybe be used in combining behaviors
      */
-    protected abstract void agentAction(Agent agent, Vector target);
+    protected abstract void agentAction(MockAgent agent, Vector target);
 
     /**
      * Empties the data structures of their elements
      */
     public abstract void clearAgents();
 
-    public FlockList<Agent> getAgents() {
+    public ArrayList<MockAgent> getAgents() {
         return agents;
     }
 
@@ -94,6 +87,24 @@ public abstract class Generator {
         }
     }
 
+    public void setAlignment(double alignment) {
+        for (int i = 0; i < this.agents.size(); i++) {
+            this.agents.get(i).setAlignment(alignment);
+        }
+    }
+
+    public void setSeparation(double separation) {
+        for (int i = 0; i < this.agents.size(); i++) {
+            this.agents.get(i).setSeparation(separation);
+        }
+    }
+
+    public void setCohesion(double cohesion) {
+        for (int i = 0; i < this.agents.size(); i++) {
+            this.agents.get(i).setCohesion(cohesion);
+        }
+    }
+
     public void setWidth(int width) {
         this.width = width;
     }
@@ -101,26 +112,4 @@ public abstract class Generator {
     public void setHeight(int height) {
         this.height = height;
     }
-
-    public void setAlignment(double alignment) {
-        for (int i = 0; i < this.agents.size(); i++) {
-            this.agents.get(i).setAlignment(alignment);
-        }
-        this.alignment = alignment;
-    }
-
-    public void setSeparation(double separation) {
-        for (int i = 0; i < this.agents.size(); i++) {
-            this.agents.get(i).setSeparation(separation);
-        }
-        this.separation = separation;
-    }
-
-    public void setCohesion(double cohesion) {
-        for (int i = 0; i < this.agents.size(); i++) {
-            this.agents.get(i).setCohesion(cohesion);
-        }
-        this.cohesion = cohesion;
-    }
-
 }

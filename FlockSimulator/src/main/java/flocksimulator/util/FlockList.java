@@ -12,7 +12,6 @@ public class FlockList<T> implements RandomAccess {
 
     private T[] elements;
     private int size;
-    private int remCount;
 
     public FlockList() {
         this(10);
@@ -23,7 +22,6 @@ public class FlockList<T> implements RandomAccess {
         if (initCapacity < 0) {
             throw new IllegalArgumentException("Illegal size: " + initCapacity);
         }
-        this.remCount = 0;
         this.elements = (T[]) new Object[initCapacity];
     }
 
@@ -122,18 +120,6 @@ public class FlockList<T> implements RandomAccess {
             elements[i] = elements[i + 1];
         }
         size--;
-        remCount++;
-
-        // shorten array when enough elements have been removed
-//        if (size / 10 < remCount && size >= 100) {
-//            T[] newElements = (T[]) new Object[size];
-//            
-//            for (int i = 0; i < size; i++) {
-//                newElements[i] = elements[i];
-//            }
-//            
-//            remCount = 0;
-//        }
         
         return element;
     }

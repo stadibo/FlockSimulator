@@ -12,7 +12,7 @@ public class Particle extends Flocker {
 
     public Particle(double x, double y, double size, double awareness, double maxSpeed, double maxForce, int w, int h) {
         super(x, y, size, awareness, maxSpeed, maxForce, w, h);
-        this.poly = new Ellipse(12.0, 12.0);
+        this.poly = new Ellipse(6.0, 6.0);
     }
 
 }

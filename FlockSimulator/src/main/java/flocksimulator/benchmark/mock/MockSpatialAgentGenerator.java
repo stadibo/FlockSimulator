@@ -1,22 +1,22 @@
-package flocksimulator.domain;
+package flocksimulator.benchmark.mock;
 
-import flocksimulator.util.BinLattice;
+import flocksimulator.domain.Vector;
 
 /**
- * Generator implementation using the Bin-lattice data structure for faster
- * querying of agents
+ * Benchmark mock of SpatialAgentGenerator class to test java ArrayList as data
+ * structure in BinLattice.
  *
  * @author peje
  */
-public class SpatialAgentGenerator extends Generator {
+public class MockSpatialAgentGenerator extends MockGenerator {
 
-    private BinLattice<Agent> agentGrid;
+    private MockBinLattice<MockAgent> agentGrid;
     private final boolean rotation;
 
-    public SpatialAgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation, int cellSize) {
+    public MockSpatialAgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation, int cellSize) {
         super(size, awareness, maxSpeed, maxForce, width, height);
         this.rotation = rotation;
-        this.agentGrid = new BinLattice(width, height, cellSize);
+        this.agentGrid = new MockBinLattice(width, height, cellSize);
         this.agentGrid.initGrid();
     }
 
@@ -42,9 +42,11 @@ public class SpatialAgentGenerator extends Generator {
      * @param target to maybe be used in combining behaviors
      */
     @Override
-    protected void agentAction(Agent agent, Vector target) {
+    protected void agentAction(MockAgent agent, Vector target) {
         int x = (int) agent.getX();
         int y = (int) agent.getY();
+        agent.setWidth(this.width);
+        agent.setHeight(this.height);
         agent.applyBehaviors(this.agentGrid.getNearestNeighbors(x, y), target);
         agent.updatePosition();
         if (this.rotation) {

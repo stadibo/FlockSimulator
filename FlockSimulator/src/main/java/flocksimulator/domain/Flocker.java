@@ -18,9 +18,6 @@ public class Flocker extends Agent {
     public Flocker(double x, double y, double size, double awareness, double maxSpeed, double maxForce, int w, int h) {
         super(x, y, size, awareness, maxSpeed, maxForce, w, h);
         this.poly = new Polygon(-5.0, -5.0, 10.0, 0.0, -5.0, 5.0);
-        this.alignment = 1.0;
-        this.separation = 1.5;
-        this.cohesion = 1.0;
     }
 
     /**
@@ -78,6 +75,7 @@ public class Flocker extends Agent {
         Vector correctionForce = new Vector();
         if (counter > 0) {
             sum.setMagnitude(this.maxSpeed);
+            //sum.div(counter);
 
             // Implement Reynolds: Steering = Desired - Velocity
             correctionForce = new Vector().sub(sum, this.velocity);

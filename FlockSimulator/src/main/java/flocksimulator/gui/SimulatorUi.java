@@ -1,6 +1,5 @@
 package flocksimulator.gui;
 
-import flocksimulator.domain.AgentGenerator;
 import flocksimulator.domain.Generator;
 import flocksimulator.domain.SpatialAgentGenerator;
 import flocksimulator.util.MathWrapper;
@@ -9,6 +8,7 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.Pane;
@@ -28,6 +28,7 @@ public class SimulatorUi extends Application {
     private Vector mouse;
     private Generator agentGenerator;
     private Pane root;
+    private Pane agents;
 
     private final long[] frameTimes = new long[100];
     private int frameTimeIndex = 0;
@@ -36,16 +37,18 @@ public class SimulatorUi extends Application {
     private Label frameRate = new Label();
     private Label agentAmount = new Label();
 
-    private Slider alignment = new Slider(0, 3, 1.0);
-    private Slider cohesion = new Slider(0, 3, 1.0);
-    private Slider separation = new Slider(0, 3, 1.5);
-    private Slider maxSpeed = new Slider(0, 25, 4.0);
-    private Slider maxForce = new Slider(0, 1, 0.2);
+    private Slider alignment = new Slider(0.0, 3.0, 1.0);
+    private Slider cohesion = new Slider(0.0, 3.0, 1.0);
+    private Slider separation = new Slider(0.0, 3.0, 1.5);
+    private Slider maxSpeed = new Slider(0.0, 25.0, 4.0);
+    private Slider maxForce = new Slider(0.0, 1.0, 0.2);
     private Label alignmentValue = new Label();
     private Label cohesionValue = new Label();
     private Label separationValue = new Label();
     private Label maxSpeedValue = new Label();
     private Label maxForceValue = new Label();
+    
+    private Button clearButton = new Button("Clear");
 
     /**
      * Setup simulator scene
@@ -54,10 +57,12 @@ public class SimulatorUi extends Application {
      */
     private Parent setup() {
         root = new Pane();
+        agents = new Pane();
         root.setPrefSize(WIDTH, HEIGHT);
+        root.getChildren().add(agents);
         root.getChildren().addAll(frameRate, agentAmount, alignment, alignmentValue,
                 cohesion, cohesionValue, separation, separationValue, maxSpeed,
-                maxSpeedValue, maxForce, maxForceValue);
+                maxSpeedValue, maxForce, maxForceValue, clearButton);
 
         frameRate.setTranslateY(0);
         agentAmount.setTranslateY(20);
@@ -71,18 +76,12 @@ public class SimulatorUi extends Application {
                 WIDTH,
                 HEIGHT,
                 false,
-                60
+                40
         );
         
-//        agentGenerator = new AgentGenerator(
-//                12.0,
-//                100.0,
-//                maxSpeed.getValue(),
-//                maxForce.getValue(),
-//                WIDTH,
-//                HEIGHT,
-//                false
-//        );
+        agentGenerator.setAlignment(1.0);
+        agentGenerator.setCohesion(1.0);
+        agentGenerator.setSeparation(1.5);
 
         frameRate.setText("Current frame rate: ??.???");
 
@@ -161,6 +160,8 @@ public class SimulatorUi extends Application {
         maxForceValue.setText("Max force " + Double.toString(maxForce.getValue()));
         maxForceValue.setTranslateX(140);
         maxForceValue.setTranslateY(120);
+        
+        clearButton.setTranslateY(140);
 
         // Create listeners for sliders so that parameters of agents can be changed
         alignment.valueProperty().addListener((observable, oldvalue, newValue) -> {
@@ -210,7 +211,7 @@ public class SimulatorUi extends Application {
         double y = MathWrapper.ceil(mouseY);
         if (0 <= x && x <= WIDTH && 0 <= y && y <= HEIGHT) {
             if (300 < x || 200 < y) {
-                root.getChildren().add(agentGenerator.createAgent(x, y));
+                agents.getChildren().add(agentGenerator.createAgent(x, y));
                 agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
             }
         }
@@ -226,20 +227,16 @@ public class SimulatorUi extends Application {
             double x = MathWrapper.ceil(MathWrapper.random() * WIDTH);
             double y = MathWrapper.ceil(MathWrapper.random() * HEIGHT);
 
-            root.getChildren().add(agentGenerator.createAgent(x, y));
+            agents.getChildren().add(agentGenerator.createAgent(x, y));
             agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
         }
     }
     
-//    private void updateWindowWidth(int newWidth) {
-//        this.WIDTH = newWidth;
-//        this.agentGenerator.setWidth(newWidth);
-//    }
-//    
-//    private void updateWindowHeight(int newHeight) {
-//        this.HEIGHT = newHeight;
-//        this.agentGenerator.setHeight(newHeight);
-//    }
+    private void clearAgents() {
+        agentGenerator.clearAgents();
+        agents.getChildren().clear();
+        agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
+    }
 
     /**
      * Method for starting simulator
@@ -262,15 +259,10 @@ public class SimulatorUi extends Application {
             mouseY = e.getY();
             createNode();
         });
-//        scene.widthProperty().addListener((observable, oldWidth, newWidth) -> {
-//            int value = (int) MathWrapper.round((double) newWidth);
-//            updateWindowWidth(value);
-//        });
-//        scene.heightProperty().addListener((observable, oldHeight, newHeight) -> {
-//            int value = (int) MathWrapper.round((double) newHeight);
-//            updateWindowHeight(value);
-//            
-//        });
+        
+        clearButton.setOnAction(e -> {
+            clearAgents();
+        });
 
         primaryStage.show();
     }

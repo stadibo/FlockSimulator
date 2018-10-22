@@ -111,7 +111,7 @@ public abstract class Agent {
         this.velocity.limit(maxSpeed);
         this.position.add(this.velocity);
         // Reset acceleration to 0 each time
-        this.acceleration.mult(0);
+        this.acceleration.mult(0.0);
 
         // Check boundaries
         this.checkEdges();
