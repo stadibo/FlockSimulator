@@ -174,6 +174,16 @@ public class FlockerTest {
         assertEquals("wrong Y force", 120, a.getY(), 0.01);
     }
     
-    
+    @Test
+    public void rotationIsSetCorrectly() {
+        Agent a = new Flocker(120, 120, 12, 100, 4, 0.3, 1280, 720);
+        a.setVelocity(new Vector(2.0, 0.0));
+        a.updateRotation();
+        assertEquals("wrong angle", 0.0, a.display().getRotate(), 0.01);
+        
+        a.setVelocity(new Vector(5.0, 3.0));
+        a.updateRotation();
+        assertEquals("wrong angle", 30.96375, a.display().getRotate(), 0.01);
+    }
     
 }

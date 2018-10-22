@@ -155,14 +155,6 @@ public abstract class Agent {
      */
     public abstract Node display();
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public double getX() {
         return this.position.getX();
     }
@@ -173,10 +165,6 @@ public abstract class Agent {
 
     public void setVelocity(Vector v) {
         this.velocity = v;
-    }
-
-    public void setPosition(Vector v) {
-        this.position = v;
     }
 
     public Vector getPosition() {

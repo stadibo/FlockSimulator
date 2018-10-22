@@ -69,10 +69,6 @@ public class FlockList<T> implements RandomAccess {
             int newCapacity = (oldCapacity * 3) / 2 + 1;
             T[] newElements = (T[]) new Object[newCapacity];
 
-            if (newCapacity < minimum) {
-                newCapacity = minimum;
-            }
-
             for (int i = 0; i < size; i++) {
                 newElements[i] = elements[i];
             }
@@ -131,13 +127,6 @@ public class FlockList<T> implements RandomAccess {
         for (int i = 0; i < size; i++) {
             elements[i] = null;
         }
-        size = 0;
-    }
-    
-    /**
-     * Makes the list seem empty for repeated clearing and rewriting
-     */
-    public void fastClear() {
         size = 0;
     }
 

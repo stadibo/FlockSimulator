@@ -94,14 +94,6 @@ public abstract class Generator {
         }
     }
 
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
     public void setAlignment(double alignment) {
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setAlignment(alignment);

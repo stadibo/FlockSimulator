@@ -23,17 +23,17 @@ public class BinLattice<T> implements RandomAccess {
             throw new IllegalArgumentException("Illegal resolution: " + width + "x" + height);
         }
         this.scale = scale;
-        this.cols = width / scale;
-        this.rows = height / scale;
+        this.cols = width / scale + 1;
+        this.rows = height / scale + 1;
     }
 
     /**
      * Initializes the grid as 2D array with empty lists
      */
     public void initGrid() {
-        this.grid = new FlockList[cols + 1][rows + 1];
-        for (int i = 0; i <= cols; i++) {
-            for (int j = 0; j <= rows; j++) {
+        this.grid = new FlockList[cols][rows];
+        for (int i = 0; i < cols; i++) {
+            for (int j = 0; j < rows; j++) {
                 grid[i][j] = new FlockList<T>();
             }
         }
@@ -58,7 +58,6 @@ public class BinLattice<T> implements RandomAccess {
      * @param element to add to cell in grid
      */
     public void insert(int posX, int posY, T element) {
-
         int x = posX / scale;
         int y = posY / scale;
         this.grid[x][y].add(element);
