@@ -30,7 +30,7 @@ public class SimulatorUi extends Application {
     private Pane root;
     private Pane agents;
 
-    private final long[] frameTimes = new long[100];
+    private final long[] frameTimes = new long[60];
     private int frameTimeIndex = 0;
     private boolean arrayFilled = false;
 
@@ -47,7 +47,7 @@ public class SimulatorUi extends Application {
     private Label separationValue = new Label();
     private Label maxSpeedValue = new Label();
     private Label maxForceValue = new Label();
-    
+
     private Button clearButton = new Button("Clear");
 
     /**
@@ -78,7 +78,7 @@ public class SimulatorUi extends Application {
                 false,
                 40
         );
-        
+
         agentGenerator.setAlignment(1.0);
         agentGenerator.setCohesion(1.0);
         agentGenerator.setSeparation(1.5);
@@ -91,25 +91,31 @@ public class SimulatorUi extends Application {
             @Override
             public void handle(long now) {
                 update();
-
-                // Count framerate
-                long oldFrameTime = frameTimes[frameTimeIndex];
-                frameTimes[frameTimeIndex] = now;
-                frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
-                if (frameTimeIndex == 0) {
-                    arrayFilled = true;
-                }
-                if (arrayFilled) {
-                    long elapsedNanos = now - oldFrameTime;
-                    long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
-                    double framesPerSecond = 1_000_000_000.0 / elapsedNanosPerFrame;
-                    frameRate.setText(String.format("Current frame rate: %.3f", framesPerSecond));
-                }
+                frameRate.setText(String.format("Current frame rate: %.3f", getAvgFramesPerSecond(now)));
             }
         };
         timer.start();
 
         return root;
+    }
+
+    private double getAvgFramesPerSecond(long now) {
+        long elapsedNanos = now - getOldFrameTime(now);
+        if (arrayFilled) {
+            long elapsedNanosPerFrame = elapsedNanos / frameTimes.length;
+            return 1_000_000_000.0 / elapsedNanosPerFrame;
+        }
+        return 0.0;
+    }
+
+    private long getOldFrameTime(long now) {
+        long oldFrameTime = frameTimes[frameTimeIndex];
+        frameTimes[frameTimeIndex] = now;
+        frameTimeIndex = (frameTimeIndex + 1) % frameTimes.length;
+        if (frameTimeIndex == 0) {
+            arrayFilled = true;
+        }
+        return oldFrameTime;
     }
 
     /**
@@ -160,7 +166,7 @@ public class SimulatorUi extends Application {
         maxForceValue.setText("Max force " + Double.toString(maxForce.getValue()));
         maxForceValue.setTranslateX(140);
         maxForceValue.setTranslateY(120);
-        
+
         clearButton.setTranslateY(140);
 
         // Create listeners for sliders so that parameters of agents can be changed
@@ -199,7 +205,7 @@ public class SimulatorUi extends Application {
      * Update scene, new positions of all agents
      */
     private void update() {
-        mouse= new Vector(mouseX, mouseY);
+        mouse = new Vector(mouseX, mouseY);
         agentGenerator.updateAgents(mouse);
     }
 
@@ -231,7 +237,7 @@ public class SimulatorUi extends Application {
             agentAmount.setText("Amount of agents: " + agentGenerator.getAgentsSize());
         }
     }
-    
+
     private void clearAgents() {
         agentGenerator.clearAgents();
         agents.getChildren().clear();
@@ -259,7 +265,7 @@ public class SimulatorUi extends Application {
             mouseY = e.getY();
             createNode();
         });
-        
+
         clearButton.setOnAction(e -> {
             clearAgents();
         });

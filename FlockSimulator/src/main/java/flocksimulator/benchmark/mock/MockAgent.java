@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import javafx.scene.Node;
 
 /**
+ * Benchmark version of AgentGenerator class to test java ArrayList as data
+ * structure
  *
  * @author peje
  */
@@ -17,7 +19,7 @@ public class MockAgent {
 
     private int width;
     private int height;
-    
+
     private double alignment;   // Modifier
     private double separation;  // Modifier
     private double cohesion;    // Modifier

@@ -3,7 +3,7 @@ package flocksimulator.benchmark.mock;
 import flocksimulator.domain.Vector;
 
 /**
- * Benchmark mock of SpatialAgentGenerator class to test java ArrayList as data
+ * Benchmark version of SpatialAgentGenerator class to test java ArrayList as data
  * structure in BinLattice.
  *
  * @author peje

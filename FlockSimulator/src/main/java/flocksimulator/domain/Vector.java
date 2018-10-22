@@ -170,5 +170,15 @@ public class Vector {
     public double distance(Vector other) {
         return MathWrapper.sqrt(MathWrapper.pow(other.getX() - this.x, 2) + MathWrapper.pow(other.getY() - this.y, 2));
     }
+    
+    /**
+     * DISTANCE BETWEEN THIS POINT AND ANOTHER POINT WITHOUT TAKING SQUARE ROOT
+     *
+     * @param other
+     * @return
+     */
+    public double distanceNoSqrt(Vector other) {
+        return (MathWrapper.pow(other.getX() - this.x, 2) + MathWrapper.pow(other.getY() - this.y, 2));
+    }
 
 }

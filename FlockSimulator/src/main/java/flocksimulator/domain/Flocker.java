@@ -64,9 +64,10 @@ public class Flocker extends Agent {
     public Vector alignment(FlockList<Agent> agents) {
         Vector sum = new Vector();  // sum of velocities
         int counter = 0;
+        double temp = this.awareness * this.awareness;
         for (int i = 0; i < agents.size(); i++) {
-            double dist = this.position.distance(agents.get(i).getPosition());
-            if ((dist > 0) && (dist < this.awareness)) {
+            double dist = this.position.distanceNoSqrt(agents.get(i).getPosition());
+            if ((dist > 0) && (dist < temp)) {
                 sum.add(agents.get(i).getVelocity());
                 counter++;
             }
@@ -75,7 +76,6 @@ public class Flocker extends Agent {
         Vector correctionForce = new Vector();
         if (counter > 0) {
             sum.setMagnitude(this.maxSpeed);
-            //sum.div(counter);
 
             // Implement Reynolds: Steering = Desired - Velocity
             correctionForce = new Vector().sub(sum, this.velocity);
@@ -95,9 +95,10 @@ public class Flocker extends Agent {
     public Vector cohesion(FlockList<Agent> agents) {
         Vector sum = new Vector();  // sum of positions
         int counter = 0;
+        double temp = this.awareness * this.awareness;
         for (int i = 0; i < agents.size(); i++) {
-            double dist = this.position.distance(agents.get(i).getPosition());
-            if ((dist > 0) && (dist < this.awareness)) {
+            double dist = this.position.distanceNoSqrt(agents.get(i).getPosition());
+            if ((dist > 0) && (dist < temp)) {
                 sum.add(agents.get(i).getPosition());
                 counter++;
             }

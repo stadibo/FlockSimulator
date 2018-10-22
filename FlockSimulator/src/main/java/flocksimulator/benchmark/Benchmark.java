@@ -10,6 +10,8 @@ import flocksimulator.domain.Vector;
 import flocksimulator.util.MathWrapper;
 
 /**
+ * Benchmarking class for running the simulation in different configurations and
+ * printing result to the console
  *
  * @author peje
  */
@@ -23,6 +25,9 @@ public class Benchmark {
         this.tests = tests;
     }
 
+    /**
+     * Run benchmarks based on input from user
+     */
     public void run() {
         int[] numberOfAgents;
         for (String test : tests) {

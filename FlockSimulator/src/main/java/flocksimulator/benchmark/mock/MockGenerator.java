@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import javafx.scene.Node;
 
 /**
- * Benchmark mock of Generator class to test java ArrayList as data structure
+ * Benchmark version of Generator class to test java ArrayList as data structure
  * @author peje
  */
 public abstract class MockGenerator {

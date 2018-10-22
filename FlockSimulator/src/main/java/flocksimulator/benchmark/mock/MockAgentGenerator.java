@@ -4,7 +4,7 @@ import flocksimulator.domain.Vector;
 import java.util.ArrayList;
 
 /**
- * Benchmark mock of AgentGenerator class to test java ArrayList as data
+ * Benchmark version of AgentGenerator class to test java ArrayList as data
  * structure
  *
  * @author peje
