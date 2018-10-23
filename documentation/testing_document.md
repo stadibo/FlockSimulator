@@ -44,7 +44,7 @@ JAVABIN | Bin-Lattice using java ArrayList |
 
 **BRUTE FORCE O(n^2)**
 
-The brute force implementation slows down significantly with larger amounts of agents. The java implementation is slightly slower, which might be caused by more complex functions and 
+The brute force implementation slows down significantly with larger amounts of agents. The java implementation is slightly slower, which might be caused by more complex functions for java ArrayList.
 
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(FlockList).png "BF FlockList")
 
