@@ -5,7 +5,7 @@
  */
 package flocksimulator.domain;
 
-import flocksimulator.domain.Vector;
+import flocksimulator.util.Vector;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

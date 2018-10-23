@@ -25,7 +25,7 @@ Amount of agents | Framerate (avg) |
 900 | 12 |
 1000 | 11 |
 
-*In my experience the performance is limited by the rotation operation, does not matter how fast the neighbor querying algorithm is.*
+*In my experience the performance is limited by the rotation operation and re-rendering in JavaFX, no matter how fast the neighbor querying algorithm is.*
 
 ## Automatic benchmarking
 

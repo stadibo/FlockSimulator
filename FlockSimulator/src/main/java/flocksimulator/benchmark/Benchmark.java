@@ -6,7 +6,7 @@ import flocksimulator.benchmark.mock.MockSpatialAgentGenerator;
 import flocksimulator.domain.AgentGenerator;
 import flocksimulator.domain.Generator;
 import flocksimulator.domain.SpatialAgentGenerator;
-import flocksimulator.domain.Vector;
+import flocksimulator.util.Vector;
 import flocksimulator.util.MathWrapper;
 
 /**
@@ -85,7 +85,7 @@ public class Benchmark {
                     this.mockGenerator.setSeparation(1.5);
                     numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200, 6400};
                     this.mockGenerator.clearAgents();
-                    runBenchmark(numberOfAgents);
+                    runMockBenchmark(numberOfAgents);
                     break;
                 case "TEST_JAVABIN":
                     System.out.println("Brute force with java ArrayList");
@@ -104,7 +104,7 @@ public class Benchmark {
                     this.mockGenerator.setSeparation(1.5);
                     numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200, 6400};
                     this.mockGenerator.clearAgents();
-                    runBenchmark(numberOfAgents);
+                    runMockBenchmark(numberOfAgents);
                     break;
                 default:
                     break;

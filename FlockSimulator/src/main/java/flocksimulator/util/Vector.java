@@ -1,4 +1,4 @@
-package flocksimulator.domain;
+package flocksimulator.util;
 
 import flocksimulator.util.MathWrapper;
 

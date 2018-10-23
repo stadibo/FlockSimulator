@@ -1,5 +1,7 @@
 package flocksimulator.domain;
 
+import flocksimulator.util.Vector;
+
 /**
  * Generator implementation using a brute force approach to querying agents
  *
@@ -15,7 +17,7 @@ public class AgentGenerator extends Generator {
     }
 
     /**
-     * Update positions of all agents
+     * Update position of all agents
      *
      * @param target a point that can be used when combining behaviors, e.g.
      * seeking the mouse pointer

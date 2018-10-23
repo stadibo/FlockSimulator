@@ -1,5 +1,6 @@
 package flocksimulator.domain;
 
+import flocksimulator.util.Vector;
 import flocksimulator.util.FlockList;
 import javafx.scene.Node;
 
@@ -109,6 +110,7 @@ public abstract class Agent {
         this.velocity.add(this.acceleration);
         // Limit speed
         this.velocity.limit(maxSpeed);
+
         this.position.add(this.velocity);
         // Reset acceleration to 0 each time
         this.acceleration.mult(0.0);

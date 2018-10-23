@@ -1,5 +1,6 @@
 package flocksimulator.domain;
 
+import flocksimulator.util.Vector;
 import flocksimulator.util.FlockList;
 import org.junit.Test;
 import static org.junit.Assert.*;

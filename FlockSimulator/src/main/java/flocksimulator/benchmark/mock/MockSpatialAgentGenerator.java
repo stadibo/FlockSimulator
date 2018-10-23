@@ -1,6 +1,6 @@
 package flocksimulator.benchmark.mock;
 
-import flocksimulator.domain.Vector;
+import flocksimulator.util.Vector;
 
 /**
  * Benchmark version of SpatialAgentGenerator class to test java ArrayList as data

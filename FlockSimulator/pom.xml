@@ -53,7 +53,7 @@
                 <configuration>
                     <excludes>
                         <exclude>flocksimulator/gui/**/*</exclude>
-                        <exclude>flocksimulator/main/**/*</exclude>
+                        <exclude>flocksimulator/app/**/*</exclude>
                         <exclude>flocksimulator/benchmark/**/*</exclude>
                     </excludes>
                 </configuration>

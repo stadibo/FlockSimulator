@@ -1,4 +1,4 @@
-package flocksimulator.main;
+package flocksimulator.app;
 
 import flocksimulator.benchmark.Benchmark;
 import flocksimulator.gui.SimulatorUi;

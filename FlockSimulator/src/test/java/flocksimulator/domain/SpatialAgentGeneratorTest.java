@@ -2,7 +2,7 @@ package flocksimulator.domain;
 
 import flocksimulator.domain.Agent;
 import flocksimulator.domain.SpatialAgentGenerator;
-import flocksimulator.domain.Vector;
+import flocksimulator.util.Vector;
 import flocksimulator.domain.Generator;
 import org.junit.Before;
 import org.junit.Test;

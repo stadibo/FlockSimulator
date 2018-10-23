@@ -3,7 +3,7 @@ package flocksimulator.gui;
 import flocksimulator.domain.Generator;
 import flocksimulator.domain.SpatialAgentGenerator;
 import flocksimulator.util.MathWrapper;
-import flocksimulator.domain.Vector;
+import flocksimulator.util.Vector;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Parent;

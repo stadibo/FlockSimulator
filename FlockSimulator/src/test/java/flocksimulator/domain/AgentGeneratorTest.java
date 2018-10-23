@@ -5,6 +5,7 @@
  */
 package flocksimulator.domain;
 
+import flocksimulator.util.Vector;
 import javafx.scene.Node;
 import org.junit.Before;
 import org.junit.Test;

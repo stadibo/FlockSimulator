@@ -1,6 +1,6 @@
 package flocksimulator.benchmark.mock;
 
-import flocksimulator.domain.Vector;
+import flocksimulator.util.Vector;
 import java.util.ArrayList;
 import javafx.scene.Node;
 
