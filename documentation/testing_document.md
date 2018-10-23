@@ -44,6 +44,8 @@ JAVABIN | Bin-Lattice using java ArrayList |
 
 **BRUTE FORCE O(n^2)**
 
+The brute force implementation slows down significantly with larger amounts of agents. The java implementation is slightly slower, which might be caused by more complex functions and 
+
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(FlockList).png "BF FlockList")
 
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(ArrayList).png "BF ArrayList")
@@ -52,6 +54,8 @@ JAVABIN | Bin-Lattice using java ArrayList |
 
 **BIN-LATTICE SPATIAL SUBDIVISION O(n*k)**
 
+The algorithm using the java list implementation is slightly faster and will continue to be faster beacause of the more efficient way of removing agents from the list, in particular clearing entire lists.
+
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20(FlockList).png "BL FlockList")
 
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20(ArrayList).png "BL ArrayList")
@@ -59,6 +63,8 @@ JAVABIN | Bin-Lattice using java ArrayList |
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20Bin-lattice%20(FlockList%20vs%20ArrayList).png "BL FlockList vs ArrayList")
 
 **BRUTE FORCE VS BIN-LATTICE RELATIVE TIME REQUIRED**
+
+In a sensible use case, around 1600 agents on screen the algorithm using the spatial data structure is 24 times faster than the brute force approach. At this point the amount of comparisons is getting detrimental to the performance of the brute force algorithm as it can no longer maintain 60 frames per second while rendering the simulation.
 
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates_%20Brute%20force%20(FlockList)%20vs%20Bin-lattice%20(FlockList).png "BF vs BL")
 
