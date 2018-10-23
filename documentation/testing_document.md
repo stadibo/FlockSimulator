@@ -29,40 +29,38 @@ Amount of agents | Framerate (avg) |
 
 ## Automatic benchmarking
 
-Launching the application from the console with a command line argument "TEST_X" (X = number for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 1600) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case (TODO: written to a file). Multiple command line argument can be written and these will all be run as benchmarks.
+Launching the application from the console with a command line argument "TEST_X" (X = label for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 3200) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case. Multiple command line argument can be written and these will all be run as benchmarks.
 
 Add these as individual arguments when launching application:
 
-Test label | Data structure / rotation(on/off) |
+Test label | Data structure |
 ---------------- | --------- |
-TEST_1 | Brute force |
-TEST_2 | Bin-Lattice |
+BRUTE | Brute force using own list|
+BIN | Bin-Lattice using own list |
+JAVABRUTE | Brute force using java ArrayList|
+JAVABIN | Bin-Lattice using java ArrayList |
 
 ### Results
 
 **BRUTE FORCE O(n^2)**
 
-Amount of agents | Estimated FPS | Time (1000 updates) |
----------------- | ------------- | ------------------- |
-25 | 27027 | 37 ms |
-50 | 17857 | 56 ms |
-100 | 4219 | 237 ms |
-200 | 1166 | 857 ms | 
-400 | 315 | 3171 ms |
-800 | 91 | 10973 ms |
-1600 | 20 | 49980 ms |
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(FlockList).png "BF FlockList")
+
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(ArrayList).png "BF ArrayList")
+
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(FlockList%20vs%20ArrayList).png "BF FlockList vs ArrayList")
 
 **BIN-LATTICE SPATIAL SUBDIVISION O(n*k)**
 
-Amount of agents | Estimated FPS | Time (1000 updates) |
----------------- | ------------- | ------------------- |
-25 | 33333 | 30 ms |
-50 | 22222 | 45 ms |
-100 | 13698 | 73 ms |
-200 | 5882 | 170 ms | 
-400 | 2427 | 412 ms |
-800 | 1036 | 965 ms |
-1600 | 407 | 2452 ms |
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20(FlockList).png "BL FlockList")
+
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20(ArrayList).png "BL ArrayList")
+
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20Bin-lattice%20(FlockList%20vs%20ArrayList).png "BL FlockList vs ArrayList")
+
+**BRUTE FORCE VS BIN-LATTICE RELATIVE TIME REQUIRED**
+
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates_%20Brute%20force%20(FlockList)%20vs%20Bin-lattice%20(FlockList).png "BF vs BL")
 
 **NOTES**
-The efficiency of the Bin-lattice is dependent on values (maxSpeed/Force, Cohesion, Separation) for the agents. If agents can get closer to each other than the cell size in the lattice they will crowd up and increase the amount of neighbor check and make the actual performance worse, closer to time complexity O(n^2). But when run with reasonable separation for agents, when agents are more spread out, it runs significantly faster than the __brute force__ method.
+The efficiency of the Bin-lattice is dependent on values (maxSpeed/Force, Cohesion, Separation) for the agents. If agents can get closer to each other than the cell size in the lattice they will crowd up and increase the amount of neighbor checks and make the actual performance worse, closer to time complexity O(n^2). But when run with reasonable separation for agents, when agents are more spread out, it runs significantly faster than the __brute force__ method.
