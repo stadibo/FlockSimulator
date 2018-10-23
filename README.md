@@ -7,6 +7,7 @@ Flock simulation software in java. Project is made for datastructures and algori
 ### [Design document](https://github.com/stadibo/FlockSimulator/blob/master/documentation/design_document.md)
 ### [Implementation document](https://github.com/stadibo/FlockSimulator/blob/master/documentation/implementation_document.md)
 ### [Testing document](https://github.com/stadibo/FlockSimulator/blob/master/documentation/testing_document.md)
+### [User guide](https://github.com/stadibo/FlockSimulator/blob/master/documentation/user_guide.md)
 
 ### Weekly reports
 
