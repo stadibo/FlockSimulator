@@ -44,7 +44,7 @@ JAVABIN | Bin-Lattice using java ArrayList |
 
 **BRUTE FORCE O(n^2)**
 
-The brute force implementation slows down significantly with larger amounts of agents. The java implementation is slightly slower, which might be caused by more complex functions for java ArrayList.
+The brute force implementation slows down significantly with larger amounts of agents. The java implementation is slightly slower, which might be caused by more complex functions Javas ArrayList implementation.
 
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(FlockList).png "BF FlockList")
 
@@ -69,4 +69,6 @@ In a sensible use case, around 1600 agents on screen the algorithm using the spa
 ![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates_%20Brute%20force%20(FlockList)%20vs%20Bin-lattice%20(FlockList).png "BF vs BL")
 
 **NOTES**
+There is a slight bit of randomness in the benchmarking, resulting from placing the agents randomly on the "screen" as such small variations in the results will occur, but not so large as to affect performance in relation to the other implementations.
+
 The efficiency of the Bin-lattice is dependent on values (maxSpeed/Force, Cohesion, Separation) for the agents. If agents can get closer to each other than the cell size in the lattice they will crowd up and increase the amount of neighbor checks and make the actual performance worse, closer to time complexity O(n^2). But when run with reasonable separation for agents, when agents are more spread out, it runs significantly faster than the __brute force__ method.
