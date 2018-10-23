@@ -16,6 +16,9 @@ public abstract class MockGenerator {
     protected double awareness; // How far the agent can see
     protected double maxSpeed;    // Maximum speed
     protected double maxForce;    // Maximum steering force
+    private double alignment;   // Modifier
+    private double separation;  // Modifier
+    private double cohesion;    // Modifier
     protected int width;
     protected int height;
 
@@ -38,6 +41,9 @@ public abstract class MockGenerator {
      */
     public Node createAgent(double x, double y) {
         MockAgent agent = new MockAgent(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
+        agent.setAlignment(alignment);
+        agent.setCohesion(cohesion);
+        agent.setSeparation(separation);
         agents.add(agent);
         return agent.display();
     }
