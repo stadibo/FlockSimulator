@@ -10,7 +10,7 @@ At the top level there is a GUI class that initializes the environment where rep
 
 The agents are represented by the abstract __Agent__ class, which stores all the required information about the agent, e.g. position, velocity, etc. and contains basic methods for calculating steering behaviors that are applied each update. The __Agent__ class can be implemented to create agents with different behaviors. The implementations utilize a __Vector__ class in the calculation of forces and representation of position, velocity, etc. The __Flocker__ class implements __Agent__ and adds functions for more complex rules/behaviors. Lastly, standard math operations throughout the application are handled by __java.lang.Math__ wrapped in __MathWrapper__ class.
 
-*INSERT CLASS DIAGRAM HERE* 
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/FlockSimulatorStructure.svg "Structure diagram")
 
 ## Time Complexity
 ### Brute force approach
@@ -27,6 +27,6 @@ In both cases each agent requires constant space. The brute force approach only 
 * combining looping through all agents in the flocking functions, instead of looping through in each function separately, which was done for readability.
 
 Sources
-1. ttp://www.red3d.com/cwr/steer/gdc99/
+1. http://www.red3d.com/cwr/steer/gdc99/
 2. http://www.red3d.com/cwr/boids/
 3. http://www.red3d.com/cwr/papers/2000/pip.pdf
