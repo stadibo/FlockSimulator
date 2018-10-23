@@ -25,6 +25,7 @@ In both cases each agent requires constant space. The brute force approach only 
 
 ## Optimizations
 * combining looping through all agents in the flocking functions, instead of looping through in each function separately, which was done for readability.
+* checking if any agent has moved beyond its cell boundary and moving it to the correct cell, instead of reinserting every agent on each update.
 
 Sources
 1. http://www.red3d.com/cwr/steer/gdc99/
