@@ -2,7 +2,7 @@
 
 Test coverage of application logic:
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/20181012_test_coverage.png "Test coverage")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/20181023_test_coverage.png "Test coverage")
 
 # Performance testing
 
@@ -65,4 +65,4 @@ Amount of agents | Estimated FPS | Time (1000 updates) |
 1600 | 407 | 2452 ms |
 
 **NOTES**
-The efficiency of the Bin-lattice is dependent on values (maxSpeed/Force, Cohesion, Separation) for the agents. If agents can get closer to each other than the cell size in the lattice they will crowd up and increase the amount of neighbor check and make the actual performance worse, closer to time complexity O(n^2). But when run with reasonable separation for agents, when agents are more spread out, it runs significantly faster than the __brute force__ method
+The efficiency of the Bin-lattice is dependent on values (maxSpeed/Force, Cohesion, Separation) for the agents. If agents can get closer to each other than the cell size in the lattice they will crowd up and increase the amount of neighbor check and make the actual performance worse, closer to time complexity O(n^2). But when run with reasonable separation for agents, when agents are more spread out, it runs significantly faster than the __brute force__ method.

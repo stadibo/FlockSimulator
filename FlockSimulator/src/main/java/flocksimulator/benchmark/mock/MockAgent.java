@@ -3,6 +3,7 @@ package flocksimulator.benchmark.mock;
 import flocksimulator.util.Vector;
 import java.util.ArrayList;
 import javafx.scene.Node;
+import javafx.scene.shape.Ellipse;
 
 /**
  * Benchmark version of AgentGenerator class to test java ArrayList as data
@@ -33,6 +34,8 @@ public class MockAgent {
         this.position = new Vector(x, y);
         this.velocity = new Vector(0, 0);
         this.acceleration = new Vector(0, 0);
+        
+        this.poly = new Ellipse(6.0, 6.0);
 
         this.size = size;
         this.awareness = awareness;

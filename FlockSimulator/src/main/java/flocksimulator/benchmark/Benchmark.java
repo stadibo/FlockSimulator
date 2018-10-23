@@ -151,7 +151,7 @@ public class Benchmark {
         System.out.println("----- TESTING -----");
         Vector target = new Vector(1280 / 2, 720 / 2);
         for (int agentAmount : numberOfAgents) {
-            initGenerator(agentAmount);
+            initMockGenerator(agentAmount);
 
             long start = System.currentTimeMillis();
 
@@ -172,6 +172,14 @@ public class Benchmark {
             double x = MathWrapper.ceil(MathWrapper.random() * 1280);
             double y = MathWrapper.ceil(MathWrapper.random() * 720);
             this.generator.createAgent(x, y);
+        }
+    }
+    
+    private void initMockGenerator(int amount) {
+        for (int i = 0; i < amount; i++) {
+            double x = MathWrapper.ceil(MathWrapper.random() * 1280);
+            double y = MathWrapper.ceil(MathWrapper.random() * 720);
+            this.mockGenerator.createAgent(x, y);
         }
     }
 
