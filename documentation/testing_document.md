@@ -8,7 +8,7 @@ Test coverage of application logic:
 
 ## Manual benchmarking
 
-Current visual performance can be measured by running the program, manually adding agents to the screen by holding down the mouse button, and observing the framerate counter. This is not the optimal way to gauge the performance of the algorithm itself, but gives a good look at the performance of the software as a whole.
+Current visual performance can be measured by running the program, manually adding agents to the screen by holding down the mouse button, and observing the framerate counter. This is not the optimal way to gauge the performance of the algorithm itself, but gives a good look at the performance of the software as a whole. The test consists of running the algorithm without the GUI using certain amounts of agents (25 - 3200) for 1000 position updates per case.
 
 Numbers obtained by running the program with brute force version of checking nearest neighbors and rotating agents:
 
