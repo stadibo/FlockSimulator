@@ -35,10 +35,10 @@ Add these as individual arguments when launching application:
 
 Test label | Data structure |
 ---------------- | --------- |
-BRUTE | Brute force using own list|
-BIN | Bin-Lattice using own list |
-JAVABRUTE | Brute force using java ArrayList|
-JAVABIN | Bin-Lattice using java ArrayList |
+BRUTE | Brute force and handling distance without square root|
+BIN | Bin-Lattice and handling distance without square root|
+BRUTESQRT | Brute force and euclidean distance |
+BINSQRT | Bin-Lattice and euclidean distance |
 
 ### Results
 
