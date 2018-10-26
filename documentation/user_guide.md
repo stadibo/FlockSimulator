@@ -22,7 +22,7 @@ Launching the application from the console with a command line argument "TEST_X"
 
 Add these as individual arguments (TEST_X) when launching application):
 
-Test label | Data structure |
+Test label | Test case |
 ---------------- | --------- |
 BRUTE | Brute force and handling distance without square root|
 BIN | Bin-Lattice and handling distance without square root|
