@@ -8,7 +8,7 @@ Test coverage of application logic:
 
 ## Manual testing
 
-Current visual performance can be measured by running the program, manually adding agents to the screen by holding down the mouse button, and observing the framerate counter. This is not the optimal way to gauge the performance of the algorithm itself, but gives a good look at the performance of the software as a whole. (Still working on simply getting the performance of the algorithm itself, without the visual component.)
+Current visual performance can be measured by running the program, manually adding agents to the screen by holding down the mouse button, and observing the framerate counter. This is not the optimal way to gauge the performance of the algorithm itself, but gives a good look at the performance of the software as a whole.
 
 Numbers obtained by running the program with brute force version of checking nearest neighbors and rotating agents:
 
@@ -31,7 +31,7 @@ Amount of agents | Framerate (avg) |
 
 Launching the application from the console with a command line argument "TEST_X" (X = label for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 3200) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case. Multiple command line argument can be written and these will all be run as benchmarks.
 
-Add these as individual arguments when launching application:
+Add these as individual arguments (TEST_X) when launching application):
 
 Test label | Data structure |
 ---------------- | --------- |
@@ -44,31 +44,31 @@ BINSQRT | Bin-Lattice and euclidean distance |
 
 **BRUTE FORCE O(n^2)**
 
-The brute force implementation slows down significantly with larger amounts of agents. The java implementation is slightly slower, which might be caused by more complex functions Javas ArrayList implementation.
+The brute force implementation slows down significantly with larger amounts of agents. Not having to calculate the square root in the distance function saves a fair bit of time.
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(FlockList).png "BF FlockList")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20and%20distance%20with%20square%20root.png "BF with sqrt")
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(ArrayList).png "BF ArrayList")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20and%20distance%20without%20square%20root.png "BF without sqrt")
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(FlockList%20vs%20ArrayList).png "BF FlockList vs ArrayList")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20brute%20force%20approach%20(square%20root%20vs%20no%20square%20root).png "BF Distance calculation efficiency comparison")
 
 **BIN-LATTICE SPATIAL SUBDIVISION O(n*k)**
 
-The algorithm using the java list implementation is slightly faster and will continue to be faster beacause of the more efficient way of removing agents from the list, in particular clearing entire lists.
+The performance degrades more steadily as expected from the time complexity ananlysis and not calculating the square root still gives a notable improvement in performance. 
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20(FlockList).png "BL FlockList")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20and%20distance%20with%20square%20root.png "BL with sqrt")
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20(ArrayList).png "BL ArrayList")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20bin-lattice%20and%20distance%20without%20square%20root.png "BL without sqrt")
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20Bin-lattice%20(FlockList%20vs%20ArrayList).png "BL FlockList vs ArrayList")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates%20using%20Bin-lattice%20(square%20root%20vs%20no%20square%20root).png "BL Distance calculation efficiency comparison")
 
 **BRUTE FORCE VS BIN-LATTICE RELATIVE TIME REQUIRED**
 
 In a sensible use case, around 1600 agents on screen the algorithm using the spatial data structure is 24 times faster than the brute force approach. At this point the amount of comparisons is getting detrimental to the performance of the brute force algorithm as it can no longer maintain 60 frames per second while rendering the simulation.
 
-![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates_%20Brute%20force%20(FlockList)%20vs%20Bin-lattice%20(FlockList).png "BF vs BL")
+![alt text](https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/1000%20updates_%20Brute%20force%20vs%20Bin-lattice%20Relative%20Performance.png "BF vs BL")
 
 **NOTES**
-There is a slight bit of randomness in the benchmarking, resulting from placing the agents randomly on the "screen" as such small variations in the results will occur, but not so large as to affect performance in relation to the other implementations.
+There is a slight bit of randomness in the benchmarking, resulting from placing the agents randomly on the "screen" for a more real scenario, therefore, small variations in the results will occur, but not so large as to affect performance in relation to the other implementations.
 
 The efficiency of the Bin-lattice is dependent on values (maxSpeed/Force, Cohesion, Separation) for the agents. If agents can get closer to each other than the cell size in the lattice they will crowd up and increase the amount of neighbor checks and make the actual performance worse, closer to time complexity O(n^2). But when run with reasonable separation for agents, when agents are more spread out, it runs significantly faster than the __brute force__ method.
