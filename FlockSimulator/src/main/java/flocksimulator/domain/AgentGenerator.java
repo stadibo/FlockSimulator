@@ -1,6 +1,7 @@
 package flocksimulator.domain;
 
 import flocksimulator.util.Vector;
+import javafx.scene.Node;
 
 /**
  * Generator implementation using a brute force approach to querying agents
@@ -10,10 +11,28 @@ import flocksimulator.util.Vector;
 public class AgentGenerator extends Generator {
 
     private final boolean rotation;
+    
 
     public AgentGenerator(double size, double awareness, double maxSpeed, double maxForce, int width, int height, boolean rotation) {
         super(size, awareness, maxSpeed, maxForce, width, height);
         this.rotation = rotation;
+    }
+    
+    /**
+     * Method to initialize an agent based on parameters given to the generator
+     *
+     * @param x coordinate
+     * @param y coordinate
+     * @return Node object reference to the shape object stored in agent class
+     */
+    @Override
+    public Node createAgent(double x, double y) {
+        Agent agent = new Particle(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
+        agent.setAlignment(alignment);
+        agent.setCohesion(cohesion);
+        agent.setSeparation(separation);
+        agents.add(agent);
+        return agent.display();
     }
 
     /**

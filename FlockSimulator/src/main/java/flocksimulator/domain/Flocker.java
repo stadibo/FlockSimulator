@@ -2,7 +2,7 @@ package flocksimulator.domain;
 
 import flocksimulator.util.Vector;
 import flocksimulator.util.FlockList;
-import javafx.scene.Node;
+import flocksimulator.util.MathWrapper;
 import javafx.scene.shape.Polygon;
 
 /**
@@ -29,11 +29,11 @@ public class Flocker extends Agent {
      * @return force vector to be applied to agents velocity
      */
     public Vector separation(FlockList<Agent> agents) {
-        double desiredSeparation = this.size * 2;
+        double desiredSeparation = MathWrapper.pow((this.size * 2), 2);
         Vector sum = new Vector();
         int counter = 0;
         for (int i = 0; i < agents.size(); i++) {
-            double dist = this.position.distance(agents.get(i).getPosition());
+            double dist = this.position.distanceNoSqrt(agents.get(i).getPosition());
             if ((dist > 0) && (dist < desiredSeparation)) {
                 Vector offset = new Vector().sub(this.position, agents.get(i).getPosition());
                 offset.normalize();
@@ -131,16 +131,6 @@ public class Flocker extends Agent {
         applyForce(separate);
         applyForce(align);
         applyForce(cohese);
-    }
-
-    /**
-     * Provides the visual representation of the agent
-     *
-     * @return polygon shape for object
-     */
-    @Override
-    public Node display() {
-        return this.poly;
     }
 
     @Override

@@ -17,9 +17,9 @@ public abstract class Generator {
     protected double awareness; // How far the agent can see
     protected double maxSpeed;    // Maximum speed
     protected double maxForce;    // Maximum steering force
-    private double alignment;   // Modifier
-    private double separation;  // Modifier
-    private double cohesion;    // Modifier
+    protected double alignment;   // Modifier
+    protected double separation;  // Modifier
+    protected double cohesion;    // Modifier
     protected int width;
     protected int height;
     protected FlockList<Agent> agents;
@@ -41,14 +41,7 @@ public abstract class Generator {
      * @param y coordinate
      * @return Node object reference to the shape object stored in agent class
      */
-    public Node createAgent(double x, double y) {
-        Agent agent = new Particle(x, y, this.size, this.awareness, this.maxSpeed, this.maxForce, this.width, this.height);
-        agent.setAlignment(alignment);
-        agent.setCohesion(cohesion);
-        agent.setSeparation(separation);
-        agents.add(agent);
-        return agent.display();
-    }
+    public abstract Node createAgent(double x, double y);
 
     /**
      * Update positions of all agents
@@ -94,7 +87,7 @@ public abstract class Generator {
             this.agents.get(i).setMaxForce(maxForce);
         }
     }
-
+    
     public void setAlignment(double alignment) {
         for (int i = 0; i < this.agents.size(); i++) {
             this.agents.get(i).setAlignment(alignment);

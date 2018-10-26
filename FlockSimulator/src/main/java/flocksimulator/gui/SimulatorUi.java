@@ -265,7 +265,6 @@ public class SimulatorUi extends Application {
             mouseY = e.getY();
             createNode();
         });
-
         clearButton.setOnAction(e -> {
             clearAgents();
         });

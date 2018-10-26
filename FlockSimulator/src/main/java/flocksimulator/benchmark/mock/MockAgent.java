@@ -1,81 +1,25 @@
 package flocksimulator.benchmark.mock;
 
+import flocksimulator.domain.Agent;
+import flocksimulator.util.FlockList;
 import flocksimulator.util.Vector;
-import java.util.ArrayList;
-import javafx.scene.Node;
 import javafx.scene.shape.Ellipse;
 
 /**
- * Benchmark version of AgentGenerator class to test java ArrayList as data
- * structure
+ * Benchmark version of Agent class to use slower distance calculation
  *
  * @author peje
  */
-public class MockAgent {
+public class MockAgent extends Agent {
 
-    protected Vector position;
-    protected Vector velocity;
-    protected Vector acceleration;
-    protected Node poly;
-
-    private int width;
-    private int height;
-
-    private double alignment;   // Modifier
-    private double separation;  // Modifier
-    private double cohesion;    // Modifier
-
-    private double size;   // Size of agent / collision radius
-    private double awareness; // How far the agent can see
-    private double maxSpeed;    // Maximum speed
-    private double maxForce;    // Maximum steering force
-
+    private double separation;
+    private double alignment;
+    private double cohesion;
+    
+    
     public MockAgent(double x, double y, double size, double awareness, double maxSpeed, double maxForce, int w, int h) {
-        this.position = new Vector(x, y);
-        this.velocity = new Vector(0, 0);
-        this.acceleration = new Vector(0, 0);
-        
+        super(x, y, size, awareness, maxSpeed, maxForce, w, h);
         this.poly = new Ellipse(6.0, 6.0);
-
-        this.size = size;
-        this.awareness = awareness;
-        this.maxSpeed = maxSpeed;
-        this.maxForce = maxForce;
-
-        this.width = w;
-        this.height = h;
-    }
-
-    /**
-     * Method to calculate and apply a correcting steering force towards a
-     * target point: correction = desired minus velocity
-     *
-     * @param target
-     * @return force vector to be applied to agents velocity
-     */
-    private Vector seek(Vector target) {
-        // Vector pointing from position towards target
-        Vector desired = new Vector().sub(target, this.position);
-
-        // Normalize and scale to maximum speed
-        desired.normalize();
-        desired.mult(this.maxSpeed);
-
-        // correction = desired minus velocity
-        Vector correctionForce = new Vector().sub(desired, this.velocity);
-        correctionForce.limit(this.maxForce); //Limit maximum force to be applied
-
-        return correctionForce;
-    }
-
-    /**
-     * Method to set acceleration to be applied to velocity
-     *
-     * @param force vector to be applied to agents velocity
-     */
-    private void applyForce(Vector force) {
-        // mass could be implemented here as a variable a = F / m
-        this.acceleration.add(force);
     }
 
     /**
@@ -85,7 +29,7 @@ public class MockAgent {
      * @param agents List of agents to check for proximity
      * @return force vector to be applied to agents velocity
      */
-    public Vector separation(ArrayList<MockAgent> agents) {
+    public Vector separation(FlockList<Agent> agents) {
         double desiredSeparation = this.size * 2;
         Vector sum = new Vector();
         int counter = 0;
@@ -119,7 +63,7 @@ public class MockAgent {
      * @param agents List of agents to check for proximity
      * @return force vector to be applied to agents velocity
      */
-    public Vector alignment(ArrayList<MockAgent> agents) {
+    public Vector alignment(FlockList<Agent> agents) {
         Vector sum = new Vector();  // sum of velocities
         int counter = 0;
         for (int i = 0; i < agents.size(); i++) {
@@ -133,7 +77,6 @@ public class MockAgent {
         Vector correctionForce = new Vector();
         if (counter > 0) {
             sum.setMagnitude(this.maxSpeed);
-            //sum.div(counter);
 
             // Implement Reynolds: Steering = Desired - Velocity
             correctionForce = new Vector().sub(sum, this.velocity);
@@ -150,7 +93,7 @@ public class MockAgent {
      * @param agents List of agents to check for proximity
      * @return force vector to be applied to agents velocity
      */
-    public Vector cohesion(ArrayList<MockAgent> agents) {
+    public Vector cohesion(FlockList<Agent> agents) {
         Vector sum = new Vector();  // sum of positions
         int counter = 0;
         for (int i = 0; i < agents.size(); i++) {
@@ -175,7 +118,7 @@ public class MockAgent {
      *
      * @param agents list of other agents which are neighbors to this agent
      */
-    public void flock(ArrayList<MockAgent> agents) {
+    public void flock(FlockList<Agent> agents) {
         Vector separate = this.separation(agents);
         Vector align = this.alignment(agents);
         Vector cohese = this.cohesion(agents);
@@ -189,122 +132,23 @@ public class MockAgent {
         applyForce(cohese);
     }
 
-    /**
-     * Provides the visual representation of the agent
-     *
-     * @return polygon shape for object
-     */
-    public Node display() {
-        return this.poly;
-    }
-
-    /**
-     * Combine behaviors to create more complex behavior
-     *
-     * @param agents list of other agents which are neighbors to this agent
-     * @param target a point to maybe use for seeking or fleeing
-     */
-    public void applyBehaviors(ArrayList<MockAgent> agents, Vector target) {
-        this.flock(agents);
-    }
-
-    /**
-     * Method to update position
-     */
-    public void updatePosition() {
-        // Update velocity
-        this.velocity.add(this.acceleration);
-        // Limit speed
-        this.velocity.limit(maxSpeed);
-        this.position.add(this.velocity);
-        // Reset acceleration to 0 each time
-        this.acceleration.mult(0);
-
-        // Check boundaries
-        this.checkEdges();
-
-        // Update position of polygon in render
-        this.poly.setTranslateX(this.position.getX());
-        this.poly.setTranslateY(this.position.getY());
-    }
-
-    /**
-     * Rotate polygon. Is very CPU intensive with many agents on screen.
-     */
-    public void updateRotation() {
-        double angle = this.velocity.heading();
-        this.poly.setRotate(Math.toDegrees(angle));
-    }
-
-    /**
-     * Wraparound: checks if agent is out of the set bounds and set position so
-     * that the agent wraps around to the opposite end of the bound which it
-     * crossed
-     */
-    private void checkEdges() {
-        if (this.position.getX() > this.width) {
-            this.position.setX(0);
-        } else if (this.position.getX() < 0) {
-            this.position.setX(this.width);
-        }
-
-        if (this.position.getY() > this.height) {
-            this.position.setY(0);
-        } else if (this.position.getY() < 0) {
-            this.position.setY(this.height);
-        }
-    }
-
-    public void setWidth(int width) {
-        this.width = width;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public double getX() {
-        return this.position.getX();
-    }
-
-    public double getY() {
-        return this.position.getY();
-    }
-
-    public void setVelocity(Vector v) {
-        this.velocity = v;
-    }
-
-    public void setPosition(Vector v) {
-        this.position = v;
-    }
-
-    public Vector getPosition() {
-        return this.position;
-    }
-
-    public Vector getVelocity() {
-        return this.velocity;
-    }
-
-    public void setMaxSpeed(double maxSpeed) {
-        this.maxSpeed = maxSpeed;
-    }
-
-    public void setMaxForce(double maxForce) {
-        this.maxForce = maxForce;
-    }
-
+    @Override
     public void setAlignment(double alignment) {
         this.alignment = alignment;
     }
 
+    @Override
     public void setSeparation(double separation) {
         this.separation = separation;
     }
 
+    @Override
     public void setCohesion(double cohesion) {
         this.cohesion = cohesion;
     }
 
+    @Override
+    public void applyBehaviors(FlockList<Agent> agents, Vector target) {
+        this.flock(agents);
+    }
 }

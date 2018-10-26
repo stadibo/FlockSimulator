@@ -155,7 +155,9 @@ public abstract class Agent {
      *
      * @return polygon shape for object
      */
-    public abstract Node display();
+    public Node display() {
+        return this.poly;
+    }
 
     public double getX() {
         return this.position.getX();
