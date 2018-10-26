@@ -31,7 +31,7 @@ public class Benchmark {
         for (String test : tests) {
             switch (test) {
                 case "TEST_BRUTE":
-                    System.out.println("Brute force");
+                    System.out.println("Brute force + distanceNoSqrt");
                     this.generator = new AgentGenerator(
                             12.0, // size
                             100.0, // awareness
@@ -44,12 +44,12 @@ public class Benchmark {
                     this.generator.setAlignment(1.0);
                     this.generator.setCohesion(1.0);
                     this.generator.setSeparation(1.5);
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;
                 case "TEST_BIN":
-                    System.out.println("Bin lattice spatial data structure");
+                    System.out.println("Bin lattice spatial data structure + distanceNoSqrt");
                     this.generator = new SpatialAgentGenerator(
                             12.0, // size
                             100.0, // awareness
@@ -63,12 +63,12 @@ public class Benchmark {
                     this.generator.setAlignment(1.0);
                     this.generator.setCohesion(1.0);
                     this.generator.setSeparation(1.5);
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;
-                case "TEST_JAVABRUTE":
-                    System.out.println("Brute force with java ArrayList");
+                case "TEST_BRUTESQRT":
+                    System.out.println("Brute force + simple distance calculation");
                     this.generator = new MockAgentGenerator(
                             12.0, // size
                             100.0, // awareness
@@ -81,12 +81,12 @@ public class Benchmark {
                     this.generator.setAlignment(1.0);
                     this.generator.setCohesion(1.0);
                     this.generator.setSeparation(1.5);
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;
-                case "TEST_JAVABIN":
-                    System.out.println("Spatial with java ArrayList");
+                case "TEST_BINSQRT":
+                    System.out.println("Spatial + simple distance calculation");
                     this.generator = new MockSpatialAgentGenerator(
                             12.0, // size
                             100.0, // awareness
@@ -100,7 +100,7 @@ public class Benchmark {
                     this.generator.setAlignment(1.0);
                     this.generator.setCohesion(1.0);
                     this.generator.setSeparation(1.5);
-                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800};
+                    numberOfAgents = new int[]{25, 50, 100, 200, 400, 800, 1600, 3200};
                     this.generator.clearAgents();
                     runBenchmark(numberOfAgents);
                     break;

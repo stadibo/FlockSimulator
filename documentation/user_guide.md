@@ -1,8 +1,8 @@
-# Using the application
+## Using the application
 
-# Benchmarking the application
+## Benchmarking the application
 
-# Command Line operations
+## Command Line operations
 
 ### Testing
 
