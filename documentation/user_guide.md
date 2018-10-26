@@ -2,6 +2,17 @@
 
 ## Benchmarking the application
 
+Launching the application from the console with a command line argument "TEST_X" (X = label for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 3200) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case. Multiple command line argument can be written and these will all be run as benchmarks.
+
+Add these as individual arguments (TEST_X) when launching application):
+
+Test label | Data structure |
+---------------- | --------- |
+BRUTE | Brute force and handling distance without square root|
+BIN | Bin-Lattice and handling distance without square root|
+BRUTESQRT | Brute force and euclidean distance |
+BINSQRT | Bin-Lattice and euclidean distance |
+
 ## Command Line operations
 
 ### Testing
@@ -22,7 +33,7 @@ The coverage report can be viewed by opening the file _target/site/jacoco/index.
 
 ### Checkstyle
 
-The checks defined in the file [checkstyle.xml](https://github.com/stadibo/otm-harjoitustyo/blob/master/habitRPG/checkstyle.xml) are run with the command
+The checks defined in the file [checkstyle.xml](https://github.com/stadibo/FlockSimulator/blob/master/FlockSimulator/checkstyle.xml) are run with the command
 
 ```
  mvn jxr:jxr checkstyle:checkstyle
@@ -38,7 +49,7 @@ The command
 mvn package
 ```
 
-generates an executable file _habitRPG-1.0-SNAPSHOT.jar_ into the directory _target_
+generates an executable file _.jar_ into the directory _target_
 
 ### JavaDoc
 
