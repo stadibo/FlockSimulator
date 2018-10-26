@@ -6,7 +6,7 @@ Test coverage of application logic:
 
 # Performance testing
 
-## Manual testing
+## Manual benchmarking
 
 Current visual performance can be measured by running the program, manually adding agents to the screen by holding down the mouse button, and observing the framerate counter. This is not the optimal way to gauge the performance of the algorithm itself, but gives a good look at the performance of the software as a whole.
 
@@ -29,16 +29,7 @@ Amount of agents | Framerate (avg) |
 
 ## Automatic benchmarking
 
-Launching the application from the console with a command line argument "TEST_X" (X = label for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 3200) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case. Multiple command line argument can be written and these will all be run as benchmarks.
-
-Add these as individual arguments (TEST_X) when launching application):
-
-Test label | Data structure |
----------------- | --------- |
-BRUTE | Brute force and handling distance without square root|
-BIN | Bin-Lattice and handling distance without square root|
-BRUTESQRT | Brute force and euclidean distance |
-BINSQRT | Bin-Lattice and euclidean distance |
+Guide for running the benchmarks from the command line can be found in the [user guide](https://github.com/stadibo/FlockSimulator/blob/master/documentation/user_guide.md)
 
 ### Results
 
