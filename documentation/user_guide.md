@@ -1,5 +1,7 @@
 ## Using the application
 
+
+
 ## Benchmarking the application
 
 Launching the application from the console with a command line argument "TEST_X" (X = label for test) will launch the benchmarking side of the program. The test consists of running the algorithm without the GUI trying various amounts of agents (25 - 3200) for 1000 position updates. The time for 1000 updates and the average time for each update is printed for each case. Multiple command line argument can be written and these will all be run as benchmarks.
@@ -12,6 +14,11 @@ BRUTE | Brute force and handling distance without square root|
 BIN | Bin-Lattice and handling distance without square root|
 BRUTESQRT | Brute force and euclidean distance |
 BINSQRT | Bin-Lattice and euclidean distance |
+
+__Go to directory with the _.jar_ file. Type run command and benchmark arguments separated by spaces like so:__
+```
+java -jar FlockSimulator-1.0.jar TEST_BINSQRT TEST_BIN
+```
 
 ## Command Line operations
 
