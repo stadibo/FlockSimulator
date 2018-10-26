@@ -41,7 +41,7 @@ public class Vector {
     /**
      * Add another vector to this vector
      *
-     * @param other
+     * @param other vector to add to this vector
      */
     public void add(Vector other) {
         this.x = (this.x + other.getX());
@@ -51,9 +51,9 @@ public class Vector {
     /**
      * Add two vectors together to get a new vector
      *
-     * @param v1
-     * @param v2
-     * @return
+     * @param v1 first vector
+     * @param v2 second vector
+     * @return resulting vector from the vector addition
      */
     public static Vector add(Vector v1, Vector v2) {
         return new Vector(v1.getX() + v2.getX(), v1.getY() + v2.getY());
@@ -62,7 +62,7 @@ public class Vector {
     /**
      * Subtract a vector from this vector
      *
-     * @param other
+     * @param other vector to subtract from this vector
      */
     public void sub(Vector other) {
         this.x = (this.x - other.getX());
@@ -73,9 +73,9 @@ public class Vector {
      * Subtract a vector v2 from vector v1 to get a new vector (pointing from v2
      * to v1)
      *
-     * @param v1
-     * @param v2
-     * @return
+     * @param v1 first vector
+     * @param v2 second vector
+     * @return resulting vector from the vector subtraction
      */
     public static Vector sub(Vector v1, Vector v2) {
         return new Vector(v1.getX() - v2.getX(), v1.getY() - v2.getY());
@@ -84,7 +84,7 @@ public class Vector {
     /**
      * Multiply vector by scalar
      *
-     * @param scalar
+     * @param scalar to multiply to vector components
      */
     public void mult(double scalar) {
         this.x = (this.x * scalar);
@@ -94,7 +94,7 @@ public class Vector {
     /**
      * Divide vector by scalar
      *
-     * @param scalar
+     * @param scalar to multiply to vector components
      */
     public void div(double scalar) {
         this.x = (this.x / scalar);
@@ -104,7 +104,7 @@ public class Vector {
     /**
      * Calculate magnitude of vector
      *
-     * @return
+     * @return length of vector
      */
     public double magnitude() {
         return MathWrapper.sqrt(this.x * this.x + this.y * this.y);
@@ -123,7 +123,7 @@ public class Vector {
     /**
      * Change the magnitude of vector to specified length
      *
-     * @param m
+     * @param m desired length of vector
      */
     public void setMagnitude(double m) {
         this.normalize();
@@ -133,8 +133,8 @@ public class Vector {
     /**
      * Get dot product of this vector and another vector
      *
-     * @param other
-     * @return
+     * @param other vector in dot product
+     * @return dot product of this vector and other vector
      */
     public double dot(Vector other) {
         return (this.x * other.getX()) + (this.y * other.getY());
@@ -144,7 +144,7 @@ public class Vector {
      * Get theta (angle) between x-axle and this vector, also known as polar
      * angle.
      *
-     * @return
+     * @return angle of direction in radians
      */
     public double heading() {
         return Math.atan2(this.y, this.x);
@@ -153,7 +153,7 @@ public class Vector {
     /**
      * Limit a vector to a specific magnitude. Variation on setMagnitude()
      *
-     * @param max
+     * @param max maximum length of vector
      */
     public void limit(double max) {
         if (this.magnitude() > max) {
@@ -164,8 +164,8 @@ public class Vector {
     /**
      * DISTANCE BETWEEN THIS POINT AND ANOTHER POINT
      *
-     * @param other
-     * @return
+     * @param other point to which distance is queried
+     * @return distance to the other vector
      */
     public double distance(Vector other) {
         return MathWrapper.sqrt(MathWrapper.pow(other.getX() - this.x, 2) + MathWrapper.pow(other.getY() - this.y, 2));
@@ -174,8 +174,8 @@ public class Vector {
     /**
      * DISTANCE BETWEEN THIS POINT AND ANOTHER POINT WITHOUT TAKING SQUARE ROOT
      *
-     * @param other
-     * @return
+     * @param other point to which distance is queried
+     * @return distance to the other vector
      */
     public double distanceNoSqrt(Vector other) {
         return (MathWrapper.pow(other.getX() - this.x, 2) + MathWrapper.pow(other.getY() - this.y, 2));

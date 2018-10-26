@@ -245,10 +245,10 @@ public class SimulatorUi extends Application {
     }
 
     /**
-     * Method for starting simulator
+     * Method for starting simulator and initializing scene listeners
      *
-     * @param primaryStage
-     * @throws Exception
+     * @param primaryStage to which to add GUI elements
+     * @throws Exception resulting from error
      */
     @Override
     public void start(Stage primaryStage) throws Exception {

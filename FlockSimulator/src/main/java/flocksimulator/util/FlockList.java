@@ -28,8 +28,8 @@ public class FlockList<T> implements RandomAccess {
     /**
      * Appends specified element to end of list
      *
-     * @param element
-     * @return
+     * @param element to add to list
+     * @return true
      */
     public boolean add(T element) {
         ensureCapacity(size + 1);
@@ -40,8 +40,8 @@ public class FlockList<T> implements RandomAccess {
     /**
      * Gets specified
      *
-     * @param index
-     * @return
+     * @param index from which to get element
+     * @return element
      */
     public T get(int index) {
         checkIndex(index);
@@ -50,8 +50,8 @@ public class FlockList<T> implements RandomAccess {
     }
 
     /**
-     *
-     * @return amount of elements in FlockList
+     * amount of elements in FlockList
+     * @return size
      */
     public int size() {
         return size;
@@ -79,7 +79,7 @@ public class FlockList<T> implements RandomAccess {
 
     /**
      * Checks if specified index is outside the array
-     * @param index
+     * @param index index to check
      * @throws IndexOutOfBoundsException
      */
     private void checkIndex(int index) throws IndexOutOfBoundsException {
@@ -90,7 +90,7 @@ public class FlockList<T> implements RandomAccess {
 
     /**
      * Returns the index of specified element
-     * @param element
+     * @param element for which to get index in list
      * @return index of element if it exists in array or -1
      */
     public int indexOf(T element) {
@@ -104,8 +104,8 @@ public class FlockList<T> implements RandomAccess {
 
     /**
      * Removes specified element from array
-     * @param index
-     * @return
+     * @param index from which index to remove
+     * @return element that was removed
      */
     public T remove(int index) {
         checkIndex(index);

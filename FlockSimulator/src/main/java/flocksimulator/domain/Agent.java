@@ -44,7 +44,7 @@ public abstract class Agent {
      * Method to calculate and apply a correcting steering force towards a
      * target point: correction = desired minus velocity
      *
-     * @param target
+     * @param target to which to calculate force
      * @return force vector to be applied to agents velocity
      */
     protected Vector seek(Vector target) {
@@ -66,7 +66,7 @@ public abstract class Agent {
      * Method to calculate and apply a correcting steering force away from a
      * target point correction = desired force minus velocity
      *
-     * @param target
+     * @param target to which to calculate force
      * @return force vector to be applied to agents velocity
      */
     protected Vector flee(Vector target) {
