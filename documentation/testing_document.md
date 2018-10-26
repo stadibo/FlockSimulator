@@ -28,6 +28,7 @@ Amount of agents | Framerate (avg) |
 *In my experience the performance is limited by the rotation operation and re-rendering in JavaFX, no matter how fast the neighbor querying algorithm is.*
 
 ## Automatic benchmarking
+Benchmarking for the flocking algorithm itself compares the two main implementations: Brute force approach and the approach using a spatial data structure. These implementations can be more efficient by not using the square root to get the actual distance, but intead foregoing using the square root in calculating the distance and using the squared values as they are when comparing distance.
 
 Guide for running the benchmarks from the command line can be found in the [user guide](https://github.com/stadibo/FlockSimulator/blob/master/documentation/user_guide.md)
 
