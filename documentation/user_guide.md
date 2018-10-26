@@ -1,6 +1,17 @@
-## Using the application
+# Using the application
 
+## Using the simulator
 
+To run the simulator download or generate the _.jar_ file (intructions below) and either type ```java -jar DIR``` replacing DIR with the relative path to the location of the _.jar_ file, or by double clicking the _.jar_ file in a file explorer.
+
+When launched the simulator will initially spawn 100 agents and will look like this:
+<img src="https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/Screenshot%202018-10-26%20at%2022.29.59.png" width="500">
+
+New agents are created by holding the left mouse button and dragging the mouse inside the window. All agents can be removed by clicking the _clear_ button.
+<img src="https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/Screenshot%202018-10-26%20at%2022.30.49.png" width="500">
+
+Values for the agents' behaviors can be adjusted by using the sliders. Alignment determines how much agents steer in the same direction as its surrounding agents, cohesion determines how much agents will stick together, and separation determines how much agents will repel other agents. MaxSpeed limits how far an agent can travel per frame. MaxForce determines how big of a force the agents can create to change thier direction.
+<img src="https://raw.githubusercontent.com/stadibo/FlockSimulator/master/documentation/img/Screenshot%202018-10-26%20at%2022.31.42.png" width="500">
 
 ## Benchmarking the application
 
