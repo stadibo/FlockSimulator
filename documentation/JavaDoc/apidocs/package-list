@@ -1,0 +1,6 @@
+flocksimulator.app
+flocksimulator.benchmark
+flocksimulator.benchmark.mock
+flocksimulator.domain
+flocksimulator.gui
+flocksimulator.util
